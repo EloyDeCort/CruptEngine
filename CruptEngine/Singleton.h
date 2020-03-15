@@ -1,5 +1,5 @@
 #pragma once
-namespace dae
+namespace crupt
 {
 	template <typename T>
 	class Singleton

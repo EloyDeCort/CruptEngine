@@ -1,16 +1,14 @@
 #pragma once
-#include "SceneObject.h"
-#include "Transform.h"
 
-namespace dae
+namespace crupt
 {
 	class Font;
 	class Texture2D;
-	class TextObject final : public SceneObject
+	class TextObject final
 	{
 	public:
-		void Update() override;
-		void Render() const override;
+		void Update();
+		void Render() const;
 
 		void SetText(const std::string& text);
 		void SetPosition(float x, float y);
@@ -24,7 +22,7 @@ namespace dae
 	private:
 		bool m_NeedsUpdate;
 		std::string m_Text;
-		Transform m_Transform;
+		//Transform m_Transform;
 		Font* m_pFont;
 		Texture2D* m_pTexture;
 	};

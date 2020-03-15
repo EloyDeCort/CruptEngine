@@ -7,11 +7,11 @@
 #include "Font.h"
 #include "Texture2D.h"
 
-dae::TextObject::TextObject(const std::string& text, Font* font) 
+crupt::TextObject::TextObject(const std::string& text, Font* font) 
 	: m_NeedsUpdate(true), m_Text(text), m_pFont(font), m_pTexture(nullptr)
 { }
 
-void dae::TextObject::Update()
+void crupt::TextObject::Update()
 {
 	if (m_NeedsUpdate)
 	{
@@ -32,7 +32,7 @@ void dae::TextObject::Update()
 	}
 }
 
-dae::TextObject::~TextObject()
+crupt::TextObject::~TextObject()
 {
 	delete m_pTexture;
 	m_pTexture = nullptr;
@@ -40,25 +40,27 @@ dae::TextObject::~TextObject()
 	m_pFont = nullptr;
 }
 
-void dae::TextObject::Render() const
+void crupt::TextObject::Render() const
 {
 	if (m_pTexture != nullptr)
 	{
-		const auto pos = m_Transform.GetPosition();
-		Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y);
+		//const auto pos = m_Transform.GetPosition();
+		//Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y);
 	}
 }
 
 // This implementation uses the "dirty flag" pattern
-void dae::TextObject::SetText(const std::string& text)
+void crupt::TextObject::SetText(const std::string& text)
 {
 	m_Text = text;
 	m_NeedsUpdate = true;
 }
 
-void dae::TextObject::SetPosition(const float x, const float y)
+void crupt::TextObject::SetPosition(const float x, const float y)
 {
-	m_Transform.SetPosition(x, y, 0.0f);
+	x;
+	y;
+	//m_Transform.SetPosition(x, y, 0.0f);
 }
 
 

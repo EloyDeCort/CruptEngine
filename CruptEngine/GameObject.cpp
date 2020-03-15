@@ -4,26 +4,29 @@
 #include "Renderer.h"
 #include "Texture2D.h"
 
-dae::GameObject::~GameObject()
+crupt::GameObject::~GameObject()
 {
-	delete m_pTexture;
-	m_pTexture = nullptr;
+	/*delete m_pTexture;
+	m_pTexture = nullptr;*/
 };
 
-void dae::GameObject::Update(){}
+void crupt::GameObject::Update(){}
 
-void dae::GameObject::Render() const
+void crupt::GameObject::Render() const
 {
-	const auto pos = m_Transform.GetPosition();
-	Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y);
+	//const auto pos = m_Transform.GetPosition();
+	//Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y);
 }
 
-void dae::GameObject::SetTexture(const std::string& filename)
+void crupt::GameObject::SetTexture(const std::string& filename)
 {
-	m_pTexture = ResourceManager::GetInstance().LoadTexture(filename);
+	filename;
+	/*m_pTexture = ResourceManager::GetInstance().LoadTexture(filename);*/
 }
 
-void dae::GameObject::SetPosition(float x, float y)
+void crupt::GameObject::SetPosition(float x, float y)
 {
-	m_Transform.SetPosition(x, y, 0.0f);
+	x;
+	y;
+	//m_Transform.SetPosition(x, y, 0.0f);
 }

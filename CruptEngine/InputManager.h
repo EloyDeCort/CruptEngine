@@ -2,7 +2,7 @@
 #include <XInput.h>
 #include "Singleton.h"
 
-namespace dae
+namespace crupt
 {
 	enum class ControllerButton
 	{

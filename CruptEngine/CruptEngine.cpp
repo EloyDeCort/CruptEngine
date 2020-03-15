@@ -14,7 +14,7 @@
 using namespace std;
 using namespace std::chrono;
 
-void dae::CruptEngine::Initialize()
+void crupt::CruptEngine::Initialize()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
 	{
@@ -22,7 +22,7 @@ void dae::CruptEngine::Initialize()
 	}
 
 	m_Window = SDL_CreateWindow(
-		"Programming 4 assignment",
+		"Programming 4: CruptEngine",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
 		640,
@@ -40,26 +40,26 @@ void dae::CruptEngine::Initialize()
 /**
  * Code constructing the scene world starts here
  */
-void dae::CruptEngine::LoadGame() const
+void crupt::CruptEngine::LoadGame() const
 {
-	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
+	//auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
-	GameObject* pBackground{new GameObject()};
-	pBackground->SetTexture("background.jpg");
-	scene.Add(pBackground);
+	//GameObject* pBackground{new GameObject()};
+	//pBackground->SetTexture("background.jpg");
+	//scene.Add(pBackground);
 
-	GameObject* pLogo{new GameObject()};
-	pLogo->SetTexture("logo.png");
-	pLogo->SetPosition(216, 180);
-	scene.Add(pLogo);
+	//GameObject* pLogo{new GameObject()};
+	//pLogo->SetTexture("logo.png");
+	//pLogo->SetPosition(216, 180);
+	//scene.Add(pLogo);
 
-	dae::Font* font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	TextObject* text = new TextObject("Programming 4 Assignment", font);
-	text->SetPosition(80, 20);
-	scene.Add(text);
+	//crupt::Font* font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	//TextObject* text = new TextObject("Programming 4 Assignment", font);
+	//text->SetPosition(80, 20);
+	//scene.Add(text);
 }
 
-void dae::CruptEngine::Cleanup()
+void crupt::CruptEngine::Cleanup()
 {
 	Renderer::GetInstance().Destroy();
 	SDL_DestroyWindow(m_Window);
@@ -67,7 +67,7 @@ void dae::CruptEngine::Cleanup()
 	SDL_Quit();
 }
 
-void dae::CruptEngine::Run()
+void crupt::CruptEngine::Run()
 {
 	Initialize();
 
@@ -77,9 +77,9 @@ void dae::CruptEngine::Run()
 	LoadGame();
 
 	{
-		dae::Renderer& renderer = Renderer::GetInstance();
-		dae::SceneManager& sceneManager = SceneManager::GetInstance();
-		dae::InputManager& input = InputManager::GetInstance();
+		crupt::Renderer& renderer = Renderer::GetInstance();
+		crupt::SceneManager& sceneManager = SceneManager::GetInstance();
+		crupt::InputManager& input = InputManager::GetInstance();
 
 		bool doContinue = true;
 		while (doContinue)

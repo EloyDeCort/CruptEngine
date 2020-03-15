@@ -3,7 +3,7 @@
 #include <SDL.h>
 
 
-bool dae::InputManager::ProcessInput()
+bool crupt::InputManager::ProcessInput()
 {
 	ZeroMemory(&m_CurrentState, sizeof(XINPUT_STATE));
 	XInputGetState(0, &m_CurrentState);
@@ -24,7 +24,7 @@ bool dae::InputManager::ProcessInput()
 	return true;
 }
 
-bool dae::InputManager::IsPressed(ControllerButton button) const
+bool crupt::InputManager::IsPressed(ControllerButton button) const
 {
 	switch (button)
 	{

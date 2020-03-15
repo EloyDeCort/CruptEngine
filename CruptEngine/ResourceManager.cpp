@@ -8,7 +8,7 @@
 #include "Texture2D.h"
 #include "Font.h"
 
-void dae::ResourceManager::Init(const std::string& dataPath)
+void crupt::ResourceManager::Init(const std::string& dataPath)
 {
 	m_DataPath = dataPath;
 
@@ -30,7 +30,7 @@ void dae::ResourceManager::Init(const std::string& dataPath)
 	}
 }
 
-dae::Texture2D* dae::ResourceManager::LoadTexture(const std::string& file) const
+crupt::Texture2D* crupt::ResourceManager::LoadTexture(const std::string& file) const
 {
 	const auto fullPath = m_DataPath + file;
 	SDL_Texture* texture = IMG_LoadTexture(Renderer::GetInstance().GetSDLRenderer(), fullPath.c_str());
@@ -41,7 +41,7 @@ dae::Texture2D* dae::ResourceManager::LoadTexture(const std::string& file) const
 	return new Texture2D(texture);
 }
 
-dae::Font* dae::ResourceManager::LoadFont(const std::string& file, unsigned int size) const
+crupt::Font* crupt::ResourceManager::LoadFont(const std::string& file, unsigned int size) const
 {
 	return new Font(m_DataPath + file, size);
 }

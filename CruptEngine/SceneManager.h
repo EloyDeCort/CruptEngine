@@ -1,7 +1,7 @@
 #pragma once
 #include "Singleton.h"
 
-namespace dae
+namespace crupt
 {
 	class Scene;
 	class SceneManager final : public Singleton<SceneManager>

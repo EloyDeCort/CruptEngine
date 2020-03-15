@@ -1,6 +1,6 @@
 #pragma once
 struct SDL_Texture;
-namespace dae
+namespace crupt
 {
 	/**
 	 * Simple RAII wrapper for an SDL_Texture
