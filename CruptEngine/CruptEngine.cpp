@@ -10,6 +10,9 @@
 #include "TextObject.h"
 #include "GameObject.h"
 #include "Scene.h"
+//ECS
+#include "TransformComponent.h"
+#include "TextureSystem.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -61,6 +64,8 @@ void crupt::CruptEngine::LoadGame() const
 
 void crupt::CruptEngine::Cleanup()
 {
+	delete m_pCoordinator;
+	m_pCoordinator = nullptr;
 	Renderer::GetInstance().Destroy();
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;
@@ -70,9 +75,22 @@ void crupt::CruptEngine::Cleanup()
 void crupt::CruptEngine::Run()
 {
 	Initialize();
-
+	
 	// tell the resource manager where he can find the game data
 	ResourceManager::GetInstance().Init("../Data/");
+
+	m_pCoordinator = new crupt::ECSCoordinator();
+	//Setting up coordinator
+	m_pCoordinator->Initialize();
+
+	m_pCoordinator->RegisterSystem<TextureSystem>();
+
+	//Register Components
+	m_pCoordinator->RegisterComponent<TransformComponent>();
+
+	//Adding signatures
+	Signature signature{};
+	signature.set(m_pCoordinator->GetComponentType<TransformComponent>());
 
 	LoadGame();
 
