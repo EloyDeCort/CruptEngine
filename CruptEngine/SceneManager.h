@@ -8,12 +8,13 @@ namespace dae
 	{
 	public:
 		Scene& CreateScene(const std::string& name);
+		virtual ~SceneManager();
 
 		void Update();
 		void Render();
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
-		std::vector<std::shared_ptr<Scene>> m_Scenes;
+		std::vector<Scene*> m_Scenes;
 	};
 }

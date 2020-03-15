@@ -16,7 +16,7 @@ namespace dae
 		void SetPosition(float x, float y);
 
 		explicit TextObject(const std::string& text, Font* font);
-		virtual ~TextObject() = default;
+		virtual ~TextObject();
 		TextObject(const TextObject& other) = delete;
 		TextObject(TextObject&& other) = delete;
 		TextObject& operator=(const TextObject& other) = delete;
@@ -25,7 +25,7 @@ namespace dae
 		bool m_NeedsUpdate;
 		std::string m_Text;
 		Transform m_Transform;
-		std::shared_ptr<Font> m_Font;
-		std::shared_ptr<Texture2D> m_Texture;
+		Font* m_pFont;
+		Texture2D* m_pTexture;
 	};
 }

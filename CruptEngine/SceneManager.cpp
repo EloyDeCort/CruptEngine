@@ -10,6 +10,15 @@ void dae::SceneManager::Update()
 	}
 }
 
+dae::SceneManager::~SceneManager()
+{
+	for (Scene* scene : m_Scenes)
+	{
+		delete scene;
+		scene = nullptr;
+	}
+}
+
 void dae::SceneManager::Render()
 {
 	for (const auto& scene : m_Scenes)
@@ -20,7 +29,7 @@ void dae::SceneManager::Render()
 
 dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
 {
-	const auto scene = std::shared_ptr<Scene>(new Scene(name));
+	dae::Scene* scene = new Scene(name);
 	m_Scenes.push_back(scene);
 	return *scene;
 }
