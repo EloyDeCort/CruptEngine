@@ -7,11 +7,11 @@ namespace crupt
 	//ECS type Initialisation 
 
 	//Certain size for entitity (type alias)
-	using Entity = std::uint32_t;
+	using Entity = size_t;
 	//Max amount of entities allowed
 	const Entity Max_Entities = 5000;
 	//Set size for components
-	using ComponentType = std::uint8_t;
+	using ComponentType = size_t;
 	//Max amount of components
 	const ComponentType Max_Components = 32;
 

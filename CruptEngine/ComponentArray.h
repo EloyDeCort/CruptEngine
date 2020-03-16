@@ -55,11 +55,11 @@ namespace crupt
 			m_ComponentArray[indexRemovedEntity] = m_ComponentArray[indexLastElement];
 
 			//Get the entity ID of the last element in the array
-			Entity entityLastElement{m_IndexToEntityMap[indexLastElement]};
+			Entity entityLastElement{uint32_t(m_IndexToEntityMap[indexLastElement])};
 			//Set the index of the last entity to the removed entity index
 			m_EntityToIndexMap[entityLastElement] = indexRemovedEntity;
 			//Set the entity of the removed entity to the entity of the last element
-			m_IndexToEntityMap[indexRemovedEntity] = entityLastElement;
+			m_IndexToEntityMap[indexRemovedEntity] = size_t(entityLastElement);
 
 			//remove the entity from the entity map & remove the index from the index map
 			m_EntityToIndexMap.erase(entity);
