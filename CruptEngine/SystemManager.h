@@ -2,15 +2,16 @@
 #include <unordered_map>
 #include "ECSTypes.h"
 #include "System.h"
+#include "Singleton.h"
 
 namespace crupt
 {
-	class SystemManager
+	class SystemManager : public Singleton<SystemManager>
 	{
 	public:
 		~SystemManager()
 		{
-			//Remove all the system objects
+			////Remove all the system objects
 			for (std::pair<const char*, System*> pair : m_Systems)
 			{
 				delete pair.second;
@@ -80,6 +81,9 @@ namespace crupt
 			}
 		}
 	private:
+
+		friend class Singleton<SystemManager>;
+		SystemManager() = default;
 		//Map from a system/name string to a signature
 		std::unordered_map<const char*, Signature> m_Signatures;
 

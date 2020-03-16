@@ -2,10 +2,11 @@
 #include "ECSTypes.h"
 #include <unordered_map>
 #include "ComponentArray.h"
+#include "Singleton.h"
 
 namespace crupt
 {		
-	class ComponentManager
+	class ComponentManager : public Singleton<ComponentManager>
 	{
 	public:
 		~ComponentManager()
@@ -53,19 +54,19 @@ namespace crupt
 		void AddComponent(Entity entity, T component)
 		{
 			//Add a component to the array for said entity
-			GetComponentArray()->InsertData(entity, component);
+			GetComponentArray<T>()->InsertData(entity, component);
 		}
 		template<typename T>
 		void RemoveComponent(Entity entity)
 		{
 			//Remove a component from the array of an entity
-			GetComponentArray()->RemoveData(entity);
+			GetComponentArray<T>()->RemoveData(entity);
 		}
 		template<typename T>
 		T& GetComponent(Entity entity)
 		{
 			//Return a reference to the component from the array of components for the entity
-			return GetComponentArray()->GetData(entity);
+			return GetComponentArray<T>()->GetData(entity);
 		}
 
 		void EntityDestroyed(Entity entity)
@@ -80,6 +81,9 @@ namespace crupt
 		}
 
 	private:
+		friend class Singleton<ComponentManager>;
+		ComponentManager() = default;
+
 		//returns a pointer to the component array
 		template<typename T>
 		ComponentArray<T>* GetComponentArray()
@@ -90,17 +94,17 @@ namespace crupt
 			if(m_ComponentTypes.find(typeName) == m_ComponentTypes.end())
 				throw std::exception("ComponentManager<T>::GetComponentArray - [ERROR] Component could not be found! (Did you register it?)");
 	
-			return m_ComponentArrays[typeName];		
+			return reinterpret_cast<ComponentArray<T>*>(m_ComponentArrays[typeName]);		
 		}
 
 		//Map that Stores char pointer (string) to component type, this will just map all new added components with a name to the component type ID.
-		std::unordered_map<const char*, ComponentType> m_ComponentTypes;
+		std::unordered_map<const char*, ComponentType> m_ComponentTypes{};
 
 		//Map that stores char pointers (string/name) to a component array, will include every new added component
-		std::unordered_map<const char*, ComponentArrayInterface*> m_ComponentArrays;
+		std::unordered_map<const char*, ComponentArrayInterface*> m_ComponentArrays{};
 
 		//Will be used as an indicator of how many different components there are and what the next ID if one is added.
-		ComponentType m_NextComponentType;
+		ComponentType m_NextComponentType{};
 	};
 }
 

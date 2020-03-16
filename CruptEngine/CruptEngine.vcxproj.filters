@@ -72,12 +72,6 @@
     <ClInclude Include="EntityManager.h">
       <Filter>Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentArray.h">
-      <Filter>Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentManager.h">
-      <Filter>Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="System.h">
       <Filter>Systems</Filter>
     </ClInclude>
@@ -86,6 +80,36 @@
     </ClInclude>
     <ClInclude Include="ECSCoordinator.h">
       <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentArray.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TextSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSSystem.h">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +153,15 @@
       <Filter>Helpers</Filter>
     </ClCompile>
     <ClCompile Include="System.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="TextSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
   </ItemGroup>

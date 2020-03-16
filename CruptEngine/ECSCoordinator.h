@@ -3,108 +3,102 @@
 #include "EntityManager.h"
 #include "ComponentManager.h"
 #include "SystemManager.h"
+#include "Singleton.h"
 
 
 //USED AS WRAPPED FOR ALL OUR ECS MANAGERS
 namespace crupt
 {
-	class ECSCoordinator
+	class ECSCoordinator : public Singleton<ECSCoordinator>
 	{
 	public:
-		ECSCoordinator() = default;
-		~ECSCoordinator()
-		{
-			delete m_pComponentManager;
-			delete m_pEntityManager;
-			delete m_pSystemManager;
-			m_pComponentManager = nullptr;
-			m_pEntityManager = nullptr;
-			m_pSystemManager = nullptr;
-		}
 		void Initialize()
 		{
+			ComponentManager::GetInstance();
+			EntityManager::GetInstance();
+			SystemManager::GetInstance();
 			//Initialize the managers
-			m_pComponentManager = new ComponentManager();
-			m_pEntityManager = new EntityManager();
-			m_pSystemManager = new SystemManager();
+			//m_ComponentManager = ComponentManager::GetInstance();
+		/*	m_EntityManager = new EntityManager();
+			m_SystemManager = new SystemManager();*/
 		}
 
 		//Entities
 		Entity CreateEntity()
 		{
-			return m_pEntityManager->CreateEntity();
+			return EntityManager::GetInstance().CreateEntity();
 		}
 		void DestroyEntity(Entity entity)
 		{
 			//Destroy and let the content manager and system manager know the entity is gone so they can update their maps
-			m_pEntityManager->DestroyEntity(entity);
-			m_pComponentManager->EntityDestroyed(entity);
-			m_pSystemManager->EntityDestroyed(entity);		
+			EntityManager::GetInstance().DestroyEntity(entity);
+			ComponentManager::GetInstance().EntityDestroyed(entity);
+			SystemManager::GetInstance().EntityDestroyed(entity);		
 		}
 
 		//Components
 		template<typename T>
 		void RegisterComponent()
 		{
-			m_pComponentManager->RegisterComponent<T>();
+			ComponentManager::GetInstance().RegisterComponent<T>();
 		};
 
 		template<typename T>
 		void AddComponent(Entity entity, T component)
 		{
 			//Add the component to the manager
-			m_pComponentManager->AddComponent(entity, component);
+			ComponentManager::GetInstance().AddComponent(entity, component);
 			//get reference to the signature of the entity
-			Signature signature{m_pEntityManager->GetSignature(entity)};
+			Signature signature{EntityManager::GetInstance().GetSignature(entity)};
 			//set the signature of the entity to include the new component
-			signature.set(m_pComponentManager->GetComponent<T>(), true);
-			m_pEntityManager->SetSignature(entity, signature);
+			signature.set(ComponentManager::GetInstance().GetComponentType<T>(), true);
+			EntityManager::GetInstance().SetSignature(entity, signature);
 
-			m_pSystemManager->EntitySignatureChanged(entity, signature);
+			SystemManager::GetInstance().EntitySignatureChanged(entity, signature);
 		}	
 
 		template<typename T>
 		void RemoveComponent(Entity entity)
 		{
-			m_pComponentManager->RemoveComponent<T>(entity);
+			ComponentManager::GetInstance().RemoveComponent<T>(entity);
 
-			Signature signature{m_pEntityManager->GetSignature(entity)};
+			Signature signature{EntityManager::GetInstance().GetSignature(entity)};
 			//remove the component from the signature
-			signature.set(m_pComponentManager->GetComponent<T>(), false);
-			m_pEntityManager->SetSignature(entity, signature);
+			signature.set(ComponentManager::GetInstance().GetComponent<T>(), false);
+			EntityManager::GetInstance().SetSignature(entity, signature);
 
-			m_pSystemManager->EntitySignatureChanged(entity, signature);
+			SystemManager::GetInstance().EntitySignatureChanged(entity, signature);
 		}
 
 		template<typename T>
 		T& GetComponent(Entity entity)
 		{
-			return m_pComponentManager->GetComponent<T>(entity);		
+			return ComponentManager::GetInstance().GetComponent<T>(entity);		
 		}
 
 		template<typename T>
 		ComponentType GetComponentType()
 		{
-			return m_pComponentManager->GetComponentType<T>();
+			return ComponentManager::GetInstance().GetComponentType<T>();
 		}
 
 		//Systems
 		template<typename T>
 		T* RegisterSystem()
 		{
-			return m_pSystemManager->RegisterSystem<T>();
+			return SystemManager::GetInstance().RegisterSystem<T>();
 		}
 
 		template<typename T>
 		void SetSystemSignature(Signature signature)
 		{
-			m_pSystemManager->SetSignature<T>(signature);
+			SystemManager::GetInstance().SetSignature<T>(signature);
 		}
 
 	private:
-		EntityManager* m_pEntityManager;
-		ComponentManager* m_pComponentManager;
-		SystemManager* m_pSystemManager;
+		/*EntityManager& m_EntityManager;
+		ComponentManager& m_ComponentManager;
+		SystemManager& m_SystemManager;*/
 	};
 }
 

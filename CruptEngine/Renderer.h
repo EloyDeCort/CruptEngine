@@ -1,8 +1,10 @@
 #pragma once
 #include "Singleton.h"
+#include "Systems.h"
 
 struct SDL_Window;
 struct SDL_Renderer;
+
 
 namespace crupt
 {
@@ -14,7 +16,7 @@ namespace crupt
 	{
 	public:
 		void Init(SDL_Window* window);
-		void Render() const;
+		void Render(GraphicsSystem* gs, TextSystem* ts, FPSSystem* fps) const;
 		void Destroy();
 
 		void RenderTexture(const Texture2D& texture, float x, float y) const;

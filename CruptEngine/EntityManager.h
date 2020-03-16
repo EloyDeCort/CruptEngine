@@ -2,10 +2,11 @@
 #include "ECSTypes.h"
 #include <queue>
 #include <array>
+#include "Singleton.h"
 
 namespace crupt
 {
-	class EntityManager
+	class EntityManager : public Singleton<EntityManager>
 	{
 	public:
 		EntityManager();
@@ -17,6 +18,7 @@ namespace crupt
 		Signature GetSignature(Entity entity) const;
 
 	private:
+		friend class Singleton<EntityManager>;
 		//Queue only supports insert back and pop front. Deque is not needed for the entities.
 		//When an entity is created it takes an id from the front, when destroyed it puts the destroyed id at the end of the queue.
 		std::queue<Entity> m_AvailableEntities;

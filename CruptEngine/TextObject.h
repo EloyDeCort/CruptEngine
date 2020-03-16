@@ -1,10 +1,11 @@
 #pragma once
+#include "GameObject.h"
 
 namespace crupt
 {
 	class Font;
 	class Texture2D;
-	class TextObject final
+	class TextObject final : public GameObject
 	{
 	public:
 		void Update();
