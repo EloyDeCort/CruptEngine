@@ -202,7 +202,6 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="FPSSystem.h" />
-    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="CruptEngine.h" />
@@ -216,7 +215,6 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="Systems.h" />
     <ClInclude Include="TextComponent.h" />
-    <ClInclude Include="TextObject.h" />
     <ClInclude Include="TextSystem.h" />
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TextureComponent.h" />
@@ -226,7 +224,6 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSSystem.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -243,7 +240,6 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="System.cpp" />
-    <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="TextSystem.cpp" />
     <ClCompile Include="Texture2D.cpp" />
   </ItemGroup>

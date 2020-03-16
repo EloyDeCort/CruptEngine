@@ -7,8 +7,6 @@
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include <SDL.h>
-#include "TextObject.h"
-#include "GameObject.h"
 #include "Scene.h"
 //ECS
 #include "Components.h"
