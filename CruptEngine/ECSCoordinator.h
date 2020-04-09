@@ -17,10 +17,6 @@ namespace crupt
 			ComponentManager::GetInstance();
 			EntityManager::GetInstance();
 			SystemManager::GetInstance();
-			//Initialize the managers
-			//m_ComponentManager = ComponentManager::GetInstance();
-		/*	m_EntityManager = new EntityManager();
-			m_SystemManager = new SystemManager();*/
 		}
 
 		//Entities
@@ -96,9 +92,7 @@ namespace crupt
 		}
 
 	private:
-		/*EntityManager& m_EntityManager;
-		ComponentManager& m_ComponentManager;
-		SystemManager& m_SystemManager;*/
+	
 	};
 }
 

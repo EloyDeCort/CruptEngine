@@ -202,11 +202,11 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="FPSSystem.h" />
-    <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="CruptEngine.h" />
     <ClInclude Include="CruptEnginePCH.h" />
-    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RenderableComponent.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
@@ -217,14 +217,12 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="TextComponent.h" />
     <ClInclude Include="TextSystem.h" />
     <ClInclude Include="Texture2D.h" />
-    <ClInclude Include="TextureComponent.h" />
     <ClInclude Include="TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSSystem.cpp" />
-    <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="CruptEngine.cpp" />
@@ -235,7 +233,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CruptEnginePCH.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />

@@ -21,9 +21,9 @@ namespace crupt
 
 
 		//Systems
-		GraphicsSystem* m_pGraphicsSystem;
 		TextSystem* m_pTextSystem;
 		FPSSystem* m_pFPSSystem;
+		RenderSystem* m_pRenderSystem;
 		Entity m_FpsCounter;
 	};
 }

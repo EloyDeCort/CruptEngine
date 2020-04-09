@@ -8,7 +8,7 @@ namespace crupt
 	public:
 		virtual ~FPSSystem();
 		int GetFPS(Entity& entity) const;
-		void UpdateFPS(Entity entity, float deltaTime);
+		void Update(Entity entity, float deltaTime);
 
 	private:
 		float m_Time;

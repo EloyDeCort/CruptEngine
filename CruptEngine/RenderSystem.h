@@ -1,30 +1,31 @@
 #pragma once
-#include "Singleton.h"
-#include "Systems.h"
+#include "System.h"
+#include "ECSCoordinator.h"
+#include "Texture2D.h"
 
 struct SDL_Window;
 struct SDL_Renderer;
 
-
 namespace crupt
 {
-	class Texture2D;
-	/**
-	 * Simple RAII wrapper for the SDL renderer
-	 */
-	class Renderer final : public Singleton<Renderer>
+	class RenderSystem : public System
 	{
 	public:
+		virtual ~RenderSystem();
 		void Init(SDL_Window* window);
-		void Render(GraphicsSystem* gs, TextSystem* ts, FPSSystem* fps) const;
-		void Destroy();
+		void Update(float dt);
 
-		void RenderTexture(const Texture2D& texture, float x, float y) const;
-		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
+		void Destroy();
 
 		SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
 	private:
+		//Helper Functions
+		void RenderTexture(const Texture2D& texture, float x, float y) const;
+		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
+
+		//Member variables
 		SDL_Renderer* m_Renderer{};
+		ECSCoordinator* m_Coordinator;
 	};
 }
 

@@ -2,7 +2,6 @@
 #include "TextSystem.h"
 #include "ECSCoordinator.h"
 #include "Components.h"
-#include "Renderer.h"
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include "Font.h"
@@ -15,7 +14,7 @@ TextSystem::~TextSystem()
 	ECSCoordinator& coordinator = ECSCoordinator::GetInstance();
 	for (const Entity& entity : m_Entities)
 	{
-		TextureComponent& texture = coordinator.GetComponent<TextureComponent>(entity);
+		RenderableComponent& texture = coordinator.GetComponent<RenderableComponent>(entity);
 		TextComponent& text = coordinator.GetComponent<TextComponent>(entity);
 		delete text.m_pFont;
 		text.m_pFont = nullptr;
@@ -24,20 +23,14 @@ TextSystem::~TextSystem()
 	}
 }
 
-void TextSystem::Render()
+void TextSystem::Init(SDL_Renderer* renderer)
 {
-	ECSCoordinator& coordinator = ECSCoordinator::GetInstance();
-	for (const Entity& entity : m_Entities)
-	{
-		TextureComponent& texture = coordinator.GetComponent<TextureComponent>(entity);
-		glm::vec3 pos = coordinator.GetComponent<TransformComponent>(entity).position;
-		Renderer::GetInstance().RenderTexture(*texture.m_Texture, pos.x, pos.y);
-	}
+	m_Renderer = renderer;
 }
 
-
-void TextSystem::Update()
+void TextSystem::Update(float dt)
 {
+	dt;
 	ECSCoordinator& coordinator = ECSCoordinator::GetInstance();
 	for (const Entity& entity : m_Entities)
 	{
@@ -50,13 +43,13 @@ void TextSystem::Update()
 			{
 				throw std::runtime_error(std::string("Render text failed: ") + SDL_GetError());
 			}
-			auto texture = SDL_CreateTextureFromSurface(Renderer::GetInstance().GetSDLRenderer(), surf);
+			auto texture = SDL_CreateTextureFromSurface(m_Renderer, surf);
 			if (texture == nullptr) 
 			{
 				throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
 			}
 			SDL_FreeSurface(surf);
-			TextureComponent& textureComp = coordinator.GetComponent<TextureComponent>(entity);
+			RenderableComponent& textureComp = coordinator.GetComponent<RenderableComponent>(entity);
 			delete textureComp.m_Texture;
 			textureComp.m_Texture = new Texture2D(texture);
 			text.m_NeedsUpdate = false;

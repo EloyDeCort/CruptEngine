@@ -21,7 +21,7 @@ int FPSSystem::GetFPS(Entity& entity) const
 	return fpsComp.m_Fps;
 }
 
-void FPSSystem::UpdateFPS(Entity entity, float deltaTime)
+void FPSSystem::Update(Entity entity, float deltaTime)
 {
 	m_Time += deltaTime;
 	m_FpsCounter++;

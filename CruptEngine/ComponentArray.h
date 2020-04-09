@@ -71,7 +71,9 @@ namespace crupt
 		T& GetData(Entity entity)
 		{
 			if(m_EntityToIndexMap.find(entity) == m_EntityToIndexMap.end())
+			{
 				throw std::exception("ComponentArray<T>::GetData - [ERROR] Trying to get a component that does not excist for this entity!");
+			}
 
 			//Return a reference to the component of this entity
 			//Get the index through the entity to index map (which will give us the correct index of what component)

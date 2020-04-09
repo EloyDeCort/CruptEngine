@@ -4,7 +4,6 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-#include "Renderer.h"
 #include "Texture2D.h"
 #include "Font.h"
 
@@ -30,10 +29,10 @@ void crupt::ResourceManager::Init(const std::string& dataPath)
 	}
 }
 
-crupt::Texture2D* crupt::ResourceManager::LoadTexture(const std::string& file) const
+crupt::Texture2D* crupt::ResourceManager::LoadTexture(const std::string& file, SDL_Renderer* pRenderer) const
 {
 	const auto fullPath = m_DataPath + file;
-	SDL_Texture* texture = IMG_LoadTexture(Renderer::GetInstance().GetSDLRenderer(), fullPath.c_str());
+	SDL_Texture* texture = IMG_LoadTexture(pRenderer, fullPath.c_str());
 	if (texture == nullptr) 
 	{
 		throw std::runtime_error(std::string("Failed to load texture: ") + SDL_GetError());

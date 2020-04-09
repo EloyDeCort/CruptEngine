@@ -27,19 +27,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Texture2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CruptEngine.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="CruptEnginePCH.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
@@ -75,9 +66,6 @@
     <ClInclude Include="ECSCoordinator.h">
       <Filter>Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="TextureComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="Components.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -88,9 +76,6 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Systems.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="TextComponent.h">
@@ -105,6 +90,18 @@
     <ClInclude Include="FPSSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
+    <ClInclude Include="RenderableComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Texture2D.cpp">
@@ -117,9 +114,6 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
@@ -143,13 +137,13 @@
     <ClCompile Include="System.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicsSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
     <ClCompile Include="TextSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
     <ClCompile Include="FPSSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
   </ItemGroup>
