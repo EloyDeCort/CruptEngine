@@ -14,12 +14,9 @@ TextSystem::~TextSystem()
 	ECSCoordinator& coordinator = ECSCoordinator::GetInstance();
 	for (const Entity& entity : m_Entities)
 	{
-		RenderableComponent& texture = coordinator.GetComponent<RenderableComponent>(entity);
 		TextComponent& text = coordinator.GetComponent<TextComponent>(entity);
 		delete text.m_pFont;
 		text.m_pFont = nullptr;
-		delete texture.m_Texture;
-		texture.m_Texture = nullptr;
 	}
 }
 
