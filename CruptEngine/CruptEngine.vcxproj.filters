@@ -33,12 +33,6 @@
     <ClInclude Include="CruptEnginePCH.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceManager.h">
       <Filter>Helpers</Filter>
     </ClInclude>
@@ -116,16 +110,10 @@
     <ClCompile Include="Main.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="CruptEnginePCH.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
