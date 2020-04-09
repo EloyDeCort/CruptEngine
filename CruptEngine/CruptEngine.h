@@ -19,7 +19,6 @@ namespace crupt
 		static const int MsPerFrame = 16; //16 for 60 fps, 33 for 30 fps
 		SDL_Window* m_Window{};
 
-
 		//Systems
 		TextSystem* m_pTextSystem;
 		FPSSystem* m_pFPSSystem;
