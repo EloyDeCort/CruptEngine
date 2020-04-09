@@ -25,6 +25,9 @@
     <Filter Include="Systems">
       <UniqueIdentifier>{9cb18461-ce5e-4149-8c33-abc36acdac07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{47e464eb-035a-4c66-abb7-ae93e8824550}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CruptEngine.h">
@@ -96,6 +99,12 @@
     <ClInclude Include="Font.h">
       <Filter>Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Texture2D.cpp">
@@ -105,9 +114,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CruptEngine.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="CruptEnginePCH.cpp">
@@ -133,6 +139,12 @@
     </ClCompile>
     <ClCompile Include="RenderSystem.cpp">
       <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

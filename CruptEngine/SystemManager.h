@@ -48,6 +48,22 @@ namespace crupt
 			m_Signatures.insert({typeName, signature});
 		}
 
+		template<typename T>
+		T* GetSystem()
+		{
+			//Get the name of the system
+			const char* typeName{typeid(T).name()};
+
+			std::unordered_map<const char*, System*>::iterator it = m_Systems.find(typeName);
+			//Check if system excists/is registered
+			if(it == m_Systems.end())
+				throw std::exception("SystemManager<T>::GetSystem - [ERROR] System could not be found! (Did you register it?)");
+
+			T* system = reinterpret_cast<T*>((*it).second);
+			//Return the system
+			return system;
+		}
+
 		void EntityDestroyed(Entity entity)
 		{
 			//remove a given entity from all the systems.
@@ -80,10 +96,9 @@ namespace crupt
 				}
 			}
 		}
+		SystemManager() = default;
 	private:
 
-		friend class Singleton<SystemManager>;
-		SystemManager() = default;
 		//Map from a system/name string to a signature
 		std::unordered_map<const char*, Signature> m_Signatures;
 

@@ -11,18 +11,16 @@ namespace crupt
 	{
 	public:
 		void Initialize();
-		void LoadGame();
 		void Cleanup();
 		void Run();
+
+	protected:
+		virtual void InitGame() = 0;
 	private:
 		void RegisterComponents();
+		void RegisterSystems();
 		static const int MsPerFrame = 16; //16 for 60 fps, 33 for 30 fps
 		SDL_Window* m_Window{};
 
-		//Systems
-		TextSystem* m_pTextSystem;
-		FPSSystem* m_pFPSSystem;
-		RenderSystem* m_pRenderSystem;
-		Entity m_FpsCounter;
 	};
 }

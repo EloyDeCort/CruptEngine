@@ -91,6 +91,12 @@ namespace crupt
 			SystemManager::GetInstance().SetSignature<T>(signature);
 		}
 
+		template<typename T>
+		T* GetSystem()
+		{
+			return SystemManager::GetInstance().GetSystem<T>();
+		}
+
 	private:
 	
 	};

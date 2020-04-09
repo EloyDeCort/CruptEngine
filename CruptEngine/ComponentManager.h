@@ -80,9 +80,8 @@ namespace crupt
 			}
 		}
 
-	private:
-		friend class Singleton<ComponentManager>;
 		ComponentManager() = default;
+	private:
 
 		//returns a pointer to the component array
 		template<typename T>
