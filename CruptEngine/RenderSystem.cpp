@@ -17,6 +17,7 @@ void RenderSystem::Init(SDL_Window * window)
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
 
+
 	m_Coordinator = &ECSCoordinator::GetInstance();
 }
 

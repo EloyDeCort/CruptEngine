@@ -31,8 +31,6 @@ void crupt::CruptEngine::Initialize()
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
-
-
 }
 
 
