@@ -1,15 +1,33 @@
 #include "CruptEnginePCH.h"
 #include "InputManager.h"
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_sdl.h"
+#include "ImGui/imgui_impl_sdl.h"
 #include <SDL.h>
+
 
 
 bool crupt::InputManager::ProcessInput()
 {
 	ZeroMemory(&m_CurrentState, sizeof(XINPUT_STATE));
 	XInputGetState(0, &m_CurrentState);
+	ImGuiIO& io = ImGui::GetIO();
+	int mouseX, mouseY;
+	const int buttons = SDL_GetMouseState(&mouseX, &mouseY);
+
+	// Setup low-level inputs (e.g. on Win32, GetKeyboardState(), or write to those fields from your Windows message loop handlers, etc.)
+	int wheel = 0;
+	io.DeltaTime = 1.0f / 60.0f;
+	io.MousePos = ImVec2(static_cast<float>(mouseX), static_cast<float>(mouseY));
+	io.MouseDown[0] = buttons & SDL_BUTTON(SDL_BUTTON_LEFT);
+	io.MouseDown[1] = buttons & SDL_BUTTON(SDL_BUTTON_RIGHT);
+	io.MouseWheel = static_cast<float>(wheel);
+
 
 	SDL_Event e;
-	while (SDL_PollEvent(&e)) {
+	while (SDL_PollEvent(&e)) 
+	{
+		ImGui_ImplSDL2_ProcessEvent(&e);
 		if (e.type == SDL_QUIT) {
 			return false;
 		}

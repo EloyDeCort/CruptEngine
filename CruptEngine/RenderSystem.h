@@ -23,8 +23,11 @@ namespace crupt
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
 		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
 
+		void ImGuiDebug();
+
 		//Member variables
 		SDL_Renderer* m_Renderer{};
+		SDL_Window* m_pWindow{};
 		ECSCoordinator* m_Coordinator;
 	};
 }

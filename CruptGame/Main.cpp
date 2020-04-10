@@ -3,6 +3,7 @@
 #include "SDL.h"
 
 int main(int, char*[]) {
+
 	crupt::MainGame* engine = new crupt::MainGame();
 
 	//TODO: Remove this after a time and make a cleaner solution

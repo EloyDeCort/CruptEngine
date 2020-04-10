@@ -2,6 +2,8 @@
 #include "RenderSystem.h"
 #include "Components.h"
 #include <SDL.h>
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_sdl.h"
 using namespace crupt;
 
 RenderSystem::~RenderSystem()
@@ -17,12 +19,14 @@ void RenderSystem::Init(SDL_Window * window)
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
 
-
+	ImGui::CreateContext();
+	ImGuiSDL::Initialize(m_Renderer, 640, 480);
 	m_Coordinator = &ECSCoordinator::GetInstance();
 }
 
 void RenderSystem::Update(float dt)
-{
+{	
+
 	SDL_RenderClear(m_Renderer);
 	dt;
 	for (const Entity& entity : m_Entities)
@@ -37,7 +41,23 @@ void RenderSystem::Update(float dt)
 		RenderTexture(*rendererable.m_Texture, pos.x, pos.y);
 	}
 	
+	ImGuiDebug();
+
 	SDL_RenderPresent(m_Renderer);
+}
+
+void RenderSystem::ImGuiDebug()
+{
+	bool open = true;
+	ImGui::NewFrame();
+	ImGui::SetNextWindowSize(ImVec2{100.f,100.f});
+	ImGui::SetNextWindowPos(ImVec2{0.f,0.f});
+	ImGui::Begin("Test", &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_MenuBar);
+	ImGui::Button("Test");
+	ImGui::End();
+
+	ImGui::Render();
+	ImGuiSDL::Render(ImGui::GetDrawData());
 }
 
 void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const float y) const
@@ -45,8 +65,10 @@ void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const 
 	SDL_Rect dst;
 	dst.x = static_cast<int>(x);
 	dst.y = static_cast<int>(y);
+	
 	SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
 	SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), nullptr, &dst);
+
 }
 
 void RenderSystem::Destroy()

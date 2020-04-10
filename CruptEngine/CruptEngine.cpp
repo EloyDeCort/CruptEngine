@@ -5,7 +5,10 @@
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "ResourceManager.h"
+
+//SDL Initialization
 #include <SDL.h>
+
 //ECS
 #include "Components.h"
 
@@ -21,16 +24,16 @@ void crupt::CruptEngine::Initialize()
 	
 	m_Window = SDL_CreateWindow(
 		"Programming 4: CruptEngine",
-		SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED,
-		640,
-		480,
+		SDL_WINDOWPOS_CENTERED,	
+		SDL_WINDOWPOS_CENTERED,
+		m_WindowWidth,
+		m_WindowHeight,
 		SDL_WINDOW_OPENGL
 	);
 	if (m_Window == nullptr) 
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
-	}
+	}	
 }
 
 
@@ -72,6 +75,7 @@ void crupt::CruptEngine::Run()
 		std::chrono::steady_clock::time_point lastTime = high_resolution_clock::now();
 		while (doContinue)
 		{
+
 			const std::chrono::steady_clock::time_point currentTime = high_resolution_clock::now();
 
 			float dt = std::chrono::duration<float>(currentTime - lastTime).count();
