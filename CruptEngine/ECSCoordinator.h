@@ -60,9 +60,9 @@ namespace crupt
 
 			Signature signature{EntityManager::GetInstance().GetSignature(entity)};
 			//remove the component from the signature
-			signature.set(ComponentManager::GetInstance().GetComponent<T>(), false);
+			signature.set(ComponentManager::GetInstance().GetComponentType<T>(), false);
 			EntityManager::GetInstance().SetSignature(entity, signature);
-
+				
 			SystemManager::GetInstance().EntitySignatureChanged(entity, signature);
 		}
 

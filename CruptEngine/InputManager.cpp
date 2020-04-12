@@ -3,9 +3,9 @@
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_sdl.h"
 #include "ImGui/imgui_impl_sdl.h"
+#include "Invoker.h"
+#include "ICommand.h"
 #include <SDL.h>
-
-
 
 bool crupt::InputManager::ProcessInput()
 {
@@ -32,7 +32,10 @@ bool crupt::InputManager::ProcessInput()
 			return false;
 		}
 		if (e.type == SDL_KEYDOWN) {
-			
+			if(e.key.keysym.sym == SDLK_SPACE)
+			{
+				m_pInvoker->HandleCommand("JumpCommand");
+			}
 		}
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 			
@@ -56,5 +59,12 @@ bool crupt::InputManager::IsPressed(ControllerButton button) const
 		return m_CurrentState.Gamepad.wButtons & XINPUT_GAMEPAD_Y;
 	default: return false;
 	}
+}
+
+void crupt::InputManager::SetPlayer(Entity entity)
+{
+	m_pPlayer = entity;
+	m_pInvoker = new Invoker(new JumpCommand(entity));
+
 }
 

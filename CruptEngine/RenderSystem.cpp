@@ -49,12 +49,13 @@ void RenderSystem::Update(float dt)
 void RenderSystem::ImGuiDebug()
 {
 	bool open = true;
+	open;
 	ImGui::NewFrame();
-	ImGui::SetNextWindowSize(ImVec2{100.f,100.f});
-	ImGui::SetNextWindowPos(ImVec2{0.f,0.f});
-	ImGui::Begin("Test", &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_MenuBar);
-	ImGui::Button("Test");
-	ImGui::End();
+	//ImGui::SetNextWindowSize(ImVec2{500.f,50.f});
+	//ImGui::SetNextWindowPos(ImVec2{0.f,0.f});
+	//ImGui::Begin("Test", &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_MenuBar);
+	//ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	//ImGui::End();
 
 	ImGui::Render();
 	ImGuiSDL::Render(ImGui::GetDrawData());

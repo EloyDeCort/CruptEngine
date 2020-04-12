@@ -225,6 +225,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="FPSSystem.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="ICommand.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
     <ClInclude Include="ImGui\imgui_impl_sdl.h" />
@@ -236,6 +237,9 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="CruptEngine.h" />
     <ClInclude Include="CruptEnginePCH.h" />
+    <ClInclude Include="Invoker.h" />
+    <ClInclude Include="JumpComponent.h" />
+    <ClInclude Include="JumpSystem.h" />
     <ClInclude Include="RenderableComponent.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -254,6 +258,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSSystem.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="ICommand.cpp" />
     <ClCompile Include="ImGui\imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -293,6 +298,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CruptEnginePCH.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="Invoker.cpp" />
+    <ClCompile Include="JumpSystem.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />

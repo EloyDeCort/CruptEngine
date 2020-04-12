@@ -31,6 +31,9 @@
     <Filter Include="ImGui">
       <UniqueIdentifier>{9d1f09ff-e751-49a1-b460-49fdadf30a17}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{6d3b470d-70cb-45d7-918a-94830fef2980}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CruptEngine.h">
@@ -132,6 +135,18 @@
     <ClInclude Include="ImGui\imgui_sdl.h">
       <Filter>ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="Invoker.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="ICommand.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Texture2D.cpp">
@@ -187,6 +202,15 @@
     </ClCompile>
     <ClCompile Include="ImGui\imgui_sdl.cpp">
       <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Invoker.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="ICommand.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpSystem.cpp">
+      <Filter>Systems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

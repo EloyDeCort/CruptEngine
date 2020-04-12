@@ -1,6 +1,8 @@
+#include "CruptEnginePCH.h"
 #include "DemoScene.h"
 #include "Components.h"
 #include "ResourceManager.h"
+#include "InputManager.h"
 #include <iostream>
 
 crupt::DemoScene::DemoScene()
@@ -19,6 +21,7 @@ void crupt::DemoScene::Init()
 	m_pRenderSystem = pCoordinator.GetSystem<RenderSystem>();
 	m_pTextSystem = pCoordinator.GetSystem<TextSystem>();
 	m_pFPSSystem = pCoordinator.GetSystem<FPSSystem>();
+	m_pJumpSystem = pCoordinator.GetSystem<JumpSystem>();
 
 
 	SDL_Renderer* renderer{m_pRenderSystem->GetSDLRenderer()};
@@ -42,7 +45,11 @@ void crupt::DemoScene::Init()
 	pCoordinator.AddComponent<TextComponent>(m_FpsCounter, TextComponent{bool{true}, std::string("FPS: "), fontFps, glm::vec3(255.f, 255.f, 0.f)});
 	pCoordinator.AddComponent<FPSComponent>(m_FpsCounter, FPSComponent{});
 
-	
+	Entity player = pCoordinator.CreateEntity();
+	pCoordinator.AddComponent<TransformComponent>(player, TransformComponent{glm::vec3(216.f,180.f,0.f)});
+
+	InputManager::GetInstance().SetPlayer(logo);
+
 }
 
 void crupt::DemoScene::Update(float dt)
@@ -51,6 +58,7 @@ void crupt::DemoScene::Update(float dt)
 	m_pTextSystem->Update(dt);
 	m_pFPSSystem->Update(m_FpsCounter, dt);
 	m_pRenderSystem->Update(dt);
+	m_pJumpSystem->Update(dt);
 }
 
 void crupt::DemoScene::Render()

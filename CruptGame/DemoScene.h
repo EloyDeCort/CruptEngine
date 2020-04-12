@@ -17,6 +17,7 @@ namespace crupt
 		TextSystem* m_pTextSystem;
 		FPSSystem* m_pFPSSystem;
 		RenderSystem* m_pRenderSystem;
+		JumpSystem* m_pJumpSystem;
 	};
 }
 
