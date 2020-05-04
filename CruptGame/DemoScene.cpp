@@ -54,121 +54,76 @@ void crupt::DemoScene::Init()
     Entity logo = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<RenderableComponent>(logo, RenderableComponent{ResourceManager::GetInstance().LoadTexture("logo.png",renderer)});
 	pCoordinator.AddComponent<TransformComponent>(logo, TransformComponent{glm::vec3(216.f,180.f,0.f)});
-    	InputManager::GetInstance().SetPlayer(logo);
+    InputManager::GetInstance().SetPlayer(logo);
 
 
+	std::vector<Entity> entities{};
     tmx::Map map;
+	bool loaded = map.load("../Data/Level2.tmx");
+   
+	if(!loaded)
+		return;
 
-    if (map.load("../Data/TestMap.tmx"))
-    {
-        
-        std::cout << "Loaded Map version: " << map.getVersion().upper << ", " << map.getVersion().lower << std::endl;
-        if (map.isInfinite())
-        {
-            std::cout << "Map is infinite.\n";
-        }
+	const tmx::Vector2u mapDimensions{map.getTileCount()};
+	unsigned int rows{mapDimensions.y};
+	unsigned int cols{mapDimensions.x};
 
-        const auto& mapProperties = map.getProperties();
-        std::cout << "Map has " << mapProperties.size() << " properties" << std::endl;
-        for (const auto& prop : mapProperties)
-        {
-            std::cout << "Found property: " << prop.getName() << std::endl;
-            std::cout << "Type: " << int(prop.getType()) << std::endl;
-        }
+	tmx::Vector2u tileSize = map.getTileSize();
+	unsigned int tileWidth = tileSize.x;
+	unsigned int tileHeight = tileSize.y;
 
-        std::cout << std::endl;
+	std::vector<tmx::Tileset> tileSets = map.getTilesets();
+	for(tmx::Tileset& tset : tileSets)
+	{
+		//crupt::Texture2D* tex = ResourceManager::GetInstance().LoadTexture(tset.getImagePath(),renderer);
+		for(auto& tile : tset.getTiles())
+		{
+			std::string path = tile.imagePath;
+			path = path.substr(2);
+			m_TileTextures.push_back(ResourceManager::GetInstance().LoadTexture(path,renderer));
+		}
+	}
 
-        const auto& layers = map.getLayers();
-        std::cout << "Map has " << layers.size() << " layers" <<  std::endl;
-        for (const auto& layer : layers)
-        {
-            std::cout << "Found Layer: " << layer->getName() << std::endl;
-            std::cout << "Layer Type: " << int(layer->getType()) << std::endl;
 
-            if (layer->getType() == tmx::Layer::Type::Group)
-            {
-                std::cout << "Checking sublayers" << std::endl;
-                const auto& sublayers = layer->getLayerAs<tmx::LayerGroup>().getLayers();
-                std::cout << "LayerGroup has " << sublayers.size() << " layers" << std::endl;
-                for (const auto& sublayer : sublayers)
-                {
-                    std::cout << "Found Layer: " << sublayer->getName() << std::endl;
-                    std::cout << "Layer Type: " << int(sublayer->getType()) << std::endl;
-                }
-            }
+	auto& mapLayers = map.getLayers();
+	for(auto& layer : mapLayers)
+	{
+		if(layer->getType() != tmx::Layer::Type::Tile)
+		{
+			continue;
+		}
+		auto* tileLayer = dynamic_cast<const tmx::TileLayer*>(layer.get());
 
-            if(layer->getType() == tmx::Layer::Type::Object)
-            {
-                const auto& objects = layer->getLayerAs<tmx::ObjectGroup>().getObjects();
-                std::cout << "Found " << objects.size() << " objects in layer" << std::endl;
-                for(const auto& object : objects)
-                {
-                    std::cout << "Object " << object.getUID() << ", " << object.getName() << std::endl;
-                    const auto& properties = object.getProperties();
-                    std::cout << "Object has " << properties.size() << " properties" << std::endl;
-                    for(const auto& prop : properties)
-                    {
-                        std::cout << "Found property: " << prop.getName() << std::endl;
-                        std::cout << "Type: " << int(prop.getType()) << std::endl;
-                    }
+		auto& layerTiles = tileLayer->getTiles();
+		layerTiles;
+		 for (unsigned int y = 0; y < rows; ++y) 
+		 {
+            for (unsigned int x = 0; x < cols; ++x) 
+			{
+				auto tileIndex = x + (y * cols);
+				auto curGid = layerTiles[tileIndex].ID;
+				if (curGid == 0) 
+				{
+                continue;
+				}
 
-                    if (!object.getTilesetName().empty())
-                    {
-                        std::cout << "Object uses template tile set " << object.getTilesetName() << "\n";
-                    }
-                }
-            }
+				tile tempTile;
+				tempTile.id = curGid;
+				tempTile.xPos = size_t(x) * tileWidth;
+                tempTile.yPos = size_t(y) * tileHeight;
+				m_Tiles.push_back(tempTile);
+			}
+		 }
 
-            if (layer->getType() == tmx::Layer::Type::Tile)
-            {
-                const auto& tiles = layer->getLayerAs<tmx::TileLayer>().getTiles();
-                if (tiles.empty())
-                {
-                    const auto& chunks = layer->getLayerAs<tmx::TileLayer>().getChunks();
-                    if (chunks.empty())
-                    {
-                        std::cout << "Layer has missing tile data\n";
-                    }
-                    else
-                    {
-                        std::cout << "Layer has " << chunks.size() << " tile chunks.\n";
-                    }
-                }
-                else
-                {
-                    std::cout << "Layer has " << tiles.size() << " tiles.\n";
-                }
-            }
+		for(auto& tile : m_Tiles)
+		{
 
-            const auto& properties = layer->getProperties();
-            std::cout << properties.size() << " Layer Properties:" << std::endl;
-            for (const auto& prop : properties)
-            {
-                std::cout << "Found property: " << prop.getName() << std::endl;
-                std::cout << "Type: " << int(prop.getType()) << std::endl;
-            }
-        }
-    }
-    else
-    {
-        std::cout << "Failed loading map" << std::endl;
-    }
-
-    const std::vector<tmx::Tileset>& tilesets{map.getTilesets()};
-
-    std::vector<Entity> mapEntityVector;
-
-    for(int i{}; i < tilesets[0].getTiles().size(); ++i)
-    {
-        std::string testPath{tilesets[0].getTiles()[i].imagePath};
-        testPath = testPath.substr(2);
-        float x = float(tilesets[0].getTiles()[i].imagePosition.x) + 16* i;
-        float y = float(tilesets[0].getTiles()[i].imagePosition.y) + 50;
-
-        mapEntityVector.push_back(pCoordinator.CreateEntity());
-	    pCoordinator.AddComponent<RenderableComponent>(mapEntityVector[i], RenderableComponent{ResourceManager::GetInstance().LoadTexture(testPath,renderer)});
-	    pCoordinator.AddComponent<TransformComponent>(mapEntityVector[i], TransformComponent{glm::vec3(x,y,0.f)});
-    }
+			Entity temp = pCoordinator.CreateEntity();
+			entities.push_back(temp);
+			pCoordinator.AddComponent<RenderableComponent>(temp, RenderableComponent{m_TileTextures[tile.id - 1]});
+			pCoordinator.AddComponent<TransformComponent>(temp, TransformComponent{glm::vec3(tile.xPos,tile.yPos,0.f)});
+		}
+	}
 
 
 }
