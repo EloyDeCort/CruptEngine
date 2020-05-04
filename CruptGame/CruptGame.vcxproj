@@ -91,10 +91,11 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)CruptGame\3rdParty\TileParser\RapidXML</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -107,10 +108,11 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)CruptGame\3rdParty\TileParser\RapidXML</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,9 +127,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)CruptGame\3rdParty\TileParser\RapidXML</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -145,9 +147,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)CruptGame\3rdParty\TileParser\RapidXML</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -160,6 +162,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="3rdParty\TileParser\tmxlite\detail\pugixml.cpp" />
+    <ClCompile Include="3rdParty\TileParser\tmxlite\FreeFuncs.cpp" />
+    <ClCompile Include="3rdParty\TileParser\tmxlite\ImageLayer.cpp" />
+    <ClCompile Include="3rdParty\TileParser\tmxlite\LayerGroup.cpp" />
+    <ClCompile Include="3rdParty\TileParser\tmxlite\Map.cpp" />
+    <ClCompile Include="3rdParty\TileParser\tmxlite\miniz.c" />
+    <ClCompile Include="3rdParty\TileParser\tmxlite\Object.cpp" />
+    <ClCompile Include="3rdParty\TileParser\tmxlite\ObjectGroup.cpp" />
+    <ClCompile Include="3rdParty\TileParser\tmxlite\Property.cpp" />
+    <ClCompile Include="3rdParty\TileParser\tmxlite\TileLayer.cpp" />
+    <ClCompile Include="3rdParty\TileParser\tmxlite\Tileset.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainGame.cpp" />
@@ -170,8 +183,28 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3rdParty\TileParser\tmxlite\Config.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\detail\Android.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\detail\Log.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\detail\pugiconfig.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\detail\pugixml.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\FreeFuncs.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\ImageLayer.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\Layer.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\LayerGroup.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\Map.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\miniz.h" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\Object.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\ObjectGroup.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\Property.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\TileLayer.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\Tileset.hpp" />
+    <ClInclude Include="3rdParty\TileParser\tmxlite\Types.hpp" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="MainGame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="3rdParty\TileParser\tmxlite\Types.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

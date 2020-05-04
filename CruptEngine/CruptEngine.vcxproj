@@ -96,9 +96,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)CruptGame\3rdParty\TileParser\RapidXML</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>CruptEnginePCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -124,9 +125,10 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\*.dll" "$(OutputPath)" /R /Y</Com
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)CruptGame\3rdParty\TileParser\RapidXML</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>CruptEnginePCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,7 +159,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)CruptGame\3rdParty\TileParser\RapidXML</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>CruptEnginePCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
@@ -189,7 +191,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\*.dll" "$(OutputPath)" /R /Y</Com
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)CruptGame\3rdParty\TileParser\RapidXML</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>CruptEnginePCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
