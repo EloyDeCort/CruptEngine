@@ -1,6 +1,7 @@
 #include "MainGame.h"
 #include "SceneManager.h"
 #include "DemoScene.h"
+#include "BubbleBobbleScene.h"
 
 void crupt::MainGame::InitGame()
 {
@@ -11,7 +12,8 @@ void crupt::MainGame::InitGame()
 
 	//Adding of scenes
 	sceneManager.AddScene(new DemoScene());
-	sceneManager.SetActiveScene(L"DemoScene");
+	sceneManager.AddScene(new BubbleBobbleScene());
+	sceneManager.SetActiveScene(L"BubbleBobbleScene");
 
 	sceneManager.Init();
 }

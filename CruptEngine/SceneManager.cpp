@@ -72,11 +72,10 @@ void crupt::SceneManager::SetActiveScene(const std::wstring& sceneName)
 
 void crupt::SceneManager::Init()
 {
-	for (GameScene* pScene : m_pScenes)
+	if(m_ActiveScene)
 	{
-		//Make sure every scene has its assets loaded etc before the game starts. 
-		//This might have to change in the future, for now this is a good approach to make sure scenes do not have to load in between levels.
-		pScene->Init();
+		//Make sure the scene is initialized.
+		m_ActiveScene->Init();
 	}
 }
 

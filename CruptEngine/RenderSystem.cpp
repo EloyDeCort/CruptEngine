@@ -26,8 +26,7 @@ void RenderSystem::Init(SDL_Window * window)
 
 void RenderSystem::Update(float dt)
 {	
-
-	SDL_RenderClear(m_Renderer);
+	//SDL_RenderClear(m_Renderer);
 	dt;
 	for (const Entity& entity : m_Entities)
 	{
@@ -43,7 +42,7 @@ void RenderSystem::Update(float dt)
 	
 	ImGuiDebug();
 
-	SDL_RenderPresent(m_Renderer);
+	//SDL_RenderPresent(m_Renderer);
 }
 
 void RenderSystem::ImGuiDebug()
@@ -69,7 +68,6 @@ void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const 
 	
 	SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
 	SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), nullptr, &dst);
-
 }
 
 void RenderSystem::Destroy()

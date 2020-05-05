@@ -75,7 +75,7 @@ void crupt::CruptEngine::Run()
 		std::chrono::steady_clock::time_point lastTime = high_resolution_clock::now();
 		while (doContinue)
 		{
-
+			SDL_RenderClear(m_pRenderSystem->GetSDLRenderer());
 			const std::chrono::steady_clock::time_point currentTime = high_resolution_clock::now();
 
 			float dt = std::chrono::duration<float>(currentTime - lastTime).count();
@@ -85,6 +85,7 @@ void crupt::CruptEngine::Run()
 			sceneManager.Update(dt);
 			
 			lastTime = currentTime;
+			SDL_RenderPresent(m_pRenderSystem->GetSDLRenderer());
 		}
 	}
 
@@ -107,7 +108,7 @@ void crupt::CruptEngine::RegisterSystems()
 	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
 
 	//Register the systems
-	RenderSystem* m_pRenderSystem = pCoordinator.RegisterSystem<RenderSystem>();
+	m_pRenderSystem = pCoordinator.RegisterSystem<RenderSystem>();
 	{
 		Signature signature;
 		signature.set(pCoordinator.GetComponentType<RenderableComponent>());
