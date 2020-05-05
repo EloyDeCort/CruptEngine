@@ -5,13 +5,7 @@
 
 namespace crupt
 {
-	struct tile
-	{
-		unsigned int id;
-		unsigned int xPos;
-		unsigned int yPos;
-	};
-
+	class TileMapSystem;
 	class BubbleBobbleScene : public GameScene
 	{
 	public:
@@ -21,13 +15,12 @@ namespace crupt
 		virtual void Render() override;
 	private:
 		Entity m_FpsCounter;
-		std::vector<Texture2D*> m_TileTextures;
-		std::vector<tile> m_Tiles;
 		//Systems
 		TextSystem* m_pTextSystem;
 		FPSSystem* m_pFPSSystem;
 		RenderSystem* m_pRenderSystem;
 		JumpSystem* m_pJumpSystem;
+		TileMapSystem* m_pTileMapSystem;
 	};
 }
 

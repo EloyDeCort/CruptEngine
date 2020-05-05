@@ -2,6 +2,8 @@
 #include "SceneManager.h"
 #include "DemoScene.h"
 #include "BubbleBobbleScene.h"
+#include "GameComponents.h"
+#include "GameSystems.h"
 
 void crupt::MainGame::InitGame()
 {
@@ -21,11 +23,21 @@ void crupt::MainGame::InitGame()
 void crupt::MainGame::RegisterAdditionalComponents()
 {
 	//For Components that do not belong in the main engine.
-
+	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
+	pCoordinator.RegisterComponent<TileMapComponent>();
 }
 
 void crupt::MainGame::RegisterAdditionalSystems()
 {
 	//For handling components that do not belong in the main engine.
+	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
 
+	//Register the systems
+	TileMapSystem* tileMapSystem = pCoordinator.RegisterSystem<TileMapSystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<TileMapComponent>());
+		pCoordinator.SetSystemSignature<TileMapSystem>(signature);
+	}
+	tileMapSystem->Init(m_pRenderSystem->GetSDLRenderer());
 }

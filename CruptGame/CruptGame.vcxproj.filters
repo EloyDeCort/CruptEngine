@@ -19,6 +19,12 @@
     <Filter Include="TileMap">
       <UniqueIdentifier>{65ab9862-4a7d-4fd0-bf6f-965f66e04977}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{67a251ef-dd76-4585-ac89-aed2c5e9c063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems">
+      <UniqueIdentifier>{4f0fc822-fbff-4573-aafb-b862b6e968ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -65,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="BubbleBobbleScene.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMapSystem.cpp">
+      <Filter>Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +136,18 @@
     </ClInclude>
     <ClInclude Include="BubbleBobbleScene.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponents.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystems.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMapComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMapSystem.h">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
