@@ -28,10 +28,10 @@ void crupt::BubbleBobbleScene::Init()
 	m_pTileMapSystem = pCoordinator.GetSystem<TileMapSystem>();
 	//m_pJumpSystem = pCoordinator.GetSystem<JumpSystem>();
 
-
 	SDL_Renderer* renderer{m_pRenderSystem->GetSDLRenderer()};
 	renderer;
 	
+	//Simple FPS component
 	crupt::Font* fontFps = ResourceManager::GetInstance().LoadFont("Lingua.otf", 25);
 	m_FpsCounter = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<RenderableComponent>(m_FpsCounter, RenderableComponent{});
@@ -39,6 +39,7 @@ void crupt::BubbleBobbleScene::Init()
 	pCoordinator.AddComponent<TextComponent>(m_FpsCounter, TextComponent{bool{true}, std::string("FPS: "), fontFps, glm::vec3(255.f, 255.f, 255.f)});
 	pCoordinator.AddComponent<FPSComponent>(m_FpsCounter, FPSComponent{});
 
+	//Init the map entity
 	Entity map = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<TileMapComponent>(map, TileMapComponent{});
 }
@@ -48,11 +49,10 @@ void crupt::BubbleBobbleScene::Update(float dt)
 	m_pFPSSystem->SetText(m_FpsCounter, "FPS: " + std::to_string(m_pFPSSystem->GetFPS(m_FpsCounter)));
 	m_pTextSystem->Update(dt);
 	m_pFPSSystem->Update(m_FpsCounter, dt);
-	m_pTileMapSystem->Update(dt);
-	m_pRenderSystem->Update(dt);
 }
 
 void crupt::BubbleBobbleScene::Render()
-{
-	
+{	
+	m_pTileMapSystem->Render();
+	m_pRenderSystem->Render();
 }

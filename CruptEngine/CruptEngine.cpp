@@ -9,6 +9,9 @@
 //SDL Initialization
 #include <SDL.h>
 
+//VLD
+#include "vld.h"
+
 //ECS
 #include "Components.h"
 
@@ -83,6 +86,9 @@ void crupt::CruptEngine::Run()
 
 			//Update the currently active scene
 			sceneManager.Update(dt);
+
+			//Render the scene
+			sceneManager.Render();
 			
 			lastTime = currentTime;
 			SDL_RenderPresent(m_pRenderSystem->GetSDLRenderer());

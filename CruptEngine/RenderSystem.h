@@ -13,7 +13,7 @@ namespace crupt
 	public:
 		virtual ~RenderSystem();
 		void Init(SDL_Window* window);
-		void Update(float dt);
+		void Render();
 
 		void Destroy();
 

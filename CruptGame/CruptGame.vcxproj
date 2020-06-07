@@ -93,13 +93,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)CruptGame\3rdParty\TileParser\RapidXML</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;xinput.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2_image\lib\x86;$(SolutionDir)3rdParty\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -110,13 +110,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)CruptGame\3rdParty\TileParser\RapidXML</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;xinput.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;$(SolutionDir)3rdParty\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -129,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)CruptGame\3rdParty\TileParser\RapidXML</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -149,7 +149,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)CruptGame\3rdParty\TileParser\RapidXML</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>

@@ -8,7 +8,8 @@ using namespace crupt;
 
 RenderSystem::~RenderSystem()
 {
-
+	ImGuiSDL::Deinitialize();
+	ImGui::DestroyContext();
 }
 
 void RenderSystem::Init(SDL_Window * window)
@@ -24,10 +25,9 @@ void RenderSystem::Init(SDL_Window * window)
 	m_Coordinator = &ECSCoordinator::GetInstance();
 }
 
-void RenderSystem::Update(float dt)
+void RenderSystem::Render()
 {	
 	//SDL_RenderClear(m_Renderer);
-	dt;
 	for (const Entity& entity : m_Entities)
 	{
 		//Get the transform & Renderable component

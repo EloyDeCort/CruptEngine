@@ -15,6 +15,11 @@ TextSystem::~TextSystem()
 	for (const Entity& entity : m_Entities)
 	{
 		TextComponent& text = coordinator.GetComponent<TextComponent>(entity);
+		RenderableComponent& textureComp = coordinator.GetComponent<RenderableComponent>(entity);
+
+		delete textureComp.m_Texture;
+		textureComp.m_Texture = nullptr;
+
 		delete text.m_pFont;
 		text.m_pFont = nullptr;
 	}

@@ -11,6 +11,10 @@ namespace crupt
 		unsigned int id;
 		unsigned int xPos;
 		unsigned int yPos;
+
+		//Standard
+		unsigned int width = 16;
+		unsigned int height = 16;
 	};
 
 	class TileMapSystem : public System
@@ -18,7 +22,7 @@ namespace crupt
 	public:
 		virtual ~TileMapSystem();
 		void Init(SDL_Renderer* renderer);
-		void Update(float dt);
+		void Render();
 
 	private:
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
