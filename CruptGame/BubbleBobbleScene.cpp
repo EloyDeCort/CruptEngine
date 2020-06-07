@@ -19,18 +19,24 @@ crupt::BubbleBobbleScene::BubbleBobbleScene()
 
 void crupt::BubbleBobbleScene::Init()
 {
-	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
+	InitSystems();
+	InitEntities();
+}
 
+void crupt::BubbleBobbleScene::InitSystems()
+{
+	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
 	//INITIALIZE THE SYSTEMS
 	m_pRenderSystem = pCoordinator.GetSystem<RenderSystem>();
 	m_pTextSystem = pCoordinator.GetSystem<TextSystem>();
 	m_pFPSSystem = pCoordinator.GetSystem<FPSSystem>();
 	m_pTileMapSystem = pCoordinator.GetSystem<TileMapSystem>();
-	//m_pJumpSystem = pCoordinator.GetSystem<JumpSystem>();
+	//m_pJumpSystem = pCoordinator.GetSystem<JumpSystem>();	
+}
 
-	SDL_Renderer* renderer{m_pRenderSystem->GetSDLRenderer()};
-	renderer;
-	
+void crupt::BubbleBobbleScene::InitEntities()
+{
+	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
 	//Simple FPS component
 	crupt::Font* fontFps = ResourceManager::GetInstance().LoadFont("Lingua.otf", 25);
 	m_FpsCounter = pCoordinator.CreateEntity();
@@ -56,3 +62,4 @@ void crupt::BubbleBobbleScene::Render()
 	m_pTileMapSystem->Render();
 	m_pRenderSystem->Render();
 }
+

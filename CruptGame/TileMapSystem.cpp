@@ -10,6 +10,12 @@
 //TMX Files are made & provided with the program "TILED".
 //This allows for quick level creation & loading.
 
+crupt::TileMapSystem::TileMapSystem()
+	: m_CurrentLevel{0}
+	, m_TotalLevels{0}
+{
+}
+
 crupt::TileMapSystem::~TileMapSystem()
 {
 	for (size_t i{}; i < m_pTileTextures.size(); ++i)
@@ -24,12 +30,31 @@ crupt::TileMapSystem::~TileMapSystem()
 void crupt::TileMapSystem::Init(SDL_Renderer* renderer)
 {
 	m_pRenderer = renderer;
-	//Loading the map using tmxlite
-    tmx::Map map;
-	bool loaded = map.load("../Data/Level3.tmx");
+	//Load tileset from the first map. 
+	//Since we are using the same tileset for all maps, we can simply load it once.
+	tmx::Map map;
+	bool loaded = map.load("../Data/Level1.tmx");
    
 	if(!loaded)
 		return;
+
+	InitTileSet(map);
+
+	//Add our levels.
+	AddLevel("../Data/Level1.tmx");
+	AddLevel("../Data/Level2.tmx");
+	AddLevel("../Data/Level3.tmx");
+
+}
+
+bool crupt::TileMapSystem::AddLevel(const std::string& loc)
+{
+	//Loading the map using tmxlite
+    tmx::Map map;
+	bool loaded = map.load(loc);
+   
+	if(!loaded)
+		return false;
 
 	//get the map dimensions
 	const tmx::Vector2u mapDimensions{map.getTileCount()};
@@ -41,22 +66,9 @@ void crupt::TileMapSystem::Init(SDL_Renderer* renderer)
 	unsigned int tileWidth = tileSize.x;
 	unsigned int tileHeight = tileSize.y;
 
-	//Load the tile set
-	std::vector<tmx::Tileset> tileSets = map.getTilesets();
-	for(tmx::Tileset& tset : tileSets)
-	{
-		//insert all tiles into the vector of tile textures.
-		for(const tmx::Tileset::Tile& tile : tset.getTiles())
-		{
-			std::string path = tile.imagePath;
-			path = path.substr(2);
-			m_pTileTextures.push_back(ResourceManager::GetInstance().LoadTexture(path,m_pRenderer));
-		}
-	}
-
 	//Load the map layers
-	auto& mapLayers = map.getLayers();
-	for(auto& layer : mapLayers)
+	const std::vector<tmx::Layer::Ptr>& mapLayers = map.getLayers();
+	for(const tmx::Layer::Ptr& layer : mapLayers)
 	{
 		//Check if the layer contains tiles
 		if(layer->getType() != tmx::Layer::Type::Tile)
@@ -88,22 +100,41 @@ void crupt::TileMapSystem::Init(SDL_Renderer* renderer)
 				tempTile.xPos = size_t(x) * tileWidth;
                 tempTile.yPos = size_t(y) * tileHeight;
 				//Initialize the tile based on the position etc.
-				m_Tiles.push_back(tempTile);
+				m_TilesMap[m_TotalLevels].push_back(tempTile);
 			}
 		 }
 	}
+	
+	m_TotalLevels++;
+	return true;
+}
 
+void crupt::TileMapSystem::InitTileSet(const tmx::Map& map)
+{
+	//Load the tile set
+	std::vector<tmx::Tileset> tileSets = map.getTilesets();
+	for(tmx::Tileset& tset : tileSets)
+	{
+		//insert all tiles into the vector of tile textures.
+		for(const tmx::Tileset::Tile& tile : tset.getTiles())
+		{
+			std::string path = tile.imagePath;
+			path = path.substr(2);
+			m_pTileTextures.push_back(ResourceManager::GetInstance().LoadTexture(path,m_pRenderer));
+		}
+	}
 }
 
 void crupt::TileMapSystem::Render()
 {
 	//Loop through all tiles and give them to the renderer
-	for(auto& tile : m_Tiles)
+	for(auto& tile : m_TilesMap.at(m_CurrentLevel))
 	{
 		//tile.id - 1 will give us what texture we defined in Tiled.
 		RenderTexture(*m_pTileTextures[tile.id - 1], float(tile.xPos), float(tile.yPos));
 	}
 }
+
 
 void crupt::TileMapSystem::RenderTexture(const Texture2D& texture, const float x, const float y) const
 {

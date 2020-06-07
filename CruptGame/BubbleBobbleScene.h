@@ -14,6 +14,9 @@ namespace crupt
 		virtual void Update(float dt) override;
 		virtual void Render() override;
 	private:
+		void InitSystems();
+		void InitEntities();
+
 		Entity m_FpsCounter;
 		//Systems
 		TextSystem* m_pTextSystem;
