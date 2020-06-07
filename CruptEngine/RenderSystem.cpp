@@ -44,7 +44,7 @@ void RenderSystem::Render()
 		glm::vec3 pos = transform.position;
 
 		//Render the texture from the renderable component
-		RenderTexture(*rendererable.m_Texture, pos.x, pos.y);
+		RenderTexture(*rendererable.m_Texture, pos.x, pos.y, &rendererable.srcRect);
 	}
 	
 	ImGuiDebug();
@@ -67,14 +67,23 @@ void RenderSystem::ImGuiDebug()
 	ImGuiSDL::Render(ImGui::GetDrawData());
 }
 
-void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const float y) const
+void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const float y, const SDL_Rect* srcRect) const
 {
 	SDL_Rect dst;
 	dst.x = static_cast<int>(x);
 	dst.y = static_cast<int>(y);
 	
 	SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
-	SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), nullptr, &dst);
+	if(srcRect->w == 0 && srcRect->h == 0)
+	{
+		SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), nullptr, &dst);
+	}
+	else
+	{
+		dst.w = srcRect->w;
+		dst.h = srcRect->h;
+		SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), srcRect, &dst);
+	}
 }
 
 void RenderSystem::Destroy()
@@ -95,12 +104,21 @@ void RenderSystem::Destroy()
 	}
 }
 
-void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height) const
+void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height, const SDL_Rect* srcRect) const
 {
 	SDL_Rect dst;
 	dst.x = static_cast<int>(x);
 	dst.y = static_cast<int>(y);
 	dst.w = static_cast<int>(width);
 	dst.h = static_cast<int>(height);
-	SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), nullptr, &dst);
+	if(srcRect->w == 0 && srcRect->h == 0)
+	{
+		SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), nullptr, &dst);
+	}
+	else
+	{
+		dst.w = srcRect->w;
+		dst.h = srcRect->h;
+		SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), srcRect, &dst);
+	}
 }

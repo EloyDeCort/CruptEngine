@@ -31,6 +31,7 @@ void crupt::BubbleBobbleScene::InitSystems()
 	m_pTextSystem = pCoordinator.GetSystem<TextSystem>();
 	m_pFPSSystem = pCoordinator.GetSystem<FPSSystem>();
 	m_pTileMapSystem = pCoordinator.GetSystem<TileMapSystem>();
+	m_pSpriteSystem = pCoordinator.GetSystem<SpriteSystem>();
 	//m_pJumpSystem = pCoordinator.GetSystem<JumpSystem>();	
 }
 
@@ -54,6 +55,15 @@ void crupt::BubbleBobbleScene::InitEntities()
 	Entity ui = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<RenderableComponent>(ui, RenderableComponent{ResourceManager::GetInstance().LoadTexture("UI.png",renderer)});
 	pCoordinator.AddComponent<TransformComponent>(ui, TransformComponent{glm::vec3(0.f,0.f,0.f)});
+
+	//Player
+	SpriteComponent spriteComp{};
+	spriteComp.m_FrameCount = 7;
+	spriteComp.m_AnimationRate = 12; 
+	Entity player1 = pCoordinator.CreateEntity();
+	pCoordinator.AddComponent<SpriteComponent>(player1, spriteComp);
+	pCoordinator.AddComponent<RenderableComponent>(player1, RenderableComponent{ResourceManager::GetInstance().LoadTexture("Bubblun.png",renderer)});
+	pCoordinator.AddComponent<TransformComponent>(player1, TransformComponent{glm::vec3(0.f,0.f,0.f)});
 }
 
 void crupt::BubbleBobbleScene::Update(float dt)
@@ -61,6 +71,7 @@ void crupt::BubbleBobbleScene::Update(float dt)
 	m_pFPSSystem->SetText(m_FpsCounter, "FPS:" + std::to_string(m_pFPSSystem->GetFPS(m_FpsCounter)));
 	m_pTextSystem->Update(dt);
 	m_pFPSSystem->Update(m_FpsCounter, dt);
+	m_pSpriteSystem->Update(dt);
 }
 
 void crupt::BubbleBobbleScene::Render()

@@ -22,6 +22,7 @@ namespace crupt
 		TextSystem* m_pTextSystem;
 		FPSSystem* m_pFPSSystem;
 		RenderSystem* m_pRenderSystem;
+		SpriteSystem* m_pSpriteSystem;
 		JumpSystem* m_pJumpSystem;
 		TileMapSystem* m_pTileMapSystem;
 	};

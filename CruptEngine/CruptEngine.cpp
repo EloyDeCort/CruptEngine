@@ -107,6 +107,7 @@ void crupt::CruptEngine::RegisterComponents()
 	pCoordinator.RegisterComponent<TextComponent>();
 	pCoordinator.RegisterComponent<FPSComponent>();
 	pCoordinator.RegisterComponent<JumpComponent>();
+	pCoordinator.RegisterComponent<SpriteComponent>();
 }
 
 void crupt::CruptEngine::RegisterSystems()
@@ -152,4 +153,14 @@ void crupt::CruptEngine::RegisterSystems()
 		pCoordinator.SetSystemSignature<JumpSystem>(signature);
 	}
 	pJumpSystem->Init();
+
+	SpriteSystem* spriteSystem = pCoordinator.RegisterSystem<SpriteSystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<SpriteComponent>());
+		signature.set(pCoordinator.GetComponentType<RenderableComponent>());
+		signature.set(pCoordinator.GetComponentType<TransformComponent>());
+		pCoordinator.SetSystemSignature<SpriteSystem>(signature);
+	}
+	spriteSystem->Init(m_pRenderSystem->GetSDLRenderer());
 }
