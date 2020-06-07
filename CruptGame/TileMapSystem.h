@@ -46,6 +46,8 @@ namespace crupt
 		int m_CurrentLevel;
 		int m_TotalLevels;
 		SDL_Renderer* m_pRenderer;
+
+		unsigned int m_UIOffset;
 	};
 }
 

@@ -13,7 +13,6 @@ void crupt::MainGame::InitGame()
 	crupt::SceneManager& sceneManager = SceneManager::GetInstance();
 
 	//Adding of scenes
-	sceneManager.AddScene(new DemoScene());
 	sceneManager.AddScene(new BubbleBobbleScene());
 	sceneManager.SetActiveScene(L"BubbleBobbleScene");
 

@@ -24,7 +24,7 @@ namespace crupt
 		SDL_Window* m_Window{};
 
 		static const int m_WindowWidth = 640;
-		static const int m_WindowHeight = 480;
+		static const int m_WindowHeight = 530;
 
 	};
 }

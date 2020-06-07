@@ -13,6 +13,7 @@
 crupt::TileMapSystem::TileMapSystem()
 	: m_CurrentLevel{0}
 	, m_TotalLevels{0}
+	, m_UIOffset{50}
 {
 }
 
@@ -98,7 +99,7 @@ bool crupt::TileMapSystem::AddLevel(const std::string& loc)
 				Tile tempTile;
 				tempTile.id = curGid;
 				tempTile.xPos = size_t(x) * tileWidth;
-                tempTile.yPos = size_t(y) * tileHeight;
+                tempTile.yPos = m_UIOffset + size_t(y) * tileHeight;
 				//Initialize the tile based on the position etc.
 				m_TilesMap[m_TotalLevels].push_back(tempTile);
 			}
