@@ -2,8 +2,8 @@
 
 namespace crupt
 {
-	struct TileMapComponent
+	struct SpriteComponent
 	{
-		
+
 	};
 }

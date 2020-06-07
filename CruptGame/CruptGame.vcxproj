@@ -173,6 +173,7 @@
     <ClCompile Include="3rdParty\TileParser\tmxlite\Property.cpp" />
     <ClCompile Include="3rdParty\TileParser\tmxlite\TileLayer.cpp" />
     <ClCompile Include="3rdParty\TileParser\tmxlite\Tileset.cpp" />
+    <ClCompile Include="BBMainMenuScene.cpp" />
     <ClCompile Include="BubbleBobbleScene.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="3rdParty\TileParser\tmxlite\TileLayer.hpp" />
     <ClInclude Include="3rdParty\TileParser\tmxlite\Tileset.hpp" />
     <ClInclude Include="3rdParty\TileParser\tmxlite\Types.hpp" />
+    <ClInclude Include="BBMainMenuScene.h" />
     <ClInclude Include="BubbleBobbleScene.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="GameComponents.h" />

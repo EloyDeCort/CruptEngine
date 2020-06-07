@@ -75,6 +75,9 @@
     <ClCompile Include="TileMapSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="BBMainMenuScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="TileMapSystem.h">
       <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="BBMainMenuScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

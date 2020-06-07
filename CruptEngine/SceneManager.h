@@ -3,6 +3,7 @@
 namespace crupt
 {
 	class GameScene;
+
 	class SceneManager final  : public Singleton<SceneManager>
 	{
 	public:
@@ -17,6 +18,7 @@ namespace crupt
 		void AddScene(GameScene* pScene);
 		void RemoveScene(GameScene* pScene);
 		void SetActiveScene(const std::wstring& sceneName);
+		GameScene* GetActiveScene();
 
 		void Init();
 		void Update(float dt);
@@ -26,5 +28,6 @@ namespace crupt
 
 		std::vector<GameScene*> m_pScenes;
 		GameScene* m_ActiveScene;
+		GameScene* m_NewActiveScene;
 	};
 }

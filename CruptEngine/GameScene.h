@@ -2,6 +2,7 @@
 #include <string>
 #include "ECSCoordinator.h"
 #include "Systems.h"
+#include <set>
 
 namespace crupt
 {
@@ -18,6 +19,8 @@ namespace crupt
 		GameScene& operator=(GameScene&& other) noexcept = delete;
 
 		const std::wstring& GetSceneName() const;
+		bool OwnsEntity(Entity entity) const;
+		void AddEntity(Entity entity);
 
 		virtual void Init() = 0;
 		virtual void Update(float dt) = 0;
@@ -25,5 +28,7 @@ namespace crupt
 
 	private:
 		std::wstring m_SceneName;
+		//Entities in this scene
+		std::set<Entity> m_Entities;
 	};
 }

@@ -31,6 +31,8 @@ void crupt::SceneManager::AddScene(GameScene* pScene)
 	}
 }
 
+
+
 void crupt::SceneManager::RemoveScene(GameScene* pScene)
 {
 	const std::vector<GameScene*>::iterator it{std::find(m_pScenes.begin(), m_pScenes.end(), pScene)};
@@ -59,7 +61,7 @@ void crupt::SceneManager::SetActiveScene(const std::wstring& sceneName)
 	if(it != m_pScenes.end())
 	{
 		//Found the scene, set the scene to the active one.
-		m_ActiveScene = *it;
+		m_NewActiveScene = *it;
 	}
 	else
 	{
@@ -68,6 +70,11 @@ void crupt::SceneManager::SetActiveScene(const std::wstring& sceneName)
 		//Return for safety
 		return;
 	}
+}
+
+crupt::GameScene* crupt::SceneManager::GetActiveScene()
+{
+	return m_ActiveScene;
 }
 
 void crupt::SceneManager::Init()
@@ -81,6 +88,14 @@ void crupt::SceneManager::Init()
 
 void crupt::SceneManager::Update(float dt)
 {
+	if (m_NewActiveScene != nullptr)
+	{
+		//Set New Scene
+		m_ActiveScene = m_NewActiveScene;
+		m_NewActiveScene = nullptr;
+		m_ActiveScene->Init();
+	}
+
 	if(m_ActiveScene)
 	{
 		m_ActiveScene->Update(dt);

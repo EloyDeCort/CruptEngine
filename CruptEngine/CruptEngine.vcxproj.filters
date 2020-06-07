@@ -147,6 +147,9 @@
     <ClInclude Include="JumpSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
+    <ClInclude Include="..\CruptGame\SpriteComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Texture2D.cpp">
