@@ -6,6 +6,10 @@
 #include <tmxlite/TileLayer.hpp>
 #include "ResourceManager.h"
 
+//We make use of TMXLite to parse simple .tmx files.
+//TMX Files are made & provided with the program "TILED".
+//This allows for quick level creation & loading.
+
 crupt::TileMapSystem::~TileMapSystem()
 {
 }
@@ -14,7 +18,7 @@ void crupt::TileMapSystem::Init(SDL_Renderer* renderer)
 {
 	m_pRenderer = renderer;
     tmx::Map map;
-	bool loaded = map.load("../Data/Level2.tmx");
+	bool loaded = map.load("../Data/Level3.tmx");
    
 	if(!loaded)
 		return;
@@ -75,8 +79,10 @@ void crupt::TileMapSystem::Init(SDL_Renderer* renderer)
 void crupt::TileMapSystem::Update(float dt)
 {
 	dt;
+	//Loop through all tiles and give them to the renderer
 	for(auto& tile : m_Tiles)
 	{
+		//tile.id - 1 will give us what texture we defined in Tiled.
 		RenderTexture(*m_pTileTextures[tile.id - 1], float(tile.xPos), float(tile.yPos));
 	}
 }
