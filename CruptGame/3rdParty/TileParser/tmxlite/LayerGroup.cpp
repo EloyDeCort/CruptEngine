@@ -32,6 +32,7 @@ source distribution.
 #include <tmxlite/TileLayer.hpp>
 #include <tmxlite/detail/Log.hpp>
 
+
 using namespace tmx;
 
 LayerGroup::LayerGroup(const std::string& workingDir, const Vector2u& tileCount)

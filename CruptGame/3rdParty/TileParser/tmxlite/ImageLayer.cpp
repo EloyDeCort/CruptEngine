@@ -30,6 +30,7 @@ source distribution.
 #include "detail/pugixml.hpp"
 #include <tmxlite/detail/Log.hpp>
 
+
 using namespace tmx;
 
 ImageLayer::ImageLayer(const std::string& workingDir)

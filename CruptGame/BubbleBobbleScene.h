@@ -3,7 +3,6 @@
 #include "tmxlite\Tileset.hpp"
 #include <map>
 
-
 namespace crupt
 {
 	class TileMapSystem;
@@ -26,6 +25,8 @@ namespace crupt
 		SpriteSystem* m_pSpriteSystem;
 		JumpSystem* m_pJumpSystem;
 		TileMapSystem* m_pTileMapSystem;
+
+		FMOD::Channel* m_pChannel;
 	};
 }
 
