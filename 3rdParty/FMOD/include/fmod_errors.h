@@ -35,7 +35,7 @@ static const char *FMOD_ErrorString(FMOD_RESULT errcode)
         case FMOD_ERR_DSP_SILENCE:               return "DSP return code from a DSP process query callback.  Tells mixer silence would be produced from read, so go idle and not consume CPU.  Use this to optimize the DSP graph.";
         case FMOD_ERR_DSP_TYPE:                  return "DSP operation cannot be performed on a DSP of this type.";
         case FMOD_ERR_FILE_BAD:                  return "Error loading file.";
-        case FMOD_ERR_FILE_COULDNOTSEEK:         return "Couldn't perform seek operation.  This is a limitation of the medium (ie netstreams) or the file format.";
+        case FMOD_ERR_FILE_COULDNOTSEEK:           return "Couldn't perform seek operation.  This is a limitation of the medium (ie netstreams) or the file format.";
         case FMOD_ERR_FILE_DISKEJECTED:          return "Media was ejected while reading.";
         case FMOD_ERR_FILE_EOF:                  return "End of file unexpectedly reached while trying to read essential data (truncated?).";
         case FMOD_ERR_FILE_ENDOFDATA:            return "End of current chunk reached while trying to read data.";

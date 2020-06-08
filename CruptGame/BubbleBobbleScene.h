@@ -26,9 +26,8 @@ namespace crupt
 		JumpSystem* m_pJumpSystem;
 		TileMapSystem* m_pTileMapSystem;
 
-		/*FMOD::Channel* m_pChannel;
+		FMOD::Channel* m_pChannel;
 		FMOD::Sound* m_pBGMusic;
-		FMOD::System* m_pFmodSystem = nullptr;*/
 	};
 }
 
