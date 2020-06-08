@@ -3,10 +3,6 @@
 #include "Components.h"
 #include "ResourceManager.h"
 #include "InputManager.h"
-#include <tmxlite/Map.hpp>
-#include <tmxlite/ObjectGroup.hpp>
-#include <tmxlite/LayerGroup.hpp>
-#include <tmxlite/TileLayer.hpp>
 
 
 #include <iostream>

@@ -1,6 +1,6 @@
 #pragma once
 #include "GameScene.h"
-#include "tmxlite\Tileset.hpp"
+#include "Tileset.hpp"
 #include <map>
 
 namespace crupt

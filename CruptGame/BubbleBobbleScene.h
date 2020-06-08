@@ -1,6 +1,6 @@
 #pragma once
 #include "GameScene.h"
-#include "tmxlite\Tileset.hpp"
+#include "Tileset.hpp"
 #include <map>
 
 namespace crupt
@@ -26,7 +26,9 @@ namespace crupt
 		JumpSystem* m_pJumpSystem;
 		TileMapSystem* m_pTileMapSystem;
 
-		FMOD::Channel* m_pChannel;
+		/*FMOD::Channel* m_pChannel;
+		FMOD::Sound* m_pBGMusic;
+		FMOD::System* m_pFmodSystem = nullptr;*/
 	};
 }
 

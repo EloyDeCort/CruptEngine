@@ -27,8 +27,8 @@ source distribution.
 
 #pragma once
 
-#include <tmxlite/Layer.hpp>
-#include <tmxlite/Types.hpp>
+#include <Layer.hpp>
+#include <Types.hpp>
 
 namespace tmx
 {
@@ -102,7 +102,7 @@ namespace tmx
     };
 
     template <>
-    inline tmx::TileLayer& tmx::Layer::getLayerAs<TileLayer>()
+    inline TileLayer& Layer::getLayerAs<TileLayer>()
     {
         assert(getType() == Type::Tile);
         return *dynamic_cast<TileLayer*>(this);

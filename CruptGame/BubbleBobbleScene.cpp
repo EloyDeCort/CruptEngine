@@ -21,8 +21,29 @@ void crupt::BubbleBobbleScene::Init()
 {
 	InitSystems();
 	InitEntities();
+	
+	//unsigned int version;
+	//int numdrivers;
 
+	///*
+	//Create a System object and initialize.
+	//*/
+	//FMOD_RESULT result = FMOD::System_Create(&m_pFmodSystem);
+	//result = m_pFmodSystem->getVersion(&version);
 
+	//result = m_pFmodSystem->getNumDrivers(&numdrivers);
+	//if (numdrivers == 0)
+	//{
+	//	result = m_pFmodSystem->setOutput(FMOD_OUTPUTTYPE_NOSOUND);
+	//}
+	//else
+	//{
+	//	result = m_pFmodSystem->init(32, FMOD_INIT_NORMAL, nullptr);
+	//}
+
+	//FMOD_RESULT fmodResult;
+	//fmodResult = m_pFmodSystem->createStream("././Resources/Sounds/BG/BeamEmUp.wav", FMOD_DEFAULT, 0, &m_pBGMusic);		// FMOD_DEFAULT uses the defaults.  These are the same as FMOD_LOOP_OFF | FMOD_2D.
+	//m_pBGMusic->setMode(FMOD_LOOP_NORMAL);
 }
 
 void crupt::BubbleBobbleScene::InitSystems()

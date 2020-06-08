@@ -27,9 +27,9 @@ source distribution.
 
 #pragma once
 
-#include <tmxlite/Config.hpp>
-#include <tmxlite/Property.hpp>
-#include <tmxlite/ObjectGroup.hpp>
+#include <Config.hpp>
+#include <Property.hpp>
+#include <ObjectGroup.hpp>
 
 #include <string>
 #include <vector>
@@ -99,7 +99,7 @@ namespace tmx
         struct Terrain final
         {
             std::string name;
-            std::uint32_t tileID =  std::uint32_t(-1);
+            std::uint32_t tileID = std::uint32_t(-1);
             std::vector<Property> properties;
         };
 
@@ -163,6 +163,10 @@ namespace tmx
         */
         const std::string getImagePath() const { return m_imagePath; }
         /*!
+        \brief Returns the size of the tile set image in pixels.
+         */
+        const Vector2u& getImageSize() const { return m_imageSize; }
+        /*!
         \brief Returns the colour used by the tile map image to represent transparency.
         By default this is a transparent colour (0, 0, 0, 0)
         */
@@ -214,6 +218,7 @@ namespace tmx
 
         std::vector<Property> m_properties;
         std::string m_imagePath;
+        Vector2u m_imageSize;
         Colour m_transparencyColour;
         bool m_hasTransparency;
 

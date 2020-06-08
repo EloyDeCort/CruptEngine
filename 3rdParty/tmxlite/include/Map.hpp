@@ -27,11 +27,11 @@ source distribution.
 
 #pragma once
 
-#include <tmxlite/Tileset.hpp>
-#include <tmxlite/Layer.hpp>
-#include <tmxlite/Property.hpp>
-#include <tmxlite/Types.hpp>
-#include <tmxlite/Object.hpp>
+#include <Tileset.hpp>
+#include <Layer.hpp>
+#include <Property.hpp>
+#include <Types.hpp>
+#include <Object.hpp>
 
 #include <string>
 #include <vector>
@@ -107,6 +107,15 @@ namespace tmx
         In debug mode this will attempt to log any errors to the console.
         */
         bool load(const std::string&);
+
+        /*!
+        \brief Loads a map from a document stored in a string
+        \param data A std::string containing the map data to load
+        \param workingDir A std::string containing the working directory
+        in which to find assets such as tile sets or images
+        \returns true if successful, else false
+        */
+        bool loadFromString(const std::string& data, const std::string& workingDir);
 
         /*!
         \brief Returns the version of the tile map last parsed.
@@ -237,6 +246,8 @@ namespace tmx
 
         std::unordered_map<std::string, Object> m_templateObjects;
         std::unordered_map<std::string, Tileset> m_templateTilesets;
+
+        bool parseMapNode(const pugi::xml_node&);
 
         //always returns false so we can return this
         //on load failure

@@ -16,9 +16,6 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{405063ad-03fa-4991-ba80-b8c9876625ab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TileMap">
-      <UniqueIdentifier>{65ab9862-4a7d-4fd0-bf6f-965f66e04977}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Components">
       <UniqueIdentifier>{67a251ef-dd76-4585-ac89-aed2c5e9c063}</UniqueIdentifier>
     </Filter>
@@ -36,39 +33,6 @@
     <ClCompile Include="DemoScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="3rdParty\TileParser\tmxlite\FreeFuncs.cpp">
-      <Filter>TileMap</Filter>
-    </ClCompile>
-    <ClCompile Include="3rdParty\TileParser\tmxlite\ImageLayer.cpp">
-      <Filter>TileMap</Filter>
-    </ClCompile>
-    <ClCompile Include="3rdParty\TileParser\tmxlite\LayerGroup.cpp">
-      <Filter>TileMap</Filter>
-    </ClCompile>
-    <ClCompile Include="3rdParty\TileParser\tmxlite\Map.cpp">
-      <Filter>TileMap</Filter>
-    </ClCompile>
-    <ClCompile Include="3rdParty\TileParser\tmxlite\miniz.c">
-      <Filter>TileMap</Filter>
-    </ClCompile>
-    <ClCompile Include="3rdParty\TileParser\tmxlite\Object.cpp">
-      <Filter>TileMap</Filter>
-    </ClCompile>
-    <ClCompile Include="3rdParty\TileParser\tmxlite\ObjectGroup.cpp">
-      <Filter>TileMap</Filter>
-    </ClCompile>
-    <ClCompile Include="3rdParty\TileParser\tmxlite\Property.cpp">
-      <Filter>TileMap</Filter>
-    </ClCompile>
-    <ClCompile Include="3rdParty\TileParser\tmxlite\detail\pugixml.cpp">
-      <Filter>TileMap</Filter>
-    </ClCompile>
-    <ClCompile Include="3rdParty\TileParser\tmxlite\TileLayer.cpp">
-      <Filter>TileMap</Filter>
-    </ClCompile>
-    <ClCompile Include="3rdParty\TileParser\tmxlite\Tileset.cpp">
-      <Filter>TileMap</Filter>
-    </ClCompile>
     <ClCompile Include="BubbleBobbleScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
@@ -85,57 +49,6 @@
     </ClInclude>
     <ClInclude Include="DemoScene.h">
       <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\detail\Android.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\Config.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\FreeFuncs.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\ImageLayer.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\Layer.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\LayerGroup.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\detail\Log.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\Map.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\miniz.h">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\Object.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\ObjectGroup.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\Property.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\detail\pugiconfig.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\detail\pugixml.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\TileLayer.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\Tileset.hpp">
-      <Filter>TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\Types.hpp">
-      <Filter>TileMap</Filter>
     </ClInclude>
     <ClInclude Include="BubbleBobbleScene.h">
       <Filter>Scenes</Filter>
@@ -155,10 +68,5 @@
     <ClInclude Include="BBMainMenuScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="3rdParty\TileParser\tmxlite\Types.inl">
-      <Filter>TileMap</Filter>
-    </None>
   </ItemGroup>
 </Project>

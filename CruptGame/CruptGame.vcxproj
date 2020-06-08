@@ -93,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)3rdParty\FMOD\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)3rdParty\tmxlite\include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>Default</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -102,8 +102,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;xinput.lib;Shell32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2_image\lib\x86;$(SolutionDir)3rdParty\SDL2\lib\x86;$(SolutionDir)3rdParty\FMOD\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;xinput.lib;Shell32.lib;libtmxlite-s-d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2_image\lib\x86;$(SolutionDir)3rdParty\SDL2\lib\x86;$(SolutionDir)3rdParty\tmxlite\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)3rdParty\FMOD\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)3rdParty\tmxlite\include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>Default</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -121,8 +121,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;xinput.lib;Shell32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;$(SolutionDir)3rdParty\SDL2\lib\x64;$(SolutionDir)3rdParty\FMOD\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;xinput.lib;Shell32.lib;libtmxlite-s-d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;$(SolutionDir)3rdParty\SDL2\lib\x64;$(SolutionDir)3rdParty\tmxlite\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -133,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)3rdParty\FMOD\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)3rdParty\tmxlite\include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>CruptEnginePCH.h</PrecompiledHeaderFile>
@@ -143,8 +143,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2_image\lib\x86;$(SolutionDir)3rdParty\SDL2\lib\x86;$(SolutionDir)3rdParty\FMOD\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;xinput.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2_image\lib\x86;$(SolutionDir)3rdParty\SDL2\lib\x86;$(SolutionDir)3rdParty\tmxlite\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;xinput.lib;Shell32.lib;libtmxlite-s.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,7 +155,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)3rdParty\FMOD\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CruptEngine;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)CruptGame\3rdParty\TileParser;$(SolutionDir)3rdParty\tmxlite\include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>CruptEnginePCH.h</PrecompiledHeaderFile>
@@ -165,22 +165,11 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;$(SolutionDir)3rdParty\SDL2\lib\x64;$(SolutionDir)3rdParty\FMOD\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;xinput.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;$(SolutionDir)3rdParty\SDL2\lib\x64;$(SolutionDir)3rdParty\tmxlite\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;xinput.lib;Shell32.lib;libtmxlite-s.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="3rdParty\TileParser\tmxlite\detail\pugixml.cpp" />
-    <ClCompile Include="3rdParty\TileParser\tmxlite\FreeFuncs.cpp" />
-    <ClCompile Include="3rdParty\TileParser\tmxlite\ImageLayer.cpp" />
-    <ClCompile Include="3rdParty\TileParser\tmxlite\LayerGroup.cpp" />
-    <ClCompile Include="3rdParty\TileParser\tmxlite\Map.cpp" />
-    <ClCompile Include="3rdParty\TileParser\tmxlite\miniz.c" />
-    <ClCompile Include="3rdParty\TileParser\tmxlite\Object.cpp" />
-    <ClCompile Include="3rdParty\TileParser\tmxlite\ObjectGroup.cpp" />
-    <ClCompile Include="3rdParty\TileParser\tmxlite\Property.cpp" />
-    <ClCompile Include="3rdParty\TileParser\tmxlite\TileLayer.cpp" />
-    <ClCompile Include="3rdParty\TileParser\tmxlite\Tileset.cpp" />
     <ClCompile Include="BBMainMenuScene.cpp" />
     <ClCompile Include="BubbleBobbleScene.cpp" />
     <ClCompile Include="DemoScene.cpp" />
@@ -194,23 +183,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="3rdParty\TileParser\tmxlite\Config.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\detail\Android.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\detail\Log.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\detail\pugiconfig.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\detail\pugixml.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\FreeFuncs.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\ImageLayer.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\Layer.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\LayerGroup.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\Map.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\miniz.h" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\Object.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\ObjectGroup.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\Property.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\TileLayer.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\Tileset.hpp" />
-    <ClInclude Include="3rdParty\TileParser\tmxlite\Types.hpp" />
     <ClInclude Include="BBMainMenuScene.h" />
     <ClInclude Include="BubbleBobbleScene.h" />
     <ClInclude Include="DemoScene.h" />
@@ -219,9 +191,6 @@
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="TileMapComponent.h" />
     <ClInclude Include="TileMapSystem.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="3rdParty\TileParser\tmxlite\Types.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

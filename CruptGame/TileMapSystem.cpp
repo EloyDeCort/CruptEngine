@@ -1,10 +1,10 @@
 #include "CruptEnginePCH.h"
 #include "TileMapSystem.h"
 #include <SDL.h>
-#include <tmxlite/Map.hpp>
-#include <tmxlite/ObjectGroup.hpp>
-#include <tmxlite/LayerGroup.hpp>
-#include <tmxlite/TileLayer.hpp>
+#include <Map.hpp>
+#include <ObjectGroup.hpp>
+#include <LayerGroup.hpp>
+#include <TileLayer.hpp>
 #include "ResourceManager.h"
 #include <iostream>
 

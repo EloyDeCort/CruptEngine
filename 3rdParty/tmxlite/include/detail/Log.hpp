@@ -128,7 +128,7 @@ namespace tmx
 
 #ifdef _MSC_VER
                 outstring += "\n";
-                OutputDebugString(LPWSTR(outstring.c_str()));
+                OutputDebugString(outstring.c_str());
 #endif //_MSC_VER
             }
             if (output == Output::File || output == Output::All)
