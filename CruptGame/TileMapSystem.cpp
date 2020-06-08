@@ -5,6 +5,7 @@
 #include <tmxlite/LayerGroup.hpp>
 #include <tmxlite/TileLayer.hpp>
 #include "ResourceManager.h"
+#include <iostream>
 
 //We make use of TMXLite to parse simple .tmx files.
 //TMX Files are made & provided with the program "TILED".
@@ -74,14 +75,18 @@ bool crupt::TileMapSystem::AddLevel(const std::string& loc)
 		//Check if the layer contains tiles
 		if(layer->getType() != tmx::Layer::Type::Tile)
 		{
+			if(layer->getType() == tmx::Layer::Type::Object)
+			{
+				std::cout << "OBJECT\n";
+			}
 			continue;
 		}
 
 		//If we have a tile layer, we can cast it to one.
-		auto* tileLayer = dynamic_cast<const tmx::TileLayer*>(layer.get());
+		const tmx::TileLayer& tileLayer = layer->getLayerAs<tmx::TileLayer>();
 
 		//Get all the tiles from the layer.
-		const std::vector<tmx::TileLayer::Tile>& layerTiles = tileLayer->getTiles();
+		const std::vector<tmx::TileLayer::Tile>& layerTiles = tileLayer.getTiles();
 		 for (unsigned int y = 0; y < rows; ++y) 
 		 {
             for (unsigned int x = 0; x < cols; ++x) 

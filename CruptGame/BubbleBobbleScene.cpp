@@ -21,6 +21,8 @@ void crupt::BubbleBobbleScene::Init()
 {
 	InitSystems();
 	InitEntities();
+
+
 }
 
 void crupt::BubbleBobbleScene::InitSystems()
