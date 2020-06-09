@@ -73,6 +73,7 @@ void crupt::CruptEngine::Run()
 	{
 		//crupt::SceneManager& sceneManager = SceneManager::GetInstance();
 		crupt::InputManager& input = InputManager::GetInstance();
+		input.Init();
 
 		bool doContinue = true;
 		std::chrono::steady_clock::time_point lastTime = high_resolution_clock::now();

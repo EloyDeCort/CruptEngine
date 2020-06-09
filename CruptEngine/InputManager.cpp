@@ -7,19 +7,142 @@
 #include "ICommand.h"
 #include <SDL.h>
 
-crupt::InputManager::InputManager()
+
+void crupt::InputManager::Init()
 {
 	m_pInvoker = &Invoker::GetInstance();
 }
 
 crupt::InputManager::~InputManager()
 {
+	for(std::pair<std::string, ICommand*> command : m_CommandMap)
+	{
+		delete command.second;
+	}
+
+	m_BindingMap.clear();
+	m_CommandMap.clear();
 }
+
+void crupt::InputManager::AddBinding(const std::string& eventName, Binding newBinding)
+{
+	m_BindingMap[eventName] = newBinding;
+}
+
+void crupt::InputManager::Rebind(const std::string& eventName, Binding newBinding)
+{
+	m_BindingMap[eventName] = newBinding;
+}
+
+void crupt::InputManager::AddCommand(const std::string& eventName, ICommand* pCommand)
+{
+	m_CommandMap[eventName] = pCommand;
+}
+
+bool crupt::InputManager::FindBinding(const std::string& key) const
+{
+	std::unordered_map<std::string, Binding>::const_iterator it = m_BindingMap.find(key);
+	if(it != m_BindingMap.end())
+	{
+		return true;
+	}
+	return false;
+}
+bool crupt::InputManager::FindCommand(const std::string& key) const
+{
+	std::unordered_map<std::string, ICommand*>::const_iterator it = m_CommandMap.find(key);
+	if(it != m_CommandMap.end())
+	{
+		return true;
+	}
+	return false;
+}
+
 
 bool crupt::InputManager::ProcessInput()
 {
+	for(int i{}; i < 256; ++i)
+	{
+		m_PreviousKBState[i] = m_CurrentKBState[i];
+	}
+
+	m_PreviousState = m_CurrentState;
+
+	int playerID{-1};
+	//Clear/Zero out the memory on the state location
 	ZeroMemory(&m_CurrentState, sizeof(XINPUT_STATE));
-	XInputGetState(0, &m_CurrentState);
+
+	for(DWORD i{}; i < XUSER_MAX_COUNT && playerID == -1; ++i)
+	{
+		ZeroMemory(&m_CurrentState, sizeof(XINPUT_STATE));
+		if(XInputGetState(i, &m_CurrentState) == ERROR_SUCCESS)
+			playerID = i;
+	}
+
+	for(int i = 0; i < 256; i++) 
+	{
+        m_CurrentKBState[i] = GetAsyncKeyState(i);
+    }
+
+
+	std::unordered_map<std::string, ICommand*>::iterator it;
+	for(it = m_CommandMap.begin(); it != m_CommandMap.end(); ++it)
+	{
+		HandleCommand(it->first);
+	}
+
+	m_pInvoker->Update();
+
+	return ProcessQuit();
+
+	//if(playerID != -1)
+	//{
+	//	//std::cout << "Controller Found!" << std::endl;
+	//	return true;
+	//}
+	//else
+	//{
+	//	//std::cout << "No Controller Found!" << std::endl;
+	//	return false;
+	//}
+	
+}
+
+void crupt::InputManager::HandleCommand(const std::string& eventName)
+{
+	if(IsActivated(eventName))
+	{
+		m_CommandMap[eventName]->Execute();
+	}
+}
+
+bool crupt::InputManager::IsActivated(const std::string& eventName)
+{
+	return IsPressed(m_BindingMap[eventName]);
+}
+
+bool crupt::InputManager::IsPressed(Binding button) const
+{
+	// todo: return whether the given button is pressed or not.
+	DWORD xButton{DWORD(button.GamePadButton)};
+
+	if ((m_CurrentState.Gamepad.wButtons & xButton) != 0 && (m_PreviousState.Gamepad.wButtons & xButton) == 0)
+	{
+		return true;
+	}
+
+
+	if((m_CurrentKBState[button.KeyboardKey] != 0) && (m_PreviousKBState[button.KeyboardKey] == 0))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+
+bool crupt::InputManager::ProcessQuit()
+{
 	ImGuiIO& io = ImGui::GetIO();
 	int mouseX, mouseY;
 	const int buttons = SDL_GetMouseState(&mouseX, &mouseY);
@@ -35,48 +158,12 @@ bool crupt::InputManager::ProcessInput()
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) 
 	{
-		ImGui_ImplSDL2_ProcessEvent(&e);
-		if (e.type == SDL_QUIT) {
+		//ImGui_ImplSDL2_ProcessEvent(&e);
+		if (e.type == SDL_QUIT)
+		{
 			return false;
 		}
-		if (e.type == SDL_KEYDOWN) {
-			
-		}
-		if (e.type == SDL_KEYUP) 
-		{
-			if(e.key.keysym.sym == SDLK_SPACE)
-			{
-				m_pInvoker->AddCommand(new JumpCommand(m_pPlayer));
-			}
-		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			
-		}
 	}
-
-	m_pInvoker->Update();
 
 	return true;
 }
-
-bool crupt::InputManager::IsPressed(ControllerButton button) const
-{
-	switch (button)
-	{
-	case ControllerButton::ButtonA:
-		return m_CurrentState.Gamepad.wButtons & XINPUT_GAMEPAD_A;
-	case ControllerButton::ButtonB:
-		return m_CurrentState.Gamepad.wButtons & XINPUT_GAMEPAD_B;
-	case ControllerButton::ButtonX:
-		return m_CurrentState.Gamepad.wButtons & XINPUT_GAMEPAD_X;
-	case ControllerButton::ButtonY:
-		return m_CurrentState.Gamepad.wButtons & XINPUT_GAMEPAD_Y;
-	default: return false;
-	}
-}
-
-void crupt::InputManager::SetPlayer(Entity entity)
-{
-	m_pPlayer = entity;
-}
-

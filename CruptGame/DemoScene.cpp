@@ -49,7 +49,6 @@ void crupt::DemoScene::Init()
     Entity logo = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<RenderableComponent>(logo, RenderableComponent{ResourceManager::GetInstance().LoadTexture("logo.png",renderer)});
 	pCoordinator.AddComponent<TransformComponent>(logo, TransformComponent{glm::vec3(216.f,180.f,0.f)});
-    InputManager::GetInstance().SetPlayer(logo);
 
 }
 

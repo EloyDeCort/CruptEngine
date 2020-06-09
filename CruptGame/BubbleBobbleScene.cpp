@@ -5,6 +5,7 @@
 #include "InputManager.h"
 #include "GameSystems.h"
 #include "GameComponents.h"
+#include "ICommand.h"
 #include <SDL.h>
 
 
@@ -65,7 +66,11 @@ void crupt::BubbleBobbleScene::InitEntities()
 	pCoordinator.AddComponent<SpriteComponent>(player1, spriteComp);
 	pCoordinator.AddComponent<RenderableComponent>(player1, RenderableComponent{ResourceManager::GetInstance().LoadTexture("Bubblun.png",renderer)});
 	pCoordinator.AddComponent<TransformComponent>(player1, TransformComponent{glm::vec3(0.f,0.f,0.f)});
-	InputManager::GetInstance().SetPlayer(player1);
+
+	InputManager& inputManager = InputManager::GetInstance();
+
+	inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, VK_SPACE});
+	inputManager.AddCommand("JumpP1", new JumpCommand(player1));
 }
 
 void crupt::BubbleBobbleScene::Update(float dt)
