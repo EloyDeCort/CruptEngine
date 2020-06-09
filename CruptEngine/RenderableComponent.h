@@ -7,6 +7,7 @@ namespace crupt
 	struct RenderableComponent
 	{
 		Texture2D* m_Texture{};
-		SDL_Rect srcRect{0,0,0,0};
+		SDL_Rect m_SrcRect{0,0,0,0};
+		int m_ScaleFactor{1};
 	};
 }

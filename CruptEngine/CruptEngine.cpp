@@ -162,5 +162,5 @@ void crupt::CruptEngine::RegisterSystems()
 		signature.set(pCoordinator.GetComponentType<TransformComponent>());
 		pCoordinator.SetSystemSignature<SpriteSystem>(signature);
 	}
-	spriteSystem->Init(m_pRenderSystem->GetSDLRenderer());
+	spriteSystem->Init();
 }

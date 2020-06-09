@@ -1,17 +1,31 @@
 #include "CruptEnginePCH.h"
 #include "Invoker.h"
+using namespace crupt;
 
-crupt::Invoker::Invoker(ICommand* moveCommand)
+Invoker::Invoker()
+	: m_CommandBuffer{}
 {
-	m_CommandMap[moveCommand->GetName()] = moveCommand;
+	
 }
 
-void crupt::Invoker::HandleCommand(const std::string& command)
+Invoker::~Invoker()
 {
-	//Check if in map, if it is --> Execute
-	std::unordered_map<std::string, ICommand*>::iterator it = m_CommandMap.find(command);
-	if(it != m_CommandMap.end())
+	
+}
+
+void Invoker::AddCommand(ICommand* command)
+{
+	m_CommandBuffer.push(command);
+}
+
+void crupt::Invoker::Update()
+{
+	if(m_CommandBuffer.size() > 0)
 	{
-		it->second->Execute();
+		ICommand* command = m_CommandBuffer.front();
+		command->Execute();
+		m_CommandBuffer.pop();
+		delete command;
+		command = nullptr;
 	}
 }

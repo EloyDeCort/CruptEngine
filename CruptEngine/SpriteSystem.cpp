@@ -10,9 +10,9 @@ SpriteSystem::~SpriteSystem()
 
 }
 
-void SpriteSystem::Init(SDL_Renderer* renderer)
+void SpriteSystem::Init()
 {
-	m_Renderer = renderer;
+
 }
 
 void SpriteSystem::Update(float dt)
@@ -27,7 +27,7 @@ void SpriteSystem::Update(float dt)
 		SDL_Texture* tex = renderComp.m_Texture->GetSDLTexture();
 
 		spriteComp.m_TotalTime += dt;
-		spriteComp.m_CurrentFrame = int(spriteComp.m_TotalTime * spriteComp.m_AnimationRate) % spriteComp.m_FrameCount;
+		spriteComp.m_CurrentFrame = int(fmod((spriteComp.m_TotalTime * spriteComp.m_AnimationRate), spriteComp.m_FrameCount));
 
 		int width{};
 		int height{};
@@ -38,19 +38,8 @@ void SpriteSystem::Update(float dt)
 		rect.w = width / spriteComp.m_FrameCount;
 		rect.y = 0;
 		rect.x = rect.w * spriteComp.m_CurrentFrame;
-		renderComp.srcRect = rect;
+		renderComp.m_SrcRect = rect;
+		renderComp.m_ScaleFactor = spriteComp.m_ScaleFactor;
 	}
-
-	SDL_SetRenderTarget(m_Renderer, nullptr);
 }
 
-void SpriteSystem::RenderTexture(const Texture2D& texture, const float x, const float y, SDL_Rect* srcRect) const
-{
-	SDL_Rect dst;
-	dst.x = static_cast<int>(x) + 40;
-	dst.y = static_cast<int>(y) + 40;
-	dst.w = srcRect->w;
-	dst.h = srcRect->h;
-
-	SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), srcRect, &dst);
-}

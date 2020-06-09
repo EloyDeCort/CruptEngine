@@ -42,10 +42,18 @@ namespace crupt
 		template<typename T>
 		void AddComponent(Entity entity, T component)
 		{
-			//Add the component to the manager
-			ComponentManager::GetInstance().AddComponent(entity, component);
 			//get reference to the signature of the entity
 			Signature signature{EntityManager::GetInstance().GetSignature(entity)};
+
+			//Making sure that the bit is not set yet (else we have a duplicate component)
+			if(signature.test(ComponentManager::GetInstance().GetComponentType<T>()))
+			{
+				return;
+			}
+
+			//Add the component to the manager
+			ComponentManager::GetInstance().AddComponent(entity, component);
+	
 			//set the signature of the entity to include the new component
 			signature.set(ComponentManager::GetInstance().GetComponentType<T>(), true);
 			EntityManager::GetInstance().SetSignature(entity, signature);

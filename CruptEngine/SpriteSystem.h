@@ -12,13 +12,10 @@ namespace crupt
 	{
 	public:
 		virtual ~SpriteSystem();
-		void Init(SDL_Renderer* renderer);
+		void Init();
 		void Update(float dt);
 
 	private:
-		void RenderTexture(const Texture2D& texture, float x, float y, SDL_Rect* srcRect) const;
-		//Member variables
-		SDL_Renderer* m_Renderer{};
 	};
 }
 

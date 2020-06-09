@@ -31,5 +31,4 @@ void crupt::JumpSystem::Update(float dt)
 	{
 		coordinator->RemoveComponent<JumpComponent>(entity);
 	}
-	
 }

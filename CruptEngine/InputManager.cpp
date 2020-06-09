@@ -7,6 +7,15 @@
 #include "ICommand.h"
 #include <SDL.h>
 
+crupt::InputManager::InputManager()
+{
+	m_pInvoker = &Invoker::GetInstance();
+}
+
+crupt::InputManager::~InputManager()
+{
+}
+
 bool crupt::InputManager::ProcessInput()
 {
 	ZeroMemory(&m_CurrentState, sizeof(XINPUT_STATE));
@@ -23,7 +32,6 @@ bool crupt::InputManager::ProcessInput()
 	io.MouseDown[1] = buttons & SDL_BUTTON(SDL_BUTTON_RIGHT);
 	io.MouseWheel = static_cast<float>(wheel);
 
-
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) 
 	{
@@ -34,13 +42,15 @@ bool crupt::InputManager::ProcessInput()
 		if (e.type == SDL_KEYDOWN) {
 			if(e.key.keysym.sym == SDLK_SPACE)
 			{
-				m_pInvoker->HandleCommand("JumpCommand");
+				m_pInvoker->AddCommand(new JumpCommand(m_pPlayer));
 			}
 		}
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 			
 		}
 	}
+
+	m_pInvoker->Update();
 
 	return true;
 }
@@ -64,7 +74,6 @@ bool crupt::InputManager::IsPressed(ControllerButton button) const
 void crupt::InputManager::SetPlayer(Entity entity)
 {
 	m_pPlayer = entity;
-	m_pInvoker = new Invoker(new JumpCommand(entity));
-
+	//m_pInvoker = new Invoker(new JumpCommand(entity));
 }
 

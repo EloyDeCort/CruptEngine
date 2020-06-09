@@ -1,17 +1,19 @@
 #pragma once
 #include "ICommand.h"
-#include <unordered_map>
+#include <queue>
+#include "Singleton.h"
 
 namespace crupt
 {
-	class Invoker
+	class Invoker : public Singleton<Invoker>
 	{
 	public:
-		Invoker(ICommand* moveCommand);
-		void HandleCommand(const std::string& command);
-
+		Invoker();
+		~Invoker();
+		void AddCommand(ICommand* command);
+		void Update();
 	private:
-		std::unordered_map<std::string, ICommand*> m_CommandMap;
+		std::queue<ICommand*> m_CommandBuffer;
 	};
 }
 

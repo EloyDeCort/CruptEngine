@@ -44,7 +44,7 @@ void RenderSystem::Render()
 		glm::vec3 pos = transform.position;
 
 		//Render the texture from the renderable component
-		RenderTexture(*rendererable.m_Texture, pos.x, pos.y, &rendererable.srcRect);
+		RenderTexture(*rendererable.m_Texture, pos.x, pos.y, &rendererable.m_SrcRect, rendererable.m_ScaleFactor);
 	}
 	
 	ImGuiDebug();
@@ -67,7 +67,7 @@ void RenderSystem::ImGuiDebug()
 	ImGuiSDL::Render(ImGui::GetDrawData());
 }
 
-void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const float y, const SDL_Rect* srcRect) const
+void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const float y, const SDL_Rect* srcRect, int scale) const
 {
 	SDL_Rect dst;
 	dst.x = static_cast<int>(x);
@@ -80,8 +80,8 @@ void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const 
 	}
 	else
 	{
-		dst.w = srcRect->w;
-		dst.h = srcRect->h;
+		dst.w = srcRect->w * scale;
+		dst.h = srcRect->h * scale;
 		SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), srcRect, &dst);
 	}
 }
@@ -104,7 +104,7 @@ void RenderSystem::Destroy()
 	}
 }
 
-void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height, const SDL_Rect* srcRect) const
+void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height, const SDL_Rect* srcRect, int scale) const
 {
 	SDL_Rect dst;
 	dst.x = static_cast<int>(x);
@@ -117,8 +117,8 @@ void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const 
 	}
 	else
 	{
-		dst.w = srcRect->w;
-		dst.h = srcRect->h;
+		dst.w = srcRect->w * scale;
+		dst.h = srcRect->h * scale;
 		SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), srcRect, &dst);
 	}
 }

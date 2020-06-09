@@ -8,5 +8,6 @@ namespace crupt
 		unsigned int m_CurrentFrame = 0;
 		int m_AnimationRate = 10;
 		float m_TotalTime = 0.f;
+		int m_ScaleFactor = 1;
 	};
 }
