@@ -40,6 +40,10 @@ bool crupt::InputManager::ProcessInput()
 			return false;
 		}
 		if (e.type == SDL_KEYDOWN) {
+			
+		}
+		if (e.type == SDL_KEYUP) 
+		{
 			if(e.key.keysym.sym == SDLK_SPACE)
 			{
 				m_pInvoker->AddCommand(new JumpCommand(m_pPlayer));

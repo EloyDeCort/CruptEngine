@@ -5,4 +5,3 @@
 #include "RenderableComponent.h"
 #include "JumpComponent.h"
 #include "SpriteComponent.h"
-#include "SignalComponent.h"

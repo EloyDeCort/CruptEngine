@@ -253,7 +253,6 @@ xcopy "$(SolutionDir)3rdParty\FMOD\lib\x64\*.dll" "$(OutputPath)" /R /Y</Command
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="SignalComponent.h" />
     <ClInclude Include="SignalHandler.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SoundManager.h" />
