@@ -108,6 +108,7 @@ void crupt::CruptEngine::RegisterComponents()
 	pCoordinator.RegisterComponent<FPSComponent>();
 	pCoordinator.RegisterComponent<JumpComponent>();
 	pCoordinator.RegisterComponent<SpriteComponent>();
+	pCoordinator.RegisterComponent<SignalComponent>();
 }
 
 void crupt::CruptEngine::RegisterSystems()

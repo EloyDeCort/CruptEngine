@@ -100,6 +100,12 @@ namespace crupt
 		}
 
 		template<typename T>
+		Signature GetSystemSignature()
+		{
+			return SystemManager::GetInstance().GetSignature<T>();
+		}
+
+		template<typename T>
 		T* GetSystem()
 		{
 			return SystemManager::GetInstance().GetSystem<T>();

@@ -36,7 +36,7 @@ void RenderSystem::Render()
 {	
 	//SDL_RenderClear(m_Renderer);
 	for (const Entity& entity : m_Entities)
-	{
+	{	
 		//Get the transform & Renderable component
 		const TransformComponent& transform = m_Coordinator->GetComponent<TransformComponent>(entity);
 		const RenderableComponent& rendererable = m_Coordinator->GetComponent<RenderableComponent>(entity);

@@ -7,12 +7,10 @@ using namespace crupt;
 
 SpriteSystem::~SpriteSystem()
 {
-
 }
 
 void SpriteSystem::Init()
 {
-
 }
 
 void SpriteSystem::Update(float dt)
@@ -42,4 +40,3 @@ void SpriteSystem::Update(float dt)
 		renderComp.m_ScaleFactor = spriteComp.m_ScaleFactor;
 	}
 }
-

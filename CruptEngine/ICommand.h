@@ -12,6 +12,9 @@ namespace crupt
 
 		virtual void Execute() = 0;
 		const std::string& GetName();
+		template <typename T>
+		void Dispatch(T signalComponent);
+
 	protected:
 		std::string m_Name;
 	};
@@ -27,4 +30,5 @@ namespace crupt
 	private:
 		Entity m_pReceiver;
 	};
+
 }

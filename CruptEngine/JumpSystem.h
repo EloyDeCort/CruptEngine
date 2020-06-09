@@ -1,5 +1,6 @@
 #pragma once
 #include "System.h"
+#include "Components.h"
 
 namespace crupt
 {
@@ -8,7 +9,7 @@ namespace crupt
 	public:
 		virtual ~JumpSystem();
 		void Init();
-		void Update(float dt);
+		void OnDispatch(JumpComponent component);
 
 	private:
 		float m_Time;

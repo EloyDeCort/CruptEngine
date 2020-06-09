@@ -49,6 +49,20 @@ namespace crupt
 		}
 
 		template<typename T>
+		Signature GetSignature(Signature)
+		{
+			//Get the name of the system
+			const char* typeName{typeid(T).name()};
+
+			//Check if system excists/is registered
+			if(m_Systems.find(typeName) == m_Systems.end())
+				throw std::exception("SystemManager<T>::GetSignature - [ERROR] System could not be found! (Did you register it?)");
+
+			//Get signature for the system
+			return m_Signatures.at({typeName});
+		}
+
+		template<typename T>
 		T* GetSystem()
 		{
 			//Get the name of the system

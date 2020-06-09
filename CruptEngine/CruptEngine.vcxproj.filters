@@ -156,6 +156,12 @@
     <ClInclude Include="SoundManager.h">
       <Filter>Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="SignalComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SignalHandler.h">
+      <Filter>Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CruptEngine.cpp">

@@ -23,7 +23,6 @@ void crupt::DemoScene::Init()
 	m_pRenderSystem = pCoordinator.GetSystem<RenderSystem>();
 	m_pTextSystem = pCoordinator.GetSystem<TextSystem>();
 	m_pFPSSystem = pCoordinator.GetSystem<FPSSystem>();
-	m_pJumpSystem = pCoordinator.GetSystem<JumpSystem>();
 
 
 	SDL_Renderer* renderer{m_pRenderSystem->GetSDLRenderer()};
@@ -59,8 +58,6 @@ void crupt::DemoScene::Update(float dt)
 	m_pFPSSystem->SetText(m_FpsCounter, "FPS: " + std::to_string(m_pFPSSystem->GetFPS(m_FpsCounter)));
 	m_pTextSystem->Update(dt);
 	m_pFPSSystem->Update(m_FpsCounter, dt);
-	m_pJumpSystem->Update(dt);
-
 }
 
 void crupt::DemoScene::Render()
