@@ -141,12 +141,6 @@
     <ClInclude Include="ICommand.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="JumpComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -214,9 +208,6 @@
     </ClCompile>
     <ClCompile Include="ICommand.cpp">
       <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="JumpSystem.cpp">
-      <Filter>Systems</Filter>
     </ClCompile>
     <ClCompile Include="SpriteSystem.cpp">
       <Filter>Systems</Filter>

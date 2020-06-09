@@ -247,8 +247,6 @@ xcopy "$(SolutionDir)3rdParty\FMOD\lib\x64\*.dll" "$(OutputPath)" /R /Y</Command
     <ClInclude Include="CruptEngine.h" />
     <ClInclude Include="CruptEnginePCH.h" />
     <ClInclude Include="Invoker.h" />
-    <ClInclude Include="JumpComponent.h" />
-    <ClInclude Include="JumpSystem.h" />
     <ClInclude Include="RenderableComponent.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -312,7 +310,6 @@ xcopy "$(SolutionDir)3rdParty\FMOD\lib\x64\*.dll" "$(OutputPath)" /R /Y</Command
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CruptEnginePCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Invoker.cpp" />
-    <ClCompile Include="JumpSystem.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />

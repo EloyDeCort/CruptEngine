@@ -173,6 +173,8 @@
     <ClCompile Include="BBMainMenuScene.cpp" />
     <ClCompile Include="BubbleBobbleScene.cpp" />
     <ClCompile Include="DemoScene.cpp" />
+    <ClCompile Include="GameCommands.cpp" />
+    <ClCompile Include="JumpSystem.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="TileMapSystem.cpp" />
@@ -186,8 +188,11 @@
     <ClInclude Include="BBMainMenuScene.h" />
     <ClInclude Include="BubbleBobbleScene.h" />
     <ClInclude Include="DemoScene.h" />
+    <ClInclude Include="GameCommands.h" />
     <ClInclude Include="GameComponents.h" />
     <ClInclude Include="GameSystems.h" />
+    <ClInclude Include="JumpComponent.h" />
+    <ClInclude Include="JumpSystem.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="TileMapComponent.h" />
     <ClInclude Include="TileMapSystem.h" />

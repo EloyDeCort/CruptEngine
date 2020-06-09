@@ -12,23 +12,8 @@ namespace crupt
 
 		virtual void Execute() = 0;
 		const std::string& GetName();
-		template <typename T>
-		void Dispatch(T signalComponent);
 
 	protected:
 		std::string m_Name;
 	};
-		
-
-	class JumpCommand : public ICommand
-	{
-	public:
-		JumpCommand(Entity pReceiver);	
-		virtual ~JumpCommand();
-
-		virtual void Execute() override;
-	private:
-		Entity m_pReceiver;
-	};
-
 }

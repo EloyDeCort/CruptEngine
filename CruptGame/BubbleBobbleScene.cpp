@@ -5,7 +5,7 @@
 #include "InputManager.h"
 #include "GameSystems.h"
 #include "GameComponents.h"
-#include "ICommand.h"
+#include "GameCommands.h"
 #include <SDL.h>
 
 
@@ -69,7 +69,7 @@ void crupt::BubbleBobbleScene::InitEntities()
 
 	InputManager& inputManager = InputManager::GetInstance();
 
-	inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, 'C', InputTriggerState::Pressed});
+	inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, 'C', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
 	inputManager.AddCommand("JumpP1", new JumpCommand(player1));
 }
 

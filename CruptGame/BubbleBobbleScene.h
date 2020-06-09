@@ -6,6 +6,7 @@
 namespace crupt
 {
 	class TileMapSystem;
+	class JumpSystem;
 	class BubbleBobbleScene : public GameScene
 	{
 	public:

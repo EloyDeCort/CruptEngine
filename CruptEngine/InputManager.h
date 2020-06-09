@@ -48,6 +48,7 @@ namespace crupt
 		ControllerButton GamePadButton;
 		int KeyboardKey;
 		InputTriggerState TriggerState;
+		GamepadIndex PlayerIndex = GamepadIndex::PlayerOne;
 	};
 
 	class ICommand;

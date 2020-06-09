@@ -187,7 +187,7 @@ bool crupt::InputManager::IsActivated(const std::string& eventName)
 
 bool crupt::InputManager::IsPressed(Binding button) const
 {
-	UINT pi = static_cast<UINT>(0);
+	UINT pi = static_cast<UINT>(button.PlayerIndex);
 	if (m_ConnectedGamepads[pi])
 	{
 		DWORD xButton{DWORD(button.GamePadButton)};
@@ -197,7 +197,6 @@ bool crupt::InputManager::IsPressed(Binding button) const
 			return true;
 		}
 	}
-
 
 	if((m_pCurrKeyboardState[button.KeyboardKey] & 0xF0) != 0 && (m_pOldKeyboardState[button.KeyboardKey] & 0xF0) == 0)
 	{
@@ -209,7 +208,7 @@ bool crupt::InputManager::IsPressed(Binding button) const
 
 bool crupt::InputManager::IsDown(Binding button) const
 {
-	UINT pi = static_cast<UINT>(0);
+	UINT pi = static_cast<UINT>(button.PlayerIndex);
 	if (m_ConnectedGamepads[pi])
 	{
 		DWORD xButton{DWORD(button.GamePadButton)};
@@ -219,7 +218,6 @@ bool crupt::InputManager::IsDown(Binding button) const
 			return true;
 		}
 	}
-
 
 	if((m_pCurrKeyboardState[button.KeyboardKey] & 0xF0) != 0 && (m_pOldKeyboardState[button.KeyboardKey] & 0xF0) != 0)
 	{
@@ -231,7 +229,7 @@ bool crupt::InputManager::IsDown(Binding button) const
 
 bool crupt::InputManager::IsReleased(Binding button) const
 {
-	UINT pi = static_cast<UINT>(0);
+	UINT pi = static_cast<UINT>(button.PlayerIndex);
 	if (m_ConnectedGamepads[pi])
 	{
 		DWORD xButton{DWORD(button.GamePadButton)};
@@ -241,7 +239,6 @@ bool crupt::InputManager::IsReleased(Binding button) const
 			return true;
 		}
 	}
-
 
 	if((m_pCurrKeyboardState[button.KeyboardKey] & 0xF0) == 0 && (m_pOldKeyboardState[button.KeyboardKey] & 0xF0) != 0)
 	{

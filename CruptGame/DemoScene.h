@@ -4,6 +4,7 @@
 
 namespace crupt
 {
+	class JumpSystem;
 	class DemoScene : public GameScene
 	{
 	public:
