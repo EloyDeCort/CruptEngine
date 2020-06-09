@@ -69,7 +69,7 @@ void crupt::BubbleBobbleScene::InitEntities()
 
 	InputManager& inputManager = InputManager::GetInstance();
 
-	inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, VK_SPACE});
+	inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, 'C', InputTriggerState::Pressed});
 	inputManager.AddCommand("JumpP1", new JumpCommand(player1));
 }
 

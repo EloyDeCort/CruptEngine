@@ -36,10 +36,18 @@ namespace crupt
 		ButtonY = XINPUT_GAMEPAD_Y
 	};
 
+	enum class InputTriggerState
+	{
+		Pressed,
+		Released,
+		Down
+	};
+
 	struct Binding
 	{
 		ControllerButton GamePadButton;
 		int KeyboardKey;
+		InputTriggerState TriggerState;
 	};
 
 	class ICommand;
@@ -59,23 +67,31 @@ namespace crupt
 		void HandleCommand(const std::string& eventName);
 		bool IsActivated(const std::string& eventName);
 		bool IsPressed(Binding button) const;
+		bool IsDown(Binding button) const;
+		bool IsReleased(Binding button) const;
 		bool FindBinding(const std::string& key) const;
 		bool FindCommand(const std::string& key) const;
 
 		void AddBinding(const std::string& eventName, Binding newBinding);
 		void Rebind(const std::string& eventName, Binding newBinding);
 
+		static void RefreshControllerConnections();
+
 	private:
 		Invoker* m_pInvoker;
 		Entity m_pPlayer;
 
+		static bool UpdateKeyboardStates();
+		static void UpdateGamepadStates();
 
-		XINPUT_STATE m_CurrentState;
-		XINPUT_STATE m_PreviousState;
+		static XINPUT_STATE m_OldGamepadState[XUSER_MAX_COUNT], m_CurrGamepadState[XUSER_MAX_COUNT];
+		static bool m_ConnectedGamepads[XUSER_MAX_COUNT];
+		static bool m_Enabled;
+		static bool m_ForceToCenter;
 		
 		XINPUT_GAMEPAD m_Gamepads;
-		SHORT m_CurrentKBState[256];
-		SHORT m_PreviousKBState[256];
+		static BYTE* m_pCurrKeyboardState, * m_pOldKeyboardState, * m_pKeyboardState0, * m_pKeyboardState1;
+		static bool m_KeyboardState0Active;
 
 		std::unordered_map<std::string, Binding> m_BindingMap;
 		std::unordered_map<std::string, ICommand*> m_CommandMap;

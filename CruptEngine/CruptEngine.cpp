@@ -69,7 +69,6 @@ void crupt::CruptEngine::Run()
 	RegisterSystems();
 
 	InitGame();
-
 	{
 		//crupt::SceneManager& sceneManager = SceneManager::GetInstance();
 		crupt::InputManager& input = InputManager::GetInstance();
@@ -91,8 +90,9 @@ void crupt::CruptEngine::Run()
 			//Render the scene
 			sceneManager.Render();
 			
-			lastTime = currentTime;
 			SDL_RenderPresent(m_pRenderSystem->GetSDLRenderer());
+
+			lastTime = currentTime;
 		}
 	}
 
