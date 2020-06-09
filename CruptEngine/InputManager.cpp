@@ -74,6 +74,5 @@ bool crupt::InputManager::IsPressed(ControllerButton button) const
 void crupt::InputManager::SetPlayer(Entity entity)
 {
 	m_pPlayer = entity;
-	//m_pInvoker = new Invoker(new JumpCommand(entity));
 }
 
