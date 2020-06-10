@@ -36,9 +36,6 @@
     <ClCompile Include="BubbleBobbleScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="TileMapSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
     <ClCompile Include="BBMainMenuScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
@@ -67,12 +64,6 @@
     </ClInclude>
     <ClInclude Include="GameSystems.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TileMapComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="TileMapSystem.h">
-      <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="BBMainMenuScene.h">
       <Filter>Scenes</Filter>

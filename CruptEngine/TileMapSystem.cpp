@@ -7,7 +7,7 @@
 #include <TileLayer.hpp>
 #include "ResourceManager.h"
 #include "ECSCoordinator.h"
-#include "GameComponents.h"
+#include "Components.h"
 #include <iostream>
 
 //We make use of TMXLite to parse simple .tmx files.

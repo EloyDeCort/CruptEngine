@@ -162,6 +162,12 @@
     <ClInclude Include="GravityComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="TileMapComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMapSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CruptEngine.cpp">
@@ -231,6 +237,9 @@
       <Filter>Helpers</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMapSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
   </ItemGroup>

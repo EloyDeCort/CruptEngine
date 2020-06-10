@@ -1,5 +1,4 @@
 #pragma once
-#include "TileMapComponent.h"
 
 //Player related components
 #include "PlayerStateComponent.h"

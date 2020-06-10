@@ -6,3 +6,4 @@
 #include "SpriteComponent.h"
 #include "GravityComponent.h"
 #include "VelocityComponent.h"
+#include "TileMapComponent.h"

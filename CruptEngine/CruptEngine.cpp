@@ -110,6 +110,7 @@ void crupt::CruptEngine::RegisterComponents()
 	pCoordinator.RegisterComponent<SpriteComponent>();
 	pCoordinator.RegisterComponent<VelocityComponent>();
 	pCoordinator.RegisterComponent<GravityComponent>();
+	pCoordinator.RegisterComponent<TileMapComponent>();
 }
 
 void crupt::CruptEngine::RegisterSystems()
@@ -166,4 +167,12 @@ void crupt::CruptEngine::RegisterSystems()
 		pCoordinator.SetSystemSignature<PhysicsSystem>(signature);
 	}
 	pPhysicsSystem->Init();
+
+	TileMapSystem* tileMapSystem = pCoordinator.RegisterSystem<TileMapSystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<TileMapComponent>());
+		pCoordinator.SetSystemSignature<TileMapSystem>(signature);
+	}
+	tileMapSystem->Init(m_pRenderSystem->GetSDLRenderer());
 }

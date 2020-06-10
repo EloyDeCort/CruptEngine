@@ -264,6 +264,8 @@ xcopy "$(SolutionDir)3rdParty\FMOD\lib\x64\*.dll" "$(OutputPath)" /R /Y</Command
     <ClInclude Include="TextComponent.h" />
     <ClInclude Include="TextSystem.h" />
     <ClInclude Include="Texture2D.h" />
+    <ClInclude Include="TileMapComponent.h" />
+    <ClInclude Include="TileMapSystem.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="VelocityComponent.h" />
   </ItemGroup>
@@ -322,6 +324,7 @@ xcopy "$(SolutionDir)3rdParty\FMOD\lib\x64\*.dll" "$(OutputPath)" /R /Y</Command
     <ClCompile Include="System.cpp" />
     <ClCompile Include="TextSystem.cpp" />
     <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="TileMapSystem.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
