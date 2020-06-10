@@ -9,6 +9,5 @@ namespace crupt
 		int m_AnimationRate = 10;
 		float m_TotalTime = 0.f;
 		int m_ScaleFactor = 1;
-
 	};
 }

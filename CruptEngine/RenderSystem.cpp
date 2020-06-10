@@ -39,12 +39,12 @@ void RenderSystem::Render()
 	{	
 		//Get the transform & Renderable component
 		const TransformComponent& transform = m_Coordinator->GetComponent<TransformComponent>(entity);
-		const RenderableComponent& rendererable = m_Coordinator->GetComponent<RenderableComponent>(entity);
+		const RenderableComponent& renderable = m_Coordinator->GetComponent<RenderableComponent>(entity);
 
 		glm::vec3 pos = transform.position;
 
 		//Render the texture from the renderable component
-		RenderTexture(*rendererable.m_Texture, pos.x, pos.y, &rendererable.m_SrcRect, rendererable.m_ScaleFactor);
+		RenderTexture(*renderable.m_Texture, pos.x, pos.y, &renderable.m_SrcRect, renderable.m_ScaleFactor, renderable.m_Flip);
 	}
 	
 	ImGuiDebug();
@@ -67,7 +67,7 @@ void RenderSystem::ImGuiDebug()
 	ImGuiSDL::Render(ImGui::GetDrawData());
 }
 
-void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const float y, const SDL_Rect* srcRect, int scale) const
+void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const float y, const SDL_Rect* srcRect, int scale, bool flip) const
 {
 	SDL_Rect dst;
 	dst.x = static_cast<int>(x);
@@ -82,7 +82,15 @@ void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const 
 	{
 		dst.w = srcRect->w * scale;
 		dst.h = srcRect->h * scale;
-		SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), srcRect, &dst);
+
+		if(flip)
+		{
+			SDL_RenderCopyEx(m_Renderer, texture.GetSDLTexture(), srcRect, &dst, 0.f, nullptr, SDL_FLIP_HORIZONTAL);
+		}
+		else
+		{
+			SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), srcRect, &dst);
+		}
 	}
 }
 
@@ -104,7 +112,7 @@ void RenderSystem::Destroy()
 	}
 }
 
-void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height, const SDL_Rect* srcRect, int scale) const
+void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height, const SDL_Rect* srcRect, int scale, bool flip) const
 {
 	SDL_Rect dst;
 	dst.x = static_cast<int>(x);
@@ -119,6 +127,13 @@ void RenderSystem::RenderTexture(const Texture2D& texture, const float x, const 
 	{
 		dst.w = srcRect->w * scale;
 		dst.h = srcRect->h * scale;
-		SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), srcRect, &dst);
+		if(flip)
+		{
+			SDL_RenderCopyEx(m_Renderer, texture.GetSDLTexture(), srcRect, &dst, 0.f, nullptr, SDL_FLIP_HORIZONTAL);
+		}
+		else
+		{
+			SDL_RenderCopy(m_Renderer, texture.GetSDLTexture(), srcRect, &dst);
+		}
 	}
 }

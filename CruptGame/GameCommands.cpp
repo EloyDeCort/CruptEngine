@@ -41,7 +41,7 @@ void crupt::MoveLeftCommand::Execute()
 	moveComp.m_Target = m_pReceiver;
 	if(!m_Stop)
 	{
-		moveComp.m_Speed = 0.2f;
+		moveComp.m_Speed = 200.f;
 		moveComp.m_xDirection = -1.f;
 	}
 	SignalHandler<MoveComponent>::GetInstance().Publish(moveComp);
@@ -64,7 +64,7 @@ void crupt::MoveRightCommand::Execute()
 	moveComp.m_Target = m_pReceiver;
 	if(!m_Stop)
 	{
-		moveComp.m_Speed = 0.2f;
+		moveComp.m_Speed = 200.f;
 		moveComp.m_xDirection = 1.f;
 	}
 	SignalHandler<MoveComponent>::GetInstance().Publish(moveComp);

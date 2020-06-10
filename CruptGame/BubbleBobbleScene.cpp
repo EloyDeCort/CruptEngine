@@ -34,6 +34,7 @@ void crupt::BubbleBobbleScene::InitSystems()
 	m_pFPSSystem = pCoordinator.GetSystem<FPSSystem>();
 	m_pTileMapSystem = pCoordinator.GetSystem<TileMapSystem>();
 	m_pSpriteSystem = pCoordinator.GetSystem<SpriteSystem>();
+	m_pPhysicsSystem = pCoordinator.GetSystem<PhysicsSystem>();
 }
 
 void crupt::BubbleBobbleScene::InitEntities()
@@ -87,6 +88,7 @@ void crupt::BubbleBobbleScene::Update(float dt)
 	m_pTextSystem->Update(dt);
 	m_pFPSSystem->Update(m_FpsCounter, dt);
 	m_pSpriteSystem->Update(dt);
+	m_pPhysicsSystem->Update(dt);
 }
 
 void crupt::BubbleBobbleScene::Render()

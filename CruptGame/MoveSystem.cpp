@@ -15,17 +15,17 @@ void crupt::MoveSystem::Init()
 void crupt::MoveSystem::OnDispatch(MoveComponent component)
 {
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
-	TransformComponent& transform = coordinator->GetComponent<TransformComponent>(component.m_Target);
-	//Jump (Temp)
-	transform;
-	transform.position.x += component.m_xDirection * component.m_Speed;
+	VelocityComponent& velocity = coordinator->GetComponent<VelocityComponent>(component.m_Target);
+	RenderableComponent& render = coordinator->GetComponent<RenderableComponent>(component.m_Target);
 
-	if(component.m_xDirection < 0.f)
+	if(component.m_xDirection > 0.f)
 	{
-		std::cout << "[LOG]: MOVING LEFT" << std::endl;
+		render.m_Flip = false;
 	}
 	else
 	{
-		std::cout << "[LOG]: MOVING RIGHT" << std::endl;
+		render.m_Flip = true;
 	}
+
+	velocity.m_xVelocity = component.m_Speed * component.m_xDirection;
 }

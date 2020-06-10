@@ -9,5 +9,6 @@ namespace crupt
 		Texture2D* m_Texture{};
 		SDL_Rect m_SrcRect{0,0,0,0};
 		int m_ScaleFactor{1};
+		bool m_Flip = false;
 	};
 }

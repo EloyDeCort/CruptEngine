@@ -26,6 +26,7 @@ namespace crupt
 		SpriteSystem* m_pSpriteSystem;
 		JumpSystem* m_pJumpSystem;
 		TileMapSystem* m_pTileMapSystem;
+		PhysicsSystem* m_pPhysicsSystem;
 
 		FMOD::Channel* m_pChannel;
 		FMOD::Sound* m_pBGMusic;

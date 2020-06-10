@@ -21,8 +21,8 @@ namespace crupt
 		SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
 	private:
 		//Helper Functions
-		void RenderTexture(const Texture2D& texture, float x, float y, const SDL_Rect* srcRect, int scale) const;
-		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height, const SDL_Rect* srcRect, int scale) const;
+		void RenderTexture(const Texture2D& texture, float x, float y, const SDL_Rect* srcRect, int scale, bool flip) const;
+		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height, const SDL_Rect* srcRect, int scale, bool flip) const;
 
 		void ImGuiDebug();
 
