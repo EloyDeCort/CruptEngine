@@ -7,6 +7,12 @@ struct SDL_Window;
 //Systems classes
 namespace crupt
 {
+	struct Settings
+	{
+		static const int m_WindowWidth = 640;
+		static const int m_WindowHeight = 530;
+	};
+
 	class CruptEngine
 	{
 	public:
@@ -20,11 +26,8 @@ namespace crupt
 	private:
 		void RegisterComponents();
 		void RegisterSystems();
-		static const int MsPerFrame = 16; //16 for 60 fps, 33 for 30 fps
+		//static const int MsPerFrame = 16; //16 for 60 fps, 33 for 30 fps
 		SDL_Window* m_Window{};
-
-		static const int m_WindowWidth = 640;
-		static const int m_WindowHeight = 530;
 
 	};
 }
