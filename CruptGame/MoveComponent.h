@@ -2,6 +2,7 @@
 
 namespace crupt
 {
+	//SIGNAL COMPONENT
 	struct MoveComponent
 	{
 		Entity m_Target;

@@ -52,6 +52,7 @@ void crupt::BubbleBobbleScene::InitEntities()
 	//Init the map entity
 	Entity map = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<TileMapComponent>(map, TileMapComponent{});
+	m_pTileMapSystem->InitMap(map);
 
 	//UI
 	Entity ui = pCoordinator.CreateEntity();

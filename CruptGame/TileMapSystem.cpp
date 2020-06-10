@@ -6,6 +6,8 @@
 #include <LayerGroup.hpp>
 #include <TileLayer.hpp>
 #include "ResourceManager.h"
+#include "ECSCoordinator.h"
+#include "GameComponents.h"
 #include <iostream>
 
 //We make use of TMXLite to parse simple .tmx files.
@@ -13,26 +15,33 @@
 //This allows for quick level creation & loading.
 
 crupt::TileMapSystem::TileMapSystem()
-	: m_CurrentLevel{0}
-	, m_TotalLevels{0}
-	, m_UIOffset{50}
+	: m_UIOffset{50}
 {
 }
 
 crupt::TileMapSystem::~TileMapSystem()
 {
-	for (size_t i{}; i < m_pTileTextures.size(); ++i)
+	for (size_t i{}; i < m_TileComp->m_pTileTextures.size(); ++i)
 	{
-		delete m_pTileTextures[i];
+		delete m_TileComp->m_pTileTextures[i];
 	}
 
-	m_pTileTextures.clear();
+	m_TileComp->m_pTileTextures.clear();
 
 }
 
 void crupt::TileMapSystem::Init(SDL_Renderer* renderer)
 {
 	m_pRenderer = renderer;
+}
+
+void crupt::TileMapSystem::InitMap(Entity mapEntity)
+{
+	//Store the entity for easily accessing its components
+	m_MapEntity = mapEntity;
+	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
+	m_TileComp = &coordinator->GetComponent<TileMapComponent>(m_MapEntity);
+
 	//Load tileset from the first map. 
 	//Since we are using the same tileset for all maps, we can simply load it once.
 	tmx::Map map;
@@ -47,7 +56,6 @@ void crupt::TileMapSystem::Init(SDL_Renderer* renderer)
 	AddLevel("../Data/Level1.tmx");
 	AddLevel("../Data/Level2.tmx");
 	AddLevel("../Data/Level3.tmx");
-
 }
 
 bool crupt::TileMapSystem::AddLevel(const std::string& loc)
@@ -100,34 +108,53 @@ bool crupt::TileMapSystem::AddLevel(const std::string& loc)
 					tempTile.xPos = size_t(x) * tileWidth;
 					tempTile.yPos = m_UIOffset + size_t(y) * tileHeight;
 					//Initialize the tile based on the position etc.
-					m_TilesMap[m_TotalLevels].push_back(tempTile);
+					m_TileComp->m_TilesMap[m_TileComp->m_TotalLevels].push_back(tempTile);
 				}
 			 }
 		}
 		else if(layer->getType() == tmx::Layer::Type::Object)
 		{
 			//Object layer in Tiled is used for creating SDL rects. These can be used to handle collisions.
-			const tmx::ObjectGroup& objectLayer = layer->getLayerAs<tmx::ObjectGroup>();
-            const std::vector<tmx::Object>& objects = objectLayer.getObjects();
-            for(const tmx::Object& object : objects)
-            {
-                tmx::FloatRect fRect = object.getAABB();
-				SDL_Rect sdlRect;
-				sdlRect.x = int(fRect.left);
-				sdlRect.y = m_UIOffset + int(fRect.top);
-				sdlRect.w = int(fRect.width);
-				sdlRect.h = int(fRect.height);
-				m_SolidCollisionsMap[m_TotalLevels].push_back(sdlRect);
-            }
+			if(layer->getName() == "SolidCollision")
+			{
+				const tmx::ObjectGroup& objectLayer = layer->getLayerAs<tmx::ObjectGroup>();
+				const std::vector<tmx::Object>& objects = objectLayer.getObjects();
+				for(const tmx::Object& object : objects)
+				{
+					tmx::FloatRect fRect = object.getAABB();
+					SDL_Rect sdlRect;
+					sdlRect.x = int(fRect.left);
+					sdlRect.y = m_UIOffset + int(fRect.top);
+					sdlRect.w = int(fRect.width);
+					sdlRect.h = int(fRect.height);
+					m_TileComp->m_SolidCollisionsMap[m_TileComp->m_TotalLevels].push_back(sdlRect);
+				}
+			}
+			else if(layer->getName() == "PlatformCollision")
+			{
+				const tmx::ObjectGroup& objectLayer = layer->getLayerAs<tmx::ObjectGroup>();
+				const std::vector<tmx::Object>& objects = objectLayer.getObjects();
+				for(const tmx::Object& object : objects)
+				{
+					tmx::FloatRect fRect = object.getAABB();
+					SDL_Rect sdlRect;
+					sdlRect.x = int(fRect.left);
+					sdlRect.y = m_UIOffset + int(fRect.top);
+					sdlRect.w = int(fRect.width);
+					sdlRect.h = int(fRect.height);
+					m_TileComp->m_PlatformCollisionsMap[m_TileComp->m_TotalLevels].push_back(sdlRect);
+				}
+			}
 		}
 	}
 	
-	m_TotalLevels++;
+	m_TileComp->m_TotalLevels++;
 	return true;
 }
 
 void crupt::TileMapSystem::InitTileSet(const tmx::Map& map)
 {
+
 	//Load the tile set
 	std::vector<tmx::Tileset> tileSets = map.getTilesets();
 	for(tmx::Tileset& tset : tileSets)
@@ -136,7 +163,7 @@ void crupt::TileMapSystem::InitTileSet(const tmx::Map& map)
 		for(const tmx::Tileset::Tile& tile : tset.getTiles())
 		{
 			std::string path = tile.imagePath;
-			m_pTileTextures.push_back(ResourceManager::GetInstance().LoadTexture(path,m_pRenderer));
+			m_TileComp->m_pTileTextures.push_back(ResourceManager::GetInstance().LoadTexture(path,m_pRenderer));
 		}
 	}
 }
@@ -144,17 +171,30 @@ void crupt::TileMapSystem::InitTileSet(const tmx::Map& map)
 void crupt::TileMapSystem::Render()
 {
 	//Loop through all tiles and give them to the renderer
-	for(auto& tile : m_TilesMap.at(m_CurrentLevel))
+	for(auto& tile : m_TileComp->m_TilesMap.at(m_TileComp->m_CurrentLevel))
 	{
 		//tile.id - 1 will give us what texture we defined in Tiled.
-		RenderTexture(*m_pTileTextures[tile.id - 1], float(tile.xPos), float(tile.yPos));
+		RenderTexture(*m_TileComp->m_pTileTextures[tile.id - 1], float(tile.xPos), float(tile.yPos));
 	}
 
-	if(!m_SolidCollisionsMap.empty())
+	//Solid Collision DEBUG
+	if(!m_TileComp->m_SolidCollisionsMap.empty())
 	{
-		for(auto& collision : m_SolidCollisionsMap.at(m_CurrentLevel))
+		for(auto& collision : m_TileComp->m_SolidCollisionsMap.at(m_TileComp->m_CurrentLevel))
 		{
 			SDL_SetRenderDrawColor(m_pRenderer, 0, 255, 0, 255);
+			SDL_RenderDrawRect(m_pRenderer, &collision);
+
+			SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
+		}
+	}
+
+	//Platform Collision DEBUG
+	if(!m_TileComp->m_PlatformCollisionsMap.empty())
+	{
+		for(auto& collision : m_TileComp->m_PlatformCollisionsMap.at(m_TileComp->m_CurrentLevel))
+		{
+			SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 255, 255);
 			SDL_RenderDrawRect(m_pRenderer, &collision);
 
 			SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);

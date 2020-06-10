@@ -2,6 +2,7 @@
 
 namespace crupt
 {
+	//SIGNAL COMPONENT
 	struct JumpComponent
 	{
 		Entity m_Target;

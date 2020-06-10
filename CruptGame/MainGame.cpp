@@ -45,7 +45,6 @@ void crupt::MainGame::RegisterAdditionalSystems()
 	}
 	tileMapSystem->Init(m_pRenderSystem->GetSDLRenderer());
 
-	
 	JumpSystem* pJumpSystem = pCoordinator.RegisterSystem<JumpSystem>();
 	{
 		Signature signature;

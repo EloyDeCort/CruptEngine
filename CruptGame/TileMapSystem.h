@@ -12,16 +12,7 @@ namespace tmx
 }
 namespace crupt
 {
-	struct Tile
-	{
-		unsigned int id;
-		unsigned int xPos;
-		unsigned int yPos;
-
-		//Standard
-		unsigned int width = 16;
-		unsigned int height = 16;
-	};
+	struct TileMapComponent;
 
 	class TileMapSystem : public System
 	{
@@ -29,27 +20,19 @@ namespace crupt
 		TileMapSystem();
 		virtual ~TileMapSystem();
 		void Init(SDL_Renderer* renderer);
+		void InitMap(Entity mapEntity);
 		void Render();
 
 	private:
 		void InitTileSet(const tmx::Map& map);
 		bool AddLevel(const std::string& loc);
-
-		using TileVector = std::vector<Tile>;
-		using CollisionVector = std::vector<SDL_Rect>;
-		using TileVectorMap = std::map<size_t, TileVector>;
-		using CollisionVectorMap = std::map<size_t, CollisionVector>;
-
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
-		std::vector<Texture2D*> m_pTileTextures;
 
-		TileVectorMap m_TilesMap;
-		std::vector<Tile> m_Tiles;
-
-		CollisionVectorMap m_SolidCollisionsMap;
-		int m_CurrentLevel;
-		int m_TotalLevels;
+	
 		SDL_Renderer* m_pRenderer;
+
+		Entity m_MapEntity;
+		TileMapComponent* m_TileComp;
 
 		unsigned int m_UIOffset;
 	};
