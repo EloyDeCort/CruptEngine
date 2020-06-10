@@ -106,7 +106,19 @@ bool crupt::TileMapSystem::AddLevel(const std::string& loc)
 		}
 		else if(layer->getType() == tmx::Layer::Type::Object)
 		{
-
+			//Object layer in Tiled is used for creating SDL rects. These can be used to handle collisions.
+			const tmx::ObjectGroup& objectLayer = layer->getLayerAs<tmx::ObjectGroup>();
+            const std::vector<tmx::Object>& objects = objectLayer.getObjects();
+            for(const tmx::Object& object : objects)
+            {
+                tmx::FloatRect fRect = object.getAABB();
+				SDL_Rect sdlRect;
+				sdlRect.x = int(fRect.left);
+				sdlRect.y = m_UIOffset + int(fRect.top);
+				sdlRect.w = int(fRect.width);
+				sdlRect.h = int(fRect.height);
+				m_SolidCollisionsMap[m_TotalLevels].push_back(sdlRect);
+            }
 		}
 	}
 	
@@ -139,17 +151,17 @@ void crupt::TileMapSystem::Render()
 		RenderTexture(*m_pTileTextures[tile.id - 1], float(tile.xPos), float(tile.yPos));
 	}
 
-	
-    SDL_Rect rect;
-    rect.x = 250;
-    rect.y = 150;
-    rect.w = 200;
-    rect.h = 200;
+	if(!m_SolidCollisionsMap.empty())
+	{
+		for(auto& collision : m_SolidCollisionsMap.at(m_CurrentLevel))
+		{
+			SDL_SetRenderDrawColor(m_pRenderer, 0, 255, 0, 255);
+			SDL_RenderDrawRect(m_pRenderer, &collision);
 
-    SDL_SetRenderDrawColor(m_pRenderer, 255, 255, 255, 255);
-    SDL_RenderDrawRect(m_pRenderer, &rect);
-
-    SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
+			SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
+		}
+	}
+   
 }
 
 

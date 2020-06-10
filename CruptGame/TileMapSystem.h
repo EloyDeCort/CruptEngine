@@ -5,6 +5,7 @@
 #include <map>
 
 struct SDL_Renderer;
+struct SDL_Rect;
 namespace tmx
 {
 	class Map;
@@ -35,7 +36,9 @@ namespace crupt
 		bool AddLevel(const std::string& loc);
 
 		using TileVector = std::vector<Tile>;
+		using CollisionVector = std::vector<SDL_Rect>;
 		using TileVectorMap = std::map<size_t, TileVector>;
+		using CollisionVectorMap = std::map<size_t, CollisionVector>;
 
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
 		std::vector<Texture2D*> m_pTileTextures;
@@ -43,6 +46,7 @@ namespace crupt
 		TileVectorMap m_TilesMap;
 		std::vector<Tile> m_Tiles;
 
+		CollisionVectorMap m_SolidCollisionsMap;
 		int m_CurrentLevel;
 		int m_TotalLevels;
 		SDL_Renderer* m_pRenderer;
