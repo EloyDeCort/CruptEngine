@@ -17,12 +17,25 @@ namespace crupt
 	class MoveLeftCommand : public ICommand
 	{
 	public:
-		MoveLeftCommand(Entity pReceiver);	
+		MoveLeftCommand(Entity pReceiver, bool stop);	
 		virtual ~MoveLeftCommand();
 
 		virtual void Execute() override;
 	private:
 		Entity m_pReceiver;
+		bool m_Stop;
+	};
+
+	class MoveRightCommand : public ICommand
+	{
+	public:
+		MoveRightCommand(Entity pReceiver, bool stop);	
+		virtual ~MoveRightCommand();
+
+		virtual void Execute() override;
+	private:
+		Entity m_pReceiver;
+		bool m_Stop;
 	};
 	
 }

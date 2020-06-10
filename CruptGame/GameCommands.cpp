@@ -23,9 +23,10 @@ void crupt::JumpCommand::Execute()
 	SignalHandler<JumpComponent>::GetInstance().Publish(jumpComp);
 }
 
-crupt::MoveLeftCommand::MoveLeftCommand(Entity pReceiver)
+crupt::MoveLeftCommand::MoveLeftCommand(Entity pReceiver, bool stop)
 	: ICommand{"MoveLeftCommand"}
 	, m_pReceiver{pReceiver}
+	, m_Stop{stop}
 {
 	
 }
@@ -36,9 +37,35 @@ crupt::MoveLeftCommand::~MoveLeftCommand()
 
 void crupt::MoveLeftCommand::Execute()
 {
-	JumpComponent jumpComp;
-	jumpComp.m_Target = m_pReceiver;
-	jumpComp.m_JumpHeight = 5.f;
+	MoveComponent moveComp;
+	moveComp.m_Target = m_pReceiver;
+	if(!m_Stop)
+	{
+		moveComp.m_Speed = 0.2f;
+		moveComp.m_xDirection = -1.f;
+	}
+	SignalHandler<MoveComponent>::GetInstance().Publish(moveComp);
+}
+	
+crupt::MoveRightCommand::MoveRightCommand(Entity pReceiver, bool stop)
+	: ICommand{"MoveRightCommand"}
+	, m_pReceiver{pReceiver}
+	, m_Stop{stop}
+{	
+}
 
-	SignalHandler<JumpComponent>::GetInstance().Publish(jumpComp);
+crupt::MoveRightCommand::~MoveRightCommand()
+{
+}
+
+void crupt::MoveRightCommand::Execute()
+{
+	MoveComponent moveComp;
+	moveComp.m_Target = m_pReceiver;
+	if(!m_Stop)
+	{
+		moveComp.m_Speed = 0.2f;
+		moveComp.m_xDirection = 1.f;
+	}
+	SignalHandler<MoveComponent>::GetInstance().Publish(moveComp);
 }

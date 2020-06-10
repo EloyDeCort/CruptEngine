@@ -4,3 +4,5 @@
 #include "FPSComponent.h"
 #include "RenderableComponent.h"
 #include "SpriteComponent.h"
+#include "GravityComponent.h"
+#include "VelocityComponent.h"

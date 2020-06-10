@@ -177,6 +177,7 @@
     <ClCompile Include="JumpSystem.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="MoveSystem.cpp" />
     <ClCompile Include="TileMapSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +195,9 @@
     <ClInclude Include="JumpComponent.h" />
     <ClInclude Include="JumpSystem.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="MoveComponent.h" />
+    <ClInclude Include="MoveSystem.h" />
+    <ClInclude Include="PlayerStateComponent.h" />
     <ClInclude Include="TileMapComponent.h" />
     <ClInclude Include="TileMapSystem.h" />
   </ItemGroup>

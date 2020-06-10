@@ -26,7 +26,9 @@ void crupt::MainGame::RegisterAdditionalComponents()
 	//For Components that do not belong in the main engine.
 	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
 	pCoordinator.RegisterComponent<TileMapComponent>();
+	pCoordinator.RegisterComponent<PlayerStateComponent>();
 	pCoordinator.RegisterComponent<JumpComponent>();
+	pCoordinator.RegisterComponent<MoveComponent>();
 }
 
 void crupt::MainGame::RegisterAdditionalSystems()
@@ -52,4 +54,14 @@ void crupt::MainGame::RegisterAdditionalSystems()
 		pCoordinator.SetSystemSignature<JumpSystem>(signature);
 	}
 	pJumpSystem->Init();
+
+	MoveSystem* pMoveSystem = pCoordinator.RegisterSystem<MoveSystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<TransformComponent>());
+		signature.set(pCoordinator.GetComponentType<MoveComponent>());
+		pCoordinator.SetSystemSignature<MoveSystem>(signature);
+	}
+	pMoveSystem->Init();
+
 }

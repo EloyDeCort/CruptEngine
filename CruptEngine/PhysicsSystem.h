@@ -1,17 +1,19 @@
 #pragma once
 #include "System.h"
 #include "ECSCoordinator.h"
+#include "Texture2D.h"
 
 namespace crupt
 {
-	class SpriteSystem : public System
+	class PhysicsSystem : public System
 	{
 	public:
-		virtual ~SpriteSystem();
+		virtual ~PhysicsSystem();
 		void Init();
 		void Update(float dt);
 
 	private:
+		ECSCoordinator* m_pCoordinator;
 	};
 }
 

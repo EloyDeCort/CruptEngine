@@ -66,11 +66,19 @@ void crupt::BubbleBobbleScene::InitEntities()
 	pCoordinator.AddComponent<SpriteComponent>(player1, spriteComp);
 	pCoordinator.AddComponent<RenderableComponent>(player1, RenderableComponent{ResourceManager::GetInstance().LoadTexture("Bubblun.png",renderer)});
 	pCoordinator.AddComponent<TransformComponent>(player1, TransformComponent{glm::vec3(0.f,0.f,0.f)});
+	pCoordinator.AddComponent<PlayerStateComponent>(player1, PlayerStateComponent{PlayerAnimState::IDLE});
+	pCoordinator.AddComponent<VelocityComponent>(player1, VelocityComponent{});
+	pCoordinator.AddComponent<GravityComponent>(player1, GravityComponent{});
 
 	InputManager& inputManager = InputManager::GetInstance();
 
 	inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, 'C', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
 	inputManager.AddCommand("JumpP1", new JumpCommand(player1));
+
+	inputManager.AddBinding("LeftP1", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+	inputManager.AddCommand("LeftP1", new MoveLeftCommand(player1, false));
+	inputManager.AddBinding("RightP1", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+	inputManager.AddCommand("RightP1", new MoveRightCommand(player1, false));
 }
 
 void crupt::BubbleBobbleScene::Update(float dt)

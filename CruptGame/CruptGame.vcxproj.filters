@@ -48,6 +48,9 @@
     <ClCompile Include="JumpSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="MoveSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -81,6 +84,15 @@
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="JumpComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
