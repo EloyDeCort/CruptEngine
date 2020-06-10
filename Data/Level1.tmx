@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="15">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="29">
  <editorsettings>
   <export target="TestMap.xml" format="tmx"/>
  </editorsettings>
@@ -29,8 +29,8 @@
 1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
 1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
 1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
-1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
 1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,
+1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
 1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
 1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
 1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
@@ -44,5 +44,17 @@
   <object id="11" x="608" y="16" width="32" height="448"/>
   <object id="12" x="0" y="16" width="32" height="448"/>
   <object id="13" x="0" y="16" width="32" height="448"/>
+  <object id="14" x="-86" y="28" width="0.5"/>
+ </objectgroup>
+ <objectgroup id="4" name="PlatformCollision">
+  <object id="18" x="32" y="176" width="32" height="16"/>
+  <object id="19" x="32" y="272" width="32" height="16"/>
+  <object id="20" x="32" y="368" width="32" height="16"/>
+  <object id="21" x="576" y="176" width="32" height="16"/>
+  <object id="22" x="576" y="272" width="32" height="16"/>
+  <object id="23" x="576" y="368" width="32" height="16"/>
+  <object id="24" x="112" y="176" width="416" height="16"/>
+  <object id="25" x="112" y="272" width="416" height="16"/>
+  <object id="27" x="112" y="368" width="416" height="16"/>
  </objectgroup>
 </map>
