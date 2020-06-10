@@ -38,12 +38,11 @@
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 </data>
  </layer>
- <objectgroup id="3" name="Collision">
+ <objectgroup id="3" name="SolidCollision">
   <object id="8" x="0" y="0" width="640" height="16"/>
   <object id="10" x="0" y="464" width="640" height="16"/>
   <object id="11" x="608" y="16" width="32" height="448"/>
   <object id="12" x="0" y="16" width="32" height="448"/>
   <object id="13" x="0" y="16" width="32" height="448"/>
-  <object id="14" x="-86" y="28" width="0.5"/>
  </objectgroup>
 </map>

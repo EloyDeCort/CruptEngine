@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="6">
  <tileset firstgid="1" source="LevelTileset2.tsx"/>
- <layer id="1" name="Tile Layer 1" width="40" height="30">
+ <layer id="1" name="Level" width="40" height="30">
   <data encoding="csv">
 5,5,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,5,5,
 5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,
@@ -35,4 +35,10 @@
 5,5,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,5,5
 </data>
  </layer>
+ <objectgroup id="2" name="SolidCollision">
+  <object id="1" x="0" y="0" width="640" height="16"/>
+  <object id="2" x="0" y="464" width="640" height="16"/>
+  <object id="3" x="0" y="16" width="32" height="448"/>
+  <object id="4" x="608" y="16" width="32" height="448"/>
+ </objectgroup>
 </map>

@@ -1,0 +1,3 @@
+Tile Layer: "Level"
+Object Layer (SOLID): SolidCollision
+Object Layer (1 side platform): PlatformCollision

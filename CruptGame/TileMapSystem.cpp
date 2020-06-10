@@ -136,7 +136,6 @@ void crupt::TileMapSystem::InitTileSet(const tmx::Map& map)
 		for(const tmx::Tileset::Tile& tile : tset.getTiles())
 		{
 			std::string path = tile.imagePath;
-			path = path.substr(2);
 			m_pTileTextures.push_back(ResourceManager::GetInstance().LoadTexture(path,m_pRenderer));
 		}
 	}
