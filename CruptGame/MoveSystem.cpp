@@ -18,13 +18,16 @@ void crupt::MoveSystem::OnDispatch(MoveComponent component)
 	VelocityComponent& velocity = coordinator->GetComponent<VelocityComponent>(component.m_Target);
 	RenderableComponent& render = coordinator->GetComponent<RenderableComponent>(component.m_Target);
 
-	if(component.m_xDirection > 0.f)
+	if(component.m_Speed > 0.01f)
 	{
-		render.m_Flip = false;
-	}
-	else
-	{
-		render.m_Flip = true;
+		if(component.m_xDirection > 0.f)
+		{
+			render.m_Flip = false;
+		}
+		else
+		{
+			render.m_Flip = true;
+		}
 	}
 
 	velocity.m_xVelocity = component.m_Speed * component.m_xDirection;

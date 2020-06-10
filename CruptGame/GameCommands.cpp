@@ -18,7 +18,6 @@ void crupt::JumpCommand::Execute()
 {
 	JumpComponent jumpComp;
 	jumpComp.m_Target = m_pReceiver;
-	jumpComp.m_JumpHeight = 5.f;
 
 	SignalHandler<JumpComponent>::GetInstance().Publish(jumpComp);
 }

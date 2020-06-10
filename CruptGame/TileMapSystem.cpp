@@ -74,42 +74,40 @@ bool crupt::TileMapSystem::AddLevel(const std::string& loc)
 	for(const tmx::Layer::Ptr& layer : mapLayers)
 	{
 		//Check if the layer contains tiles
-		if(layer->getType() != tmx::Layer::Type::Tile)
+		if(layer->getType() == tmx::Layer::Type::Tile)
 		{
-			if(layer->getType() == tmx::Layer::Type::Object)
-			{
-				std::cout << "OBJECT\n";
-			}
-			continue;
-		}
+			//If we have a tile layer, we can cast it to one.
+			const tmx::TileLayer& tileLayer = layer->getLayerAs<tmx::TileLayer>();
 
-		//If we have a tile layer, we can cast it to one.
-		const tmx::TileLayer& tileLayer = layer->getLayerAs<tmx::TileLayer>();
-
-		//Get all the tiles from the layer.
-		const std::vector<tmx::TileLayer::Tile>& layerTiles = tileLayer.getTiles();
-		 for (unsigned int y = 0; y < rows; ++y) 
-		 {
-            for (unsigned int x = 0; x < cols; ++x) 
-			{
-				//Calculate the tile index
-				unsigned int tileIndex = x + (y * cols);
-				unsigned int curGid = layerTiles[tileIndex].ID;
-
-				//check if it's an empty grid
-				if (curGid == 0) 
+			//Get all the tiles from the layer.
+			const std::vector<tmx::TileLayer::Tile>& layerTiles = tileLayer.getTiles();
+			 for (unsigned int y = 0; y < rows; ++y) 
+			 {
+				for (unsigned int x = 0; x < cols; ++x) 
 				{
-					continue;
-				}
+					//Calculate the tile index
+					unsigned int tileIndex = x + (y * cols);
+					unsigned int curGid = layerTiles[tileIndex].ID;
 
-				Tile tempTile;
-				tempTile.id = curGid;
-				tempTile.xPos = size_t(x) * tileWidth;
-                tempTile.yPos = m_UIOffset + size_t(y) * tileHeight;
-				//Initialize the tile based on the position etc.
-				m_TilesMap[m_TotalLevels].push_back(tempTile);
-			}
-		 }
+					//check if it's an empty grid
+					if (curGid == 0) 
+					{
+						continue;
+					}
+
+					Tile tempTile;
+					tempTile.id = curGid;
+					tempTile.xPos = size_t(x) * tileWidth;
+					tempTile.yPos = m_UIOffset + size_t(y) * tileHeight;
+					//Initialize the tile based on the position etc.
+					m_TilesMap[m_TotalLevels].push_back(tempTile);
+				}
+			 }
+		}
+		else if(layer->getType() == tmx::Layer::Type::Object)
+		{
+
+		}
 	}
 	
 	m_TotalLevels++;
@@ -140,6 +138,18 @@ void crupt::TileMapSystem::Render()
 		//tile.id - 1 will give us what texture we defined in Tiled.
 		RenderTexture(*m_pTileTextures[tile.id - 1], float(tile.xPos), float(tile.yPos));
 	}
+
+	
+    SDL_Rect rect;
+    rect.x = 250;
+    rect.y = 150;
+    rect.w = 200;
+    rect.h = 200;
+
+    SDL_SetRenderDrawColor(m_pRenderer, 255, 255, 255, 255);
+    SDL_RenderDrawRect(m_pRenderer, &rect);
+
+    SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 }
 
 

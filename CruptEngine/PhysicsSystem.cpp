@@ -20,12 +20,13 @@ void PhysicsSystem::Update(float dt)
 		//Get the transform & Renderable component
 		TransformComponent& transform = m_pCoordinator->GetComponent<TransformComponent>(entity);
 		const GravityComponent& gravity = m_pCoordinator->GetComponent<GravityComponent>(entity);
-		const VelocityComponent& velocity = m_pCoordinator->GetComponent<VelocityComponent>(entity);
+		VelocityComponent& velocity = m_pCoordinator->GetComponent<VelocityComponent>(entity);
 
 		glm::vec3 pos = transform.position;
 
 		//Basic gravity
-		//transform.position.y -= gravity.m_Gravity * dt;
+		velocity.m_yVelocity -= gravity.m_Gravity * dt;
+		transform.position.y += velocity.m_yVelocity * dt;
 		transform.position.x += velocity.m_xVelocity * dt;
 
 		velocity;

@@ -76,10 +76,17 @@ void crupt::BubbleBobbleScene::InitEntities()
 	inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, 'C', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
 	inputManager.AddCommand("JumpP1", new JumpCommand(player1));
 
+	//Pressed
 	inputManager.AddBinding("LeftP1", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Pressed, GamepadIndex::PlayerOne});
 	inputManager.AddCommand("LeftP1", new MoveLeftCommand(player1, false));
 	inputManager.AddBinding("RightP1", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Pressed, GamepadIndex::PlayerOne});
 	inputManager.AddCommand("RightP1", new MoveRightCommand(player1, false));
+
+	//Released
+	inputManager.AddBinding("LeftP1Stop", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Released, GamepadIndex::PlayerOne});
+	inputManager.AddCommand("LeftP1Stop", new MoveLeftCommand(player1, true));
+	inputManager.AddBinding("RightP1Stop", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Released, GamepadIndex::PlayerOne});
+	inputManager.AddCommand("RightP1Stop", new MoveRightCommand(player1, true));
 }
 
 void crupt::BubbleBobbleScene::Update(float dt)

@@ -4,6 +4,6 @@ namespace crupt
 {
 	struct GravityComponent
 	{
-		float m_Gravity = -9.81f;
+		float m_Gravity = -200.f;
 	};
 }

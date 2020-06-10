@@ -15,8 +15,8 @@ void crupt::JumpSystem::Init()
 void crupt::JumpSystem::OnDispatch(JumpComponent component)
 {
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
-	TransformComponent& transform = coordinator->GetComponent<TransformComponent>(component.m_Target);
+	VelocityComponent& velocity = coordinator->GetComponent<VelocityComponent>(component.m_Target);
 	//Jump (Temp)
-	transform.position.y -= component.m_JumpHeight;
+	velocity.m_yVelocity = -component.m_JumpHeight;
 	std::cout << "[LOG]: JUMPING" << std::endl;
 }
