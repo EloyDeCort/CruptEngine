@@ -87,6 +87,9 @@ void crupt::CruptEngine::Run()
 			//Update the currently active scene
 			sceneManager.Update(dt);
 
+			//Post Update on the currently active scene
+			sceneManager.PostUpdate(dt);
+
 			//Render the scene
 			sceneManager.Render();
 			
@@ -111,6 +114,7 @@ void crupt::CruptEngine::RegisterComponents()
 	pCoordinator.RegisterComponent<VelocityComponent>();
 	pCoordinator.RegisterComponent<GravityComponent>();
 	pCoordinator.RegisterComponent<TileMapComponent>();
+	pCoordinator.RegisterComponent<BoxCollisionComponent>();
 }
 
 void crupt::CruptEngine::RegisterSystems()
@@ -164,6 +168,7 @@ void crupt::CruptEngine::RegisterSystems()
 		signature.set(pCoordinator.GetComponentType<TransformComponent>());
 		signature.set(pCoordinator.GetComponentType<VelocityComponent>());
 		signature.set(pCoordinator.GetComponentType<GravityComponent>());
+		signature.set(pCoordinator.GetComponentType<BoxCollisionComponent>());
 		pCoordinator.SetSystemSignature<PhysicsSystem>(signature);
 	}
 	pPhysicsSystem->Init();
@@ -175,4 +180,14 @@ void crupt::CruptEngine::RegisterSystems()
 		pCoordinator.SetSystemSignature<TileMapSystem>(signature);
 	}
 	tileMapSystem->Init(m_pRenderSystem->GetSDLRenderer());
+
+	CollisionSystem* collisionSystem = pCoordinator.RegisterSystem<CollisionSystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<TransformComponent>());
+		signature.set(pCoordinator.GetComponentType<VelocityComponent>());
+		signature.set(pCoordinator.GetComponentType<BoxCollisionComponent>());
+		pCoordinator.SetSystemSignature<CollisionSystem>(signature);
+	}
+	collisionSystem->Init(m_pRenderSystem->GetSDLRenderer());
 }

@@ -168,6 +168,12 @@
     <ClInclude Include="TileMapSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollisionComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CruptEngine.cpp">
@@ -240,6 +246,9 @@
       <Filter>Systems</Filter>
     </ClCompile>
     <ClCompile Include="TileMapSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
   </ItemGroup>

@@ -11,6 +11,7 @@ namespace crupt
 		virtual ~PhysicsSystem();
 		void Init();
 		void Update(float dt);
+		void PreUpdate(float dt);
 
 	private:
 		ECSCoordinator* m_pCoordinator;

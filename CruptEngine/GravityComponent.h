@@ -4,6 +4,6 @@ namespace crupt
 {
 	struct GravityComponent
 	{
-		float m_Gravity = -200.f;
+		glm::vec2 m_Gravity = {0.f,-200.f};
 	};
 }

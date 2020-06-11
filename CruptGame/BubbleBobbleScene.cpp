@@ -35,6 +35,7 @@ void crupt::BubbleBobbleScene::InitSystems()
 	m_pTileMapSystem = pCoordinator.GetSystem<TileMapSystem>();
 	m_pSpriteSystem = pCoordinator.GetSystem<SpriteSystem>();
 	m_pPhysicsSystem = pCoordinator.GetSystem<PhysicsSystem>();
+	m_pCollisionSystem = pCoordinator.GetSystem<CollisionSystem>();
 }
 
 void crupt::BubbleBobbleScene::InitEntities()
@@ -52,7 +53,9 @@ void crupt::BubbleBobbleScene::InitEntities()
 	//Init the map entity
 	Entity map = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<TileMapComponent>(map, TileMapComponent{});
+	//We pass the map to both systems to optimize the find time. This entity won't change.
 	m_pTileMapSystem->InitMap(map);
+	m_pCollisionSystem->InitMap(map);
 
 	//UI
 	Entity ui = pCoordinator.CreateEntity();
@@ -67,10 +70,11 @@ void crupt::BubbleBobbleScene::InitEntities()
 	Entity player1 = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<SpriteComponent>(player1, spriteComp);
 	pCoordinator.AddComponent<RenderableComponent>(player1, RenderableComponent{ResourceManager::GetInstance().LoadTexture("Bubblun.png",renderer)});
-	pCoordinator.AddComponent<TransformComponent>(player1, TransformComponent{glm::vec3(0.f,0.f,0.f)});
+	pCoordinator.AddComponent<TransformComponent>(player1, TransformComponent{glm::vec3(100.f,100.f,0.f)});
 	pCoordinator.AddComponent<PlayerStateComponent>(player1, PlayerStateComponent{PlayerAnimState::IDLE});
 	pCoordinator.AddComponent<VelocityComponent>(player1, VelocityComponent{});
 	pCoordinator.AddComponent<GravityComponent>(player1, GravityComponent{});
+	pCoordinator.AddComponent<BoxCollisionComponent>(player1, BoxCollisionComponent{0,0,32,32});
 
 	InputManager& inputManager = InputManager::GetInstance();
 
@@ -96,6 +100,12 @@ void crupt::BubbleBobbleScene::Update(float dt)
 	m_pTextSystem->Update(dt);
 	m_pFPSSystem->Update(m_FpsCounter, dt);
 	m_pSpriteSystem->Update(dt);
+}
+
+void crupt::BubbleBobbleScene::PostUpdate(float dt)
+{
+	m_pPhysicsSystem->PreUpdate(dt);
+	m_pCollisionSystem->Update(dt);
 	m_pPhysicsSystem->Update(dt);
 }
 

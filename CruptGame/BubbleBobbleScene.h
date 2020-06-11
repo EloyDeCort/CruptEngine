@@ -13,6 +13,7 @@ namespace crupt
 		BubbleBobbleScene();
 		virtual void Init() override;
 		virtual void Update(float dt) override;
+		virtual void PostUpdate(float dt) override;
 		virtual void Render() override;
 	private:
 		void InitSystems();
@@ -27,6 +28,7 @@ namespace crupt
 		JumpSystem* m_pJumpSystem;
 		TileMapSystem* m_pTileMapSystem;
 		PhysicsSystem* m_pPhysicsSystem;
+		CollisionSystem* m_pCollisionSystem;
 
 		FMOD::Channel* m_pChannel;
 		FMOD::Sound* m_pBGMusic;

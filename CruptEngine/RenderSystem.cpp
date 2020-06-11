@@ -41,7 +41,7 @@ void RenderSystem::Render()
 		const TransformComponent& transform = m_Coordinator->GetComponent<TransformComponent>(entity);
 		const RenderableComponent& renderable = m_Coordinator->GetComponent<RenderableComponent>(entity);
 
-		glm::vec3 pos = transform.position;
+		glm::vec2 pos = transform.position;
 
 		//Render the texture from the renderable component
 		RenderTexture(*renderable.m_Texture, pos.x, pos.y, &renderable.m_SrcRect, renderable.m_ScaleFactor, renderable.m_Flip);

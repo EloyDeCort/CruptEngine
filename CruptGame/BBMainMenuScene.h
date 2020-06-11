@@ -12,6 +12,7 @@ namespace crupt
 		BBMainMenuScene();
 		virtual void Init() override;
 		virtual void Update(float dt) override;
+		virtual void PostUpdate(float dt) override;
 		virtual void Render() override;
 	private:
 

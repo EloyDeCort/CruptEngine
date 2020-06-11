@@ -102,6 +102,14 @@ void crupt::SceneManager::Update(float dt)
 	}
 }
 
+void crupt::SceneManager::PostUpdate(float dt)
+{
+	if(m_ActiveScene)
+	{
+		m_ActiveScene->PostUpdate(dt);
+	}
+}
+
 void crupt::SceneManager::Render()
 {
 	if(m_ActiveScene)

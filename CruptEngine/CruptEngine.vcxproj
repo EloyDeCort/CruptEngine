@@ -224,6 +224,8 @@ xcopy "$(SolutionDir)3rdParty\FMOD\lib\x64\*.dll" "$(OutputPath)" /R /Y</Command
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BoxCollisionComponent.h" />
+    <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="ComponentArray.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="Components.h" />
@@ -270,6 +272,7 @@ xcopy "$(SolutionDir)3rdParty\FMOD\lib\x64\*.dll" "$(OutputPath)" /R /Y</Command
     <ClInclude Include="VelocityComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSSystem.cpp" />

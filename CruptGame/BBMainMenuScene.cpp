@@ -39,6 +39,11 @@ void crupt::BBMainMenuScene::Update(float dt)
 	}
 }
 
+void crupt::BBMainMenuScene::PostUpdate(float dt)
+{
+	dt;
+}
+
 void crupt::BBMainMenuScene::Render()
 {	
 	m_pRenderSystem->Render();

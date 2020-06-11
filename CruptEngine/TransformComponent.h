@@ -1,12 +1,10 @@
 #pragma once
 #pragma warning(push)
 #pragma warning (disable:4201)
-#include <glm/vec3.hpp>
+#include <glm/vec2.hpp>
 #pragma warning(pop)
 
 struct TransformComponent
 {
-	glm::vec3 position;
-	glm::vec3 rotation;
-	glm::vec3 scale;
+	glm::vec2 position;
 };

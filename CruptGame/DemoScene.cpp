@@ -59,6 +59,11 @@ void crupt::DemoScene::Update(float dt)
 	m_pFPSSystem->Update(m_FpsCounter, dt);
 }
 
+void crupt::DemoScene::PostUpdate(float dt)
+{
+	dt;
+}
+
 void crupt::DemoScene::Render()
 {
 	m_pRenderSystem->Render();
