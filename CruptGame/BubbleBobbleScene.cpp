@@ -94,20 +94,22 @@ void crupt::BubbleBobbleScene::InitEntities()
 	inputManager.AddCommand("RightP1Stop", new MoveRightCommand(player1, true));
 }
 
-void crupt::BubbleBobbleScene::Update(float dt)
-{	
-	m_pFPSSystem->SetText(m_FpsCounter, "FPS:" + std::to_string(m_pFPSSystem->GetFPS(m_FpsCounter)));
-	m_pTextSystem->Update(dt);
-	m_pFPSSystem->Update(m_FpsCounter, dt);
-	m_pSpriteSystem->Update(dt);
-}
-
-void crupt::BubbleBobbleScene::PostUpdate(float dt)
+void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 {
 	m_pPhysicsSystem->PreUpdate(dt);
 	m_pCollisionSystem->Update(dt);
 	m_pPhysicsSystem->Update(dt);
 }
+
+void crupt::BubbleBobbleScene::Update(float dt)
+{	
+
+	m_pFPSSystem->Update(m_FpsCounter, dt);
+	m_pFPSSystem->SetText(m_FpsCounter, "FPS:" + std::to_string(m_pFPSSystem->GetFPS(m_FpsCounter)));
+	m_pTextSystem->Update(dt);
+	m_pSpriteSystem->Update(dt);
+}
+
 
 void crupt::BubbleBobbleScene::Render()
 {	

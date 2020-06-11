@@ -22,7 +22,7 @@ namespace crupt
 
 		void Init();
 		void Update(float dt);
-		void PostUpdate(float dt);
+		void FixedUpdate(float dt);
 		void Render();
 
 	private:

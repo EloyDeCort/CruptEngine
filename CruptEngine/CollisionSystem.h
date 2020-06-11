@@ -23,7 +23,6 @@ namespace crupt
 		void InitMap(Entity mapEntity);
 		void Update(float dt);
 		bool IsColliding(const Box& obj, const Box& other);
-		float SweptAABB(const Box& b1, const Box& b2, float& xNormal, float& yNormal);
 		float SweptImproved(const Box& obj, const Box& other, eDirection& colDirection);
 		
 	private:

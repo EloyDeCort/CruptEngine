@@ -31,17 +31,20 @@ void PhysicsSystem::Update(float dt)
 				transform.position.x += velocity.m_Velocity.x;
 			break;
 
+		case eDirection::UP:
+			transform.position.y += velocity.m_Velocity.y * boxComp.m_EntryTime;
+			transform.position.x += velocity.m_Velocity.x;
+		break;
+
 		case eDirection::LEFT:
-				transform.position.y += velocity.m_Velocity.y * boxComp.m_EntryTime;
+				transform.position.y += velocity.m_Velocity.y;
 				transform.position.x += velocity.m_Velocity.x * boxComp.m_EntryTime;
 			break;
 
 		case eDirection::NONE:
-			transform.position += velocity.m_Velocity * boxComp.m_EntryTime;
+			transform.position += velocity.m_Velocity;
 			break;
 		}
-	
-
 
 	
 		//transform.position.x += velocity.m_Velocity.x * dt;
@@ -61,19 +64,19 @@ void crupt::PhysicsSystem::PreUpdate(float dt)
 		VelocityComponent& velocity = m_pCoordinator->GetComponent<VelocityComponent>(entity);
 		BoxCollisionComponent& boxComp = m_pCoordinator->GetComponent<BoxCollisionComponent>(entity);
 			
-	
-		if(!boxComp.m_IsGrounded)
+		switch(boxComp.m_CollisionDir)
 		{
-			//Basic gravity
-			velocity.m_Force -= gravity.m_Gravity * dt;
-		}
-		else
-		{
+		case eDirection::DOWN:
 			if(velocity.m_Force.y >= 0.f)
 			{
 				velocity.m_Force.y = 0;
 			}
+			break;
+		default:
+			velocity.m_Force -= gravity.m_Gravity * dt;
+			break;
 		}
+
 
 		velocity.m_Velocity = velocity.m_Force * dt;
 	}

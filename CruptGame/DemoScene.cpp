@@ -59,7 +59,7 @@ void crupt::DemoScene::Update(float dt)
 	m_pFPSSystem->Update(m_FpsCounter, dt);
 }
 
-void crupt::DemoScene::PostUpdate(float dt)
+void crupt::DemoScene::FixedUpdate(float dt)
 {
 	dt;
 }

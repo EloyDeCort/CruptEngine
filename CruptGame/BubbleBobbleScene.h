@@ -13,7 +13,7 @@ namespace crupt
 		BubbleBobbleScene();
 		virtual void Init() override;
 		virtual void Update(float dt) override;
-		virtual void PostUpdate(float dt) override;
+		virtual void FixedUpdate(float dt) override;
 		virtual void Render() override;
 	private:
 		void InitSystems();

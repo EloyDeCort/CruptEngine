@@ -97,6 +97,10 @@ void CollisionSystem::Update(float dt)
 		}
 
 		boxComp.m_EntryTime = lowestColTime;
+		if(finalDir == eDirection::DOWN)
+		{
+			boxComp.m_IsGrounded = true;
+		}
 		boxComp.m_CollisionDir = finalDir;
 	}
 }
@@ -112,141 +116,6 @@ bool crupt::CollisionSystem::IsColliding(const Box& obj, const Box& other)
 
 }
 
-float crupt::CollisionSystem::SweptAABB(const Box& b1, const Box& b2, float& xNormal, float& yNormal)
-{
-	float xInvEntry{}, yInvEntry{}; 
-	float xInvExit{}, yInvExit{}; 
-
-	//find distance between near and far side
-	if(b1.velocity.x > 0.f)
-	{
-		xInvEntry = float(b2.rect.x - (b1.rect.x + b1.rect.w));
-		xInvExit = float((b2.rect.x + b2.rect.w) - b1.rect.x);
-	}
-	else
-	{
-		xInvEntry = float((b2.rect.x + b2.rect.w) - b1.rect.x);
-		xInvExit =  float(b2.rect.x - (b1.rect.x + b1.rect.w));
-	}
-
-	if(b1.velocity.y > 0.f)
-	{
-		yInvEntry = float(b2.rect.y - (b1.rect.y + b1.rect.h));
-		yInvExit = float((b2.rect.y + b2.rect.h) - b1.rect.y);
-	}
-	else
-	{
-		yInvEntry = float((b2.rect.y + b2.rect.h) - b1.rect.y);
-		yInvExit =  float(b2.rect.y - (b1.rect.y + b1.rect.h));
-	}
-
-
-	float xEntry{}, yEntry{}; 
-	float xExit{}, yExit{}; 
-	
-	//Find time of leaving/time of collision
-	if(b1.velocity.x < FLT_EPSILON && b1.velocity.x > -FLT_EPSILON)
-	{
-		xEntry = -std::numeric_limits<float>::infinity();
-		xExit = std::numeric_limits<float>::infinity();
-	}
-	else
-	{
-		xEntry = xInvEntry / b1.velocity.x;
-		xExit = xInvExit / b1.velocity.x;
-	}
-
-	
-	if(b1.velocity.y < FLT_EPSILON && b1.velocity.y > -FLT_EPSILON)
-	{
-		yEntry = -std::numeric_limits<float>::infinity();
-		yExit = std::numeric_limits<float>::infinity();
-	}
-	else
-	{
-		yEntry = yInvEntry / b1.velocity.y;
-		yExit = yInvExit / b1.velocity.y;
-	}
-
-
-	if (xEntry > 1.0f) xEntry = -std::numeric_limits<float>::infinity();
-	if (yEntry > 1.0f) yEntry = -std::numeric_limits<float>::infinity();
-
-	float entryTime = std::max<float>(xEntry,yEntry);
-	float exitTime = std::min<float>(xExit,yExit);
-
-
-	//No Collision
-	if(entryTime > exitTime)
-	{
-		return 1.f;
-	}
-
-	if(xEntry < 0.f && yEntry < 0.f)
-	{
-		return 1.f;
-	}
-
-	if(xEntry < 0.f)
-	{
-		if((b1.rect.x + b1.rect.w) < b2.rect.x || b1.rect.x > (b2.rect.x + b2.rect.w))
-		{
-			return 1.f;
-		}
-	}
-
-	if(yEntry < 0.f)
-	{
-		if((b1.rect.y + b1.rect.h) < b2.rect.y || b1.rect.y > (b2.rect.y + b2.rect.y))
-		{
-			return 1.f;
-		}
-	}
-
-
-	//Collision
-	if(xEntry > yEntry)
-	{
-		if(xInvEntry < 0.f)
-		{
-			xNormal = 1.f;
-			yNormal = 0.f;
-
-			if(b1.rect.x < b2.rect.x)
-				xNormal = -1.f;
-		}
-		else
-		{
-			xNormal = -1.f;
-			yNormal = 0.f;
-
-			if(b1.rect.x > b2.rect.x)
-				xNormal = 1.f;
-		}
-	}
-	else
-	{
-		if(yInvEntry < 0.f)
-		{
-			xNormal = 0.f;
-			yNormal = 1.f;
-
-			if(b1.rect.y < b2.rect.y)
-				yNormal = -1.f;
-		}
-		else
-		{
-			xNormal = 0.f;
-			yNormal = -1.f;
-
-			if(b1.rect.y > b2.rect.y)
-				yNormal = 1.f;
-		}
-	}
-
-	return entryTime;
-
-}
 
 float crupt::CollisionSystem::SweptImproved(const Box& obj, const Box& other, eDirection& colDirection)
 {
@@ -320,10 +189,12 @@ float crupt::CollisionSystem::SweptImproved(const Box& obj, const Box& other, eD
 		if(dxEntry > 0.f)
 		{
 			colDirection = eDirection::RIGHT;
+			printf("Right\n");
 		}
 		else
 		{
 			colDirection = eDirection::LEFT;
+			printf("Left\n");
 		}
 	}
 	else
@@ -331,10 +202,20 @@ float crupt::CollisionSystem::SweptImproved(const Box& obj, const Box& other, eD
 		if(dyEntry > 0.f)
 		{
 			colDirection = eDirection::UP;
+			printf("Up\n");
 		}
 		else
 		{
 			colDirection = eDirection::DOWN;
+			if(obj.rect.y > other.rect.y)
+			{
+				colDirection = eDirection::UP;
+				printf("Up\n");
+			}
+			else
+			{
+				printf("Down\n");
+			}
 		}
 	}
 

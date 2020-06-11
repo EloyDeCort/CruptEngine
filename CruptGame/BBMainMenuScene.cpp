@@ -39,7 +39,7 @@ void crupt::BBMainMenuScene::Update(float dt)
 	}
 }
 
-void crupt::BBMainMenuScene::PostUpdate(float dt)
+void crupt::BBMainMenuScene::FixedUpdate(float dt)
 {
 	dt;
 }

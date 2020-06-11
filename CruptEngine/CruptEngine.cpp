@@ -73,29 +73,39 @@ void crupt::CruptEngine::Run()
 		//crupt::SceneManager& sceneManager = SceneManager::GetInstance();
 		crupt::InputManager& input = InputManager::GetInstance();
 		input.Init();
-
+		float dt = 0.f;
+		float accumulator = 0.f;
+		const float physicsTimeStepMS = 1/66.f;
 		bool doContinue = true;
 		std::chrono::steady_clock::time_point lastTime = high_resolution_clock::now();
 		while (doContinue)
 		{
 			SDL_RenderClear(m_pRenderSystem->GetSDLRenderer());
-			const std::chrono::steady_clock::time_point currentTime = high_resolution_clock::now();
 
-			float dt = std::chrono::duration<float>(currentTime - lastTime).count();
+			const std::chrono::steady_clock::time_point currentTime = high_resolution_clock::now();
+			dt = std::chrono::duration<float>(currentTime - lastTime).count();
+			lastTime = currentTime;
+			
+			if(dt > 0.25f)
+			{
+				dt = 0.25f;
+			}
+
+			accumulator += dt;
+
 			doContinue = input.ProcessInput();
+
+			while(accumulator >= physicsTimeStepMS)
+			{
+				sceneManager.FixedUpdate(physicsTimeStepMS);
+				accumulator -= physicsTimeStepMS;
+			}
 
 			//Update the currently active scene
 			sceneManager.Update(dt);
 
-			//Post Update on the currently active scene
-			sceneManager.PostUpdate(dt);
-
-			//Render the scene
 			sceneManager.Render();
-			
 			SDL_RenderPresent(m_pRenderSystem->GetSDLRenderer());
-
-			lastTime = currentTime;
 		}
 	}
 

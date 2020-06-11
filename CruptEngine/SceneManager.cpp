@@ -102,11 +102,11 @@ void crupt::SceneManager::Update(float dt)
 	}
 }
 
-void crupt::SceneManager::PostUpdate(float dt)
+void crupt::SceneManager::FixedUpdate(float dt)
 {
 	if(m_ActiveScene)
 	{
-		m_ActiveScene->PostUpdate(dt);
+		m_ActiveScene->FixedUpdate(dt);
 	}
 }
 
