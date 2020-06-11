@@ -34,6 +34,10 @@ void CollisionSystem::Update(float dt)
 		playerBox.rect = boxComp.m_CollisionRect;
 		playerBox.velocity = velocityComp.m_Velocity;
 
+		bool colli = false;
+		float xTotal = 0.f;
+		float yTotal = 0.f;
+		float smallestEntry = 1.f;
 
 		for(const SDL_Rect& collision : m_TileComp->m_SolidCollisionsMap.at(m_TileComp->m_CurrentLevel))
 		{
@@ -50,22 +54,50 @@ void CollisionSystem::Update(float dt)
 			SDL_RenderDrawRect(m_pRenderer, &boxComp.m_CollisionRect);
 
 			SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
-			boxComp.m_EntryTime = entryTime;
+		
+			if(entryTime < smallestEntry)
+			{
+				smallestEntry = entryTime;
+			}
 			boxComp.m_IsGrounded = false;
 			if(entryTime < 1.f)
 			{
-				if(yNormal < -0.01f)
-				{
-					boxComp.m_IsGrounded = true;
-				}
-				boxComp.m_Colliding = true;
-				return;
+				xTotal += xNormal;
+				yTotal += yNormal;
+				colli = true;
 			}
 			else
 			{
 				boxComp.m_Colliding = false;
 			}
-				
+		}
+
+		boxComp.m_EntryTime = smallestEntry;
+
+		if(colli)
+		{
+			if(yTotal < -0.01f)
+			{
+				boxComp.m_IsGrounded = true;
+			}
+
+			if(yTotal > 0.01f)
+			{
+				printf("%f - ", yTotal);
+				printf("pos Y col\n");
+			}
+
+			if(xTotal < -0.01f)
+			{
+				printf("%f - ", xTotal);
+				printf("Side collision\n");
+			}
+			if(xTotal > 0.01f)
+			{
+				printf("%f - ", xTotal);
+				printf(" pos Side collision\n");
+			}
+			boxComp.m_Colliding = true;
 		}
 
 		/*for(const SDL_Rect& collision : m_TileComp->m_PlatformCollisionsMap.at(m_TileComp->m_CurrentLevel))
@@ -169,6 +201,9 @@ float crupt::CollisionSystem::SweptAABB(Box b1, Box b2, float& xNormal, float& y
 	}
 
 
+	if (xEntry > 1.0f) xEntry = -std::numeric_limits<float>::infinity();
+	if (yEntry > 1.0f) yEntry = -std::numeric_limits<float>::infinity();
+
 	float entryTime = std::max<float>(xEntry,yEntry);
 	float exitTime = std::min<float>(xExit,yExit);
 
@@ -176,15 +211,11 @@ float crupt::CollisionSystem::SweptAABB(Box b1, Box b2, float& xNormal, float& y
 	//No Collision
 	if(entryTime > exitTime)
 	{
-		xNormal = 0.f;
-		yNormal = 0.f;
 		return 1.f;
 	}
 
 	if(xEntry < 0.f && yEntry < 0.f)
 	{
-		xNormal = 0.f;
-		yNormal = 0.f;
 		return 1.f;
 	}
 
@@ -192,8 +223,6 @@ float crupt::CollisionSystem::SweptAABB(Box b1, Box b2, float& xNormal, float& y
 	{
 		if((b1.rect.x + b1.rect.w) < b2.rect.x || b1.rect.x > (b2.rect.x + b2.rect.w))
 		{
-			xNormal = 0.f;
-			yNormal = 0.f;
 			return 1.f;
 		}
 	}
@@ -202,8 +231,6 @@ float crupt::CollisionSystem::SweptAABB(Box b1, Box b2, float& xNormal, float& y
 	{
 		if((b1.rect.y + b1.rect.h) < b2.rect.y || b1.rect.y > (b2.rect.y + b2.rect.y))
 		{
-			xNormal = 0.f;
-			yNormal = 0.f;
 			return 1.f;
 		}
 	}
@@ -216,11 +243,17 @@ float crupt::CollisionSystem::SweptAABB(Box b1, Box b2, float& xNormal, float& y
 		{
 			xNormal = 1.f;
 			yNormal = 0.f;
+
+			if(b1.rect.x < b2.rect.x)
+				xNormal = -1.f;
 		}
 		else
 		{
 			xNormal = -1.f;
 			yNormal = 0.f;
+
+			if(b1.rect.x > b2.rect.x)
+				xNormal = 1.f;
 		}
 	}
 	else

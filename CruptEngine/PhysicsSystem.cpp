@@ -26,7 +26,6 @@ void PhysicsSystem::Update(float dt)
 		
 		transform.position += velocity.m_Velocity * boxComp.m_EntryTime;
 	
-
 		//transform.position.x += velocity.m_Velocity.x * dt;
 
 		boxComp.m_CollisionRect.x = int(transform.position.x);
