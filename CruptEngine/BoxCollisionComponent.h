@@ -18,8 +18,6 @@ namespace crupt
 		float m_EntryTimeX;
 		float m_EntryTimeY;
 
-		bool m_IsGrounded = false;
-
 		eDirection m_ColDirX = eDirection::NONE;
 		eDirection m_ColDirY = eDirection::NONE;
 	};

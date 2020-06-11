@@ -31,6 +31,7 @@ void crupt::ResourceManager::Init(const std::string& dataPath)
 
 crupt::Texture2D* crupt::ResourceManager::LoadTexture(const std::string& file, SDL_Renderer* pRenderer) const
 {
+
 	const auto fullPath = m_DataPath + file;
 	SDL_Texture* texture = IMG_LoadTexture(pRenderer, fullPath.c_str());
 	if (texture == nullptr) 

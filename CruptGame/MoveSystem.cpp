@@ -32,5 +32,6 @@ void crupt::MoveSystem::OnDispatch(MoveComponent component)
 			}
 		}
 
+		
 		movPhysicsComp.m_Force.x = component.m_Speed * component.m_xDirection;
 }

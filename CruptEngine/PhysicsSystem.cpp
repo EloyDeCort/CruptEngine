@@ -24,10 +24,14 @@ void PhysicsSystem::Update(float dt)
 		BoxCollisionComponent& boxComp = m_pCoordinator->GetComponent<BoxCollisionComponent>(entity);
 	
 		transform.position.x += movPhysicsComp.m_Velocity.x * boxComp.m_EntryTimeX;
+	
+		movPhysicsComp.m_Force.x = 0;
+
 		transform.position.y += movPhysicsComp.m_Velocity.y * boxComp.m_EntryTimeY;
 
 		boxComp.m_CollisionRect.x = int(transform.position.x);
 		boxComp.m_CollisionRect.y = int(transform.position.y);
+
 		
 	}
 }

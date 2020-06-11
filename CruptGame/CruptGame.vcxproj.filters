@@ -48,6 +48,9 @@
     <ClCompile Include="MoveSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerStateSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="PlayerStateComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateSystem.h">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

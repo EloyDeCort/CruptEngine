@@ -36,6 +36,7 @@ void crupt::BubbleBobbleScene::InitSystems()
 	m_pSpriteSystem = pCoordinator.GetSystem<SpriteSystem>();
 	m_pPhysicsSystem = pCoordinator.GetSystem<PhysicsSystem>();
 	m_pCollisionSystem = pCoordinator.GetSystem<CollisionSystem>();
+	m_pPlayerStateSystem = pCoordinator.GetSystem<PlayerStateSystem>();
 }
 
 void crupt::BubbleBobbleScene::InitEntities()
@@ -64,17 +65,27 @@ void crupt::BubbleBobbleScene::InitEntities()
 
 	//Player 1 
 	SpriteComponent spriteComp{};
-	spriteComp.m_FrameCount = 8;
 	spriteComp.m_AnimationRate = 12; 
 	spriteComp.m_ScaleFactor = 2; 
+	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Player/Bob_Idle.png",renderer);
+
 	Entity player1 = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<SpriteComponent>(player1, spriteComp);
-	pCoordinator.AddComponent<RenderableComponent>(player1, RenderableComponent{ResourceManager::GetInstance().LoadTexture("Player/Bob_Walking.png",renderer)});
+	pCoordinator.AddComponent<RenderableComponent>(player1, RenderableComponent{defaultAnim});
 	pCoordinator.AddComponent<TransformComponent>(player1, TransformComponent{glm::vec3(100.f,100.f,0.f)});
-	pCoordinator.AddComponent<PlayerStateComponent>(player1, PlayerStateComponent{PlayerAnimState::IDLE});
 	pCoordinator.AddComponent<MovePhysicsComponent>(player1, MovePhysicsComponent{});
 	pCoordinator.AddComponent<GravityComponent>(player1, GravityComponent{});
 	pCoordinator.AddComponent<BoxCollisionComponent>(player1, BoxCollisionComponent{0,0,32,32});
+	PlayerStateComponent playerStateComp{};
+	playerStateComp.m_AnimationState = PlayerAnimState::IDLE;
+
+	spriteComp.m_FrameCount = 1;
+	playerStateComp.m_pStateSprites.push_back(StateSprite{spriteComp,defaultAnim});
+	
+	spriteComp.m_FrameCount = 8;
+	playerStateComp.m_pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bob_Walking.png",renderer)});
+
+	pCoordinator.AddComponent<PlayerStateComponent>(player1, playerStateComp);
 
 	InputManager& inputManager = InputManager::GetInstance();
 
@@ -82,16 +93,11 @@ void crupt::BubbleBobbleScene::InitEntities()
 	inputManager.AddCommand("JumpP1", new JumpCommand(player1));
 
 	//Pressed
-	inputManager.AddBinding("LeftP1", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Pressed, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("LeftP1", new MoveLeftCommand(player1, false));
-	inputManager.AddBinding("RightP1", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Pressed, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("RightP1", new MoveRightCommand(player1, false));
+	inputManager.AddBinding("LeftP1", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Down, GamepadIndex::PlayerOne});
+	inputManager.AddCommand("LeftP1", new MoveLeftCommand(player1));
+	inputManager.AddBinding("RightP1", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Down, GamepadIndex::PlayerOne});
+	inputManager.AddCommand("RightP1", new MoveRightCommand(player1));
 
-	//Released
-	inputManager.AddBinding("LeftP1Stop", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Released, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("LeftP1Stop", new MoveLeftCommand(player1, true));
-	inputManager.AddBinding("RightP1Stop", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Released, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("RightP1Stop", new MoveRightCommand(player1, true));
 }
 
 void crupt::BubbleBobbleScene::FixedUpdate(float dt)
@@ -103,7 +109,7 @@ void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 
 void crupt::BubbleBobbleScene::Update(float dt)
 {	
-
+	m_pPlayerStateSystem->Update(dt);
 	m_pFPSSystem->Update(m_FpsCounter, dt);
 	m_pFPSSystem->SetText(m_FpsCounter, "FPS:" + std::to_string(m_pFPSSystem->GetFPS(m_FpsCounter)));
 	m_pTextSystem->Update(dt);

@@ -55,4 +55,11 @@ void crupt::MainGame::RegisterAdditionalSystems()
 	}
 	pMoveSystem->Init();
 
+	PlayerStateSystem* pPlayerStateSystem = pCoordinator.RegisterSystem<PlayerStateSystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<PlayerStateComponent>());
+		pCoordinator.SetSystemSignature<PlayerStateSystem>(signature);
+	}
+	pPlayerStateSystem->Init();
 }

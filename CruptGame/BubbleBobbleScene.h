@@ -5,8 +5,8 @@
 
 namespace crupt
 {
-	class TileMapSystem;
 	class JumpSystem;
+	class PlayerStateSystem;
 	class BubbleBobbleScene : public GameScene
 	{
 	public:
@@ -29,6 +29,7 @@ namespace crupt
 		TileMapSystem* m_pTileMapSystem;
 		PhysicsSystem* m_pPhysicsSystem;
 		CollisionSystem* m_pCollisionSystem;
+		PlayerStateSystem* m_pPlayerStateSystem;
 
 		FMOD::Channel* m_pChannel;
 		FMOD::Sound* m_pBGMusic;

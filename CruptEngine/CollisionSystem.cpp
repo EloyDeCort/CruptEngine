@@ -71,13 +71,6 @@ void CollisionSystem::Update(float dt)
 					}
 				}
 			}
-		
-
-			SDL_SetRenderDrawColor(m_pRenderer, 0, 255, 0, 255);
-			SDL_RenderDrawRect(m_pRenderer, &boxComp.m_CollisionRect);
-
-			SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
-		
 		}
 		
 		//std::cout << int(finalDir) << std::endl;
@@ -116,10 +109,6 @@ void CollisionSystem::Update(float dt)
 		boxComp.m_EntryTimeY = lowestColTimeY;
 		boxComp.m_ColDirX = finalDirX;
 		boxComp.m_ColDirY = finalDirY;
-		if(finalDirY == eDirection::DOWN)
-		{
-			boxComp.m_IsGrounded = true;
-		}
 	}
 }
 
