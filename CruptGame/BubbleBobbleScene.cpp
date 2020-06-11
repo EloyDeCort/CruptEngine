@@ -62,17 +62,17 @@ void crupt::BubbleBobbleScene::InitEntities()
 	pCoordinator.AddComponent<RenderableComponent>(ui, RenderableComponent{ResourceManager::GetInstance().LoadTexture("UI.png",renderer)});
 	pCoordinator.AddComponent<TransformComponent>(ui, TransformComponent{glm::vec3(0.f,0.f,0.f)});
 
-	//Player
+	//Player 1 
 	SpriteComponent spriteComp{};
 	spriteComp.m_FrameCount = 8;
 	spriteComp.m_AnimationRate = 12; 
 	spriteComp.m_ScaleFactor = 2; 
 	Entity player1 = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<SpriteComponent>(player1, spriteComp);
-	pCoordinator.AddComponent<RenderableComponent>(player1, RenderableComponent{ResourceManager::GetInstance().LoadTexture("Bubblun.png",renderer)});
+	pCoordinator.AddComponent<RenderableComponent>(player1, RenderableComponent{ResourceManager::GetInstance().LoadTexture("Player/Bob_Walking.png",renderer)});
 	pCoordinator.AddComponent<TransformComponent>(player1, TransformComponent{glm::vec3(100.f,100.f,0.f)});
 	pCoordinator.AddComponent<PlayerStateComponent>(player1, PlayerStateComponent{PlayerAnimState::IDLE});
-	pCoordinator.AddComponent<VelocityComponent>(player1, VelocityComponent{});
+	pCoordinator.AddComponent<MovePhysicsComponent>(player1, MovePhysicsComponent{});
 	pCoordinator.AddComponent<GravityComponent>(player1, GravityComponent{});
 	pCoordinator.AddComponent<BoxCollisionComponent>(player1, BoxCollisionComponent{0,0,32,32});
 

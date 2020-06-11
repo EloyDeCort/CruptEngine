@@ -20,29 +20,29 @@ void PhysicsSystem::Update(float dt)
 		//Get the transform & Renderable component
 		TransformComponent& transform = m_pCoordinator->GetComponent<TransformComponent>(entity);
 		//const GravityComponent& gravity = m_pCoordinator->GetComponent<GravityComponent>(entity);
-		VelocityComponent& velocity = m_pCoordinator->GetComponent<VelocityComponent>(entity);
+		MovePhysicsComponent& movPhysicsComp = m_pCoordinator->GetComponent<MovePhysicsComponent>(entity);
 		BoxCollisionComponent& boxComp = m_pCoordinator->GetComponent<BoxCollisionComponent>(entity);
 
 		
 		switch(boxComp.m_CollisionDir)
 		{
 		case eDirection::DOWN:
-				transform.position.y += velocity.m_Velocity.y * boxComp.m_EntryTime;
-				transform.position.x += velocity.m_Velocity.x;
+				transform.position.y += movPhysicsComp.m_Velocity.y * boxComp.m_EntryTime;
+				transform.position.x += movPhysicsComp.m_Velocity.x;
 			break;
 
 		case eDirection::UP:
-			transform.position.y += velocity.m_Velocity.y * boxComp.m_EntryTime;
-			transform.position.x += velocity.m_Velocity.x;
+			transform.position.y += movPhysicsComp.m_Velocity.y * boxComp.m_EntryTime;
+			transform.position.x += movPhysicsComp.m_Velocity.x;
 		break;
 
 		case eDirection::LEFT:
-				transform.position.y += velocity.m_Velocity.y;
-				transform.position.x += velocity.m_Velocity.x * boxComp.m_EntryTime;
+				transform.position.y += movPhysicsComp.m_Velocity.y;
+				transform.position.x += movPhysicsComp.m_Velocity.x * boxComp.m_EntryTime;
 			break;
 
 		case eDirection::NONE:
-			transform.position += velocity.m_Velocity;
+			transform.position += movPhysicsComp.m_Velocity;
 			break;
 		}
 
@@ -61,23 +61,23 @@ void crupt::PhysicsSystem::PreUpdate(float dt)
 	{	
 		//Get the transform & Renderable component
 		const GravityComponent& gravity = m_pCoordinator->GetComponent<GravityComponent>(entity);
-		VelocityComponent& velocity = m_pCoordinator->GetComponent<VelocityComponent>(entity);
+		MovePhysicsComponent& movPhysicsComp = m_pCoordinator->GetComponent<MovePhysicsComponent>(entity);
 		BoxCollisionComponent& boxComp = m_pCoordinator->GetComponent<BoxCollisionComponent>(entity);
 			
 		switch(boxComp.m_CollisionDir)
 		{
 		case eDirection::DOWN:
-			if(velocity.m_Force.y >= 0.f)
+			if(movPhysicsComp.m_Force.y >= 0.f)
 			{
-				velocity.m_Force.y = 0;
+				movPhysicsComp.m_Force.y = 0;
 			}
 			break;
 		default:
-			velocity.m_Force -= gravity.m_Gravity * dt;
+			movPhysicsComp.m_Force -= gravity.m_Gravity * dt;
 			break;
 		}
 
 
-		velocity.m_Velocity = velocity.m_Force * dt;
+		movPhysicsComp.m_Velocity = movPhysicsComp.m_Force * dt;
 	}
 }

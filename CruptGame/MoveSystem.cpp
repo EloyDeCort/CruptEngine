@@ -15,7 +15,7 @@ void crupt::MoveSystem::Init()
 void crupt::MoveSystem::OnDispatch(MoveComponent component)
 {
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
-	VelocityComponent& velocity = coordinator->GetComponent<VelocityComponent>(component.m_Target);
+	MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(component.m_Target);
 	RenderableComponent& render = coordinator->GetComponent<RenderableComponent>(component.m_Target);
 
 	if(component.m_Speed > 0.01f)
@@ -30,5 +30,5 @@ void crupt::MoveSystem::OnDispatch(MoveComponent component)
 		}
 	}
 
-	velocity.m_Force.x = component.m_Speed * component.m_xDirection;
+	movPhysicsComp.m_Force.x = component.m_Speed * component.m_xDirection;
 }

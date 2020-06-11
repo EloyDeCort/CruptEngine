@@ -32,11 +32,11 @@ void CollisionSystem::Update(float dt)
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	for (Entity entity : m_Entities)
 	{
-		VelocityComponent& velocityComp = coordinator->GetComponent<VelocityComponent>(entity);
+		MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(entity);
 		BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
 		Box playerBox{};
 		playerBox.rect = boxComp.m_CollisionRect;
-		playerBox.velocity = velocityComp.m_Velocity;
+		playerBox.velocity = movPhysicsComp.m_Velocity;
 
 		float lowestColTime = 1.f;
 		eDirection finalDir = eDirection::NONE;
