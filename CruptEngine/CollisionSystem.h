@@ -22,11 +22,12 @@ namespace crupt
 		void Init(SDL_Renderer* renderer);
 		void InitMap(Entity mapEntity);
 		void Update(float dt);
-		bool AABB(SDL_Rect b1, SDL_Rect b2);
-		float SweptAABB(Box b1, Box b2, float& xNormal, float& yNormal);
+		bool IsColliding(const Box& obj, const Box& other);
+		float SweptAABB(const Box& b1, const Box& b2, float& xNormal, float& yNormal);
+		float SweptImproved(const Box& obj, const Box& other, eDirection& colDirection);
 		
 	private:
-
+		Box GetSweptBroadphase(const Box& object);
 		Entity m_MapEntity;
 		TileMapComponent* m_TileComp;
 		SDL_Renderer* m_pRenderer;

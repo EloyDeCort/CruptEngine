@@ -3,6 +3,14 @@
 struct SDL_Rect;
 namespace crupt
 {
+	enum class eDirection
+	{
+		NONE,
+		UP,
+		DOWN,
+		LEFT,
+		RIGHT
+	};
 
 	struct BoxCollisionComponent
 	{
@@ -11,5 +19,7 @@ namespace crupt
 		float m_EntryTime;
 
 		bool m_IsGrounded = false;
+
+		eDirection m_CollisionDir = eDirection::NONE;
 	};
 }

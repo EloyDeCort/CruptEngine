@@ -24,7 +24,25 @@ void PhysicsSystem::Update(float dt)
 		BoxCollisionComponent& boxComp = m_pCoordinator->GetComponent<BoxCollisionComponent>(entity);
 
 		
-		transform.position += velocity.m_Velocity * boxComp.m_EntryTime;
+		switch(boxComp.m_CollisionDir)
+		{
+		case eDirection::DOWN:
+				transform.position.y += velocity.m_Velocity.y * boxComp.m_EntryTime;
+				transform.position.x += velocity.m_Velocity.x;
+			break;
+
+		case eDirection::LEFT:
+				transform.position.y += velocity.m_Velocity.y * boxComp.m_EntryTime;
+				transform.position.x += velocity.m_Velocity.x * boxComp.m_EntryTime;
+			break;
+
+		case eDirection::NONE:
+			transform.position += velocity.m_Velocity * boxComp.m_EntryTime;
+			break;
+		}
+	
+
+
 	
 		//transform.position.x += velocity.m_Velocity.x * dt;
 

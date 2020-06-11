@@ -1,3 +1,7 @@
+//SOURCES:
+//https://amanotes.com/using-swept-aabb-to-detect-and-process-collision/
+//https://www.gamedev.net/tutorials/programming/general-and-gameplay-programming/swept-aabb-collision-detection-and-response-r3084/
+
 #include "CruptEnginePCH.h"
 #include "CollisionSystem.h"
 #include "Components.h"
@@ -34,117 +38,81 @@ void CollisionSystem::Update(float dt)
 		playerBox.rect = boxComp.m_CollisionRect;
 		playerBox.velocity = velocityComp.m_Velocity;
 
-		bool colli = false;
-		float xTotal = 0.f;
-		float yTotal = 0.f;
-		float smallestEntry = 1.f;
-
+		float lowestColTime = 1.f;
+		eDirection finalDir = eDirection::NONE;
+		
 		for(const SDL_Rect& collision : m_TileComp->m_SolidCollisionsMap.at(m_TileComp->m_CurrentLevel))
 		{
 			Box wallBox{};
 			wallBox.rect = collision;
 			wallBox.velocity = glm::vec2{0.f,0.f};
 
-			float xNormal{0.f};
-			float yNormal{0.f};
+			eDirection result = eDirection::NONE;
+			float collisionTime = SweptImproved(playerBox, wallBox, result);
 
-			float entryTime = SweptAABB(playerBox, wallBox, xNormal, yNormal);
+			if(collisionTime < 1.f)
+			{
+				if(collisionTime < lowestColTime)
+				{
+					lowestColTime = collisionTime;
+					finalDir = result;
+				}
+			}
+			else
+			{
+				
+			}
 
 			SDL_SetRenderDrawColor(m_pRenderer, 0, 255, 0, 255);
 			SDL_RenderDrawRect(m_pRenderer, &boxComp.m_CollisionRect);
 
 			SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 		
-			if(entryTime < smallestEntry)
-			{
-				smallestEntry = entryTime;
-			}
-			boxComp.m_IsGrounded = false;
-			if(entryTime < 1.f)
-			{
-				xTotal += xNormal;
-				yTotal += yNormal;
-				colli = true;
-			}
-			else
-			{
-				boxComp.m_Colliding = false;
-			}
 		}
-
-		boxComp.m_EntryTime = smallestEntry;
-
-		if(colli)
-		{
-			if(yTotal < -0.01f)
-			{
-				boxComp.m_IsGrounded = true;
-			}
-
-			if(yTotal > 0.01f)
-			{
-				printf("%f - ", yTotal);
-				printf("pos Y col\n");
-			}
-
-			if(xTotal < -0.01f)
-			{
-				printf("%f - ", xTotal);
-				printf("Side collision\n");
-			}
-			if(xTotal > 0.01f)
-			{
-				printf("%f - ", xTotal);
-				printf(" pos Side collision\n");
-			}
-			boxComp.m_Colliding = true;
-		}
-
-		/*for(const SDL_Rect& collision : m_TileComp->m_PlatformCollisionsMap.at(m_TileComp->m_CurrentLevel))
+		
+		//std::cout << int(finalDir) << std::endl;
+		
+		for(const SDL_Rect& collision : m_TileComp->m_PlatformCollisionsMap.at(m_TileComp->m_CurrentLevel))
 		{
 			Box wallBox{};
 			wallBox.rect = collision;
 			wallBox.velocity = glm::vec2{0.f,0.f};
 
-			float xNormal{0.f};
-			float yNormal{0.f};
+			eDirection result = eDirection::NONE;
+			float collisionTime = SweptImproved(playerBox, wallBox, result);
 
-			float entryTime = SweptAABB(playerBox, wallBox, xNormal, yNormal);
-
-			SDL_SetRenderDrawColor(m_pRenderer, 0, 255, 0, 255);
-			SDL_RenderDrawRect(m_pRenderer, &boxComp.m_CollisionRect);
-
-			SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
-			boxComp.m_EntryTime = entryTime;
-			boxComp.m_IsGrounded = false;
-			if(entryTime < 1.f)
+			if(collisionTime < 1.f)
 			{
-				if(yNormal < -0.01f)
+				if(collisionTime < lowestColTime)
 				{
-					boxComp.m_IsGrounded = true;
+					lowestColTime = collisionTime;
+					finalDir = result;
 				}
-				boxComp.m_Colliding = true;
-				return;
 			}
 			else
 			{
-				boxComp.m_Colliding = false;
+				
 			}
 				
-		}*/
+		}
 
+		boxComp.m_EntryTime = lowestColTime;
+		boxComp.m_CollisionDir = finalDir;
 	}
 }
 
-bool crupt::CollisionSystem::AABB(SDL_Rect b1, SDL_Rect b2)
+bool crupt::CollisionSystem::IsColliding(const Box& obj, const Box& other)
 {
-	return (b1.x < b2.x + b2.w && 
-		b1.x + b1.w > b2.x && 
-		b1.y < b2.y + b2.h && 
-		b1.y + b1.h > b2.y);
+	float left = float(other.rect.x - (obj.rect.x + obj.rect.w));
+	float top = float((other.rect.y + other.rect.h) - obj.rect.y);
+	float right = float((other.rect.x + other.rect.w) - obj.rect.x);
+	float bottom = float(other.rect.y - (obj.rect.y + obj.rect.h));
+
+	return !(left > 0.f || right < 0.f || top < 0.f || bottom > 0.f);
+
 }
 
-float crupt::CollisionSystem::SweptAABB(Box b1, Box b2, float& xNormal, float& yNormal)
+float crupt::CollisionSystem::SweptAABB(const Box& b1, const Box& b2, float& xNormal, float& yNormal)
 {
 	float xInvEntry{}, yInvEntry{}; 
 	float xInvExit{}, yInvExit{}; 
@@ -278,4 +246,112 @@ float crupt::CollisionSystem::SweptAABB(Box b1, Box b2, float& xNormal, float& y
 
 	return entryTime;
 
+}
+
+float crupt::CollisionSystem::SweptImproved(const Box& obj, const Box& other, eDirection& colDirection)
+{
+	float dxEntry{}, dxExit{};
+	float dyEntry{}, dyExit{};
+
+	Box broadBox = GetSweptBroadphase(obj);
+
+	if(!IsColliding(broadBox, other))
+	{
+		return 1.f;
+	}
+
+	if(obj.velocity.x > 0.f)
+	{
+		dxEntry = float(other.rect.x - (obj.rect.x + obj.rect.w));
+		dxExit = float((other.rect.x + other.rect.w) - obj.rect.x);
+	}
+	else
+	{
+		dxEntry = float((other.rect.x + other.rect.w) - obj.rect.x);
+		dxExit =  float(other.rect.x - (obj.rect.x + obj.rect.w));
+	}
+
+	if(obj.velocity.y > 0.f)
+	{
+		dyEntry = float( other.rect.y - (obj.rect.y + obj.rect.h));
+		dyExit = float((other.rect.y + other.rect.h) - obj.rect.y);
+	}
+	else
+	{
+		dyEntry = float((other.rect.y + other.rect.h) - obj.rect.y);
+		dyExit =  float(other.rect.y - (obj.rect.y + obj.rect.h));
+	}
+	
+	float txEntry{}, txExit{};
+	float tyEntry{}, tyExit{};
+
+	if(obj.velocity.x < FLT_EPSILON && obj.velocity.x > -FLT_EPSILON)
+	{
+		txEntry = -std::numeric_limits<float>::infinity();
+		txExit = std::numeric_limits<float>::infinity();
+	}
+	else
+	{
+		txEntry = dxEntry / obj.velocity.x;
+		txExit = dxExit / obj.velocity.x;
+	}
+
+	if(obj.velocity.y < FLT_EPSILON && obj.velocity.y > -FLT_EPSILON)
+	{
+		tyEntry = -std::numeric_limits<float>::infinity();
+		tyExit = std::numeric_limits<float>::infinity();
+	}
+	else
+	{
+		tyEntry = dyEntry / obj.velocity.y;
+		tyExit = dyExit / obj.velocity.y;
+	}
+
+	float entryTime = max(txEntry, tyEntry);
+	float exitTime = min(txExit, tyExit);
+
+	if(entryTime > exitTime || (txEntry < 0.f && tyEntry < 0.f) || txEntry > 1.f || tyEntry > 1.f)
+	{
+		return 1.f;
+	}
+
+	if(txEntry > tyEntry)
+	{
+		if(dxEntry > 0.f)
+		{
+			colDirection = eDirection::RIGHT;
+		}
+		else
+		{
+			colDirection = eDirection::LEFT;
+		}
+	}
+	else
+	{
+		if(dyEntry > 0.f)
+		{
+			colDirection = eDirection::UP;
+		}
+		else
+		{
+			colDirection = eDirection::DOWN;
+		}
+	}
+
+	return entryTime;
+
+}
+
+Box crupt::CollisionSystem::GetSweptBroadphase(const Box& object)
+{
+	SDL_Rect result;
+	result.x = object.velocity.x > 0.f ? int(object.rect.x) : int(object.rect.x + object.velocity.x);
+	result.y = object.velocity.y > 0.f ? int(object.rect.y) : int(object.rect.y + object.velocity.y);
+	result.w = int(object.rect.w + abs(object.velocity.x));
+	result.h = int(object.rect.h + abs(object.velocity.y));
+
+	Box res{};
+	res.rect = result;
+
+	return res;
 }
