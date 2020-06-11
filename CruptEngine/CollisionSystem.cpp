@@ -38,8 +38,10 @@ void CollisionSystem::Update(float dt)
 		playerBox.rect = boxComp.m_CollisionRect;
 		playerBox.velocity = movPhysicsComp.m_Velocity;
 
-		float lowestColTime = 1.f;
-		eDirection finalDir = eDirection::NONE;
+		float lowestColTimeX = 1.f;
+		float lowestColTimeY = 1.f;
+		eDirection finalDirX = eDirection::NONE;
+		eDirection finalDirY = eDirection::NONE;
 		
 		for(const SDL_Rect& collision : m_TileComp->m_SolidCollisionsMap.at(m_TileComp->m_CurrentLevel))
 		{
@@ -52,16 +54,24 @@ void CollisionSystem::Update(float dt)
 
 			if(collisionTime < 1.f)
 			{
-				if(collisionTime < lowestColTime)
+				if(result == eDirection::LEFT || result == eDirection::RIGHT)
 				{
-					lowestColTime = collisionTime;
-					finalDir = result;
+					if(collisionTime < lowestColTimeX)
+					{
+						lowestColTimeX = collisionTime;
+						finalDirX = result;
+					}
+				}
+				else if(result == eDirection::UP || result == eDirection::DOWN)
+				{
+					if(collisionTime < lowestColTimeY)
+					{
+						lowestColTimeY = collisionTime;
+						finalDirY = result;
+					}
 				}
 			}
-			else
-			{
-				
-			}
+		
 
 			SDL_SetRenderDrawColor(m_pRenderer, 0, 255, 0, 255);
 			SDL_RenderDrawRect(m_pRenderer, &boxComp.m_CollisionRect);
@@ -79,29 +89,37 @@ void CollisionSystem::Update(float dt)
 			wallBox.velocity = glm::vec2{0.f,0.f};
 
 			eDirection result = eDirection::NONE;
-			float collisionTime = SweptImproved(playerBox, wallBox, result);
+			float collisionTime = SweptImproved(playerBox, wallBox, result, true);
 
 			if(collisionTime < 1.f)
 			{
-				if(collisionTime < lowestColTime)
+				if(result == eDirection::LEFT || result == eDirection::RIGHT)
 				{
-					lowestColTime = collisionTime;
-					finalDir = result;
+					if(collisionTime < lowestColTimeX)
+					{
+						lowestColTimeX = collisionTime;
+						finalDirX = result;
+					}
+				}
+				else if(result == eDirection::UP || result == eDirection::DOWN)
+				{
+					if(collisionTime < lowestColTimeY)
+					{
+						lowestColTimeY = collisionTime;
+						finalDirY = result;
+					}
 				}
 			}
-			else
-			{
-				
-			}
-				
 		}
 
-		boxComp.m_EntryTime = lowestColTime;
-		if(finalDir == eDirection::DOWN)
+		boxComp.m_EntryTimeX = lowestColTimeX;
+		boxComp.m_EntryTimeY = lowestColTimeY;
+		boxComp.m_ColDirX = finalDirX;
+		boxComp.m_ColDirY = finalDirY;
+		if(finalDirY == eDirection::DOWN)
 		{
 			boxComp.m_IsGrounded = true;
 		}
-		boxComp.m_CollisionDir = finalDir;
 	}
 }
 
@@ -117,7 +135,7 @@ bool crupt::CollisionSystem::IsColliding(const Box& obj, const Box& other)
 }
 
 
-float crupt::CollisionSystem::SweptImproved(const Box& obj, const Box& other, eDirection& colDirection)
+float crupt::CollisionSystem::SweptImproved(const Box& obj, const Box& other, eDirection& colDirection, bool platform)
 {
 	float dxEntry{}, dxExit{};
 	float dyEntry{}, dyExit{};
@@ -189,12 +207,12 @@ float crupt::CollisionSystem::SweptImproved(const Box& obj, const Box& other, eD
 		if(dxEntry > 0.f)
 		{
 			colDirection = eDirection::RIGHT;
-			printf("Right\n");
+		//	printf("Right\n");
 		}
 		else
 		{
 			colDirection = eDirection::LEFT;
-			printf("Left\n");
+			//printf("Left\n");
 		}
 	}
 	else
@@ -202,7 +220,7 @@ float crupt::CollisionSystem::SweptImproved(const Box& obj, const Box& other, eD
 		if(dyEntry > 0.f)
 		{
 			colDirection = eDirection::UP;
-			printf("Up\n");
+			//printf("Up\n");
 		}
 		else
 		{
@@ -210,11 +228,15 @@ float crupt::CollisionSystem::SweptImproved(const Box& obj, const Box& other, eD
 			if(obj.rect.y > other.rect.y)
 			{
 				colDirection = eDirection::UP;
-				printf("Up\n");
+				if(platform)
+				{
+					return 1.f;
+				}
+				//printf("Up\n");
 			}
 			else
 			{
-				printf("Down\n");
+				//printf("Down\n");
 			}
 		}
 	}

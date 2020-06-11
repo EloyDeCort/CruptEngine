@@ -6,6 +6,6 @@ namespace crupt
 	struct JumpComponent
 	{
 		Entity m_Target;
-		float m_JumpHeight = -260.f;
+		float m_JumpHeight = -280.f;
 	};
 }
