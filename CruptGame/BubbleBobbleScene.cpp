@@ -37,6 +37,7 @@ void crupt::BubbleBobbleScene::InitSystems()
 	m_pPhysicsSystem = pCoordinator.GetSystem<PhysicsSystem>();
 	m_pCollisionSystem = pCoordinator.GetSystem<CollisionSystem>();
 	m_pPlayerStateSystem = pCoordinator.GetSystem<PlayerStateSystem>();
+	m_pBubbleMovementSystem = pCoordinator.GetSystem<BubbleMovementSystem>();
 }
 
 void crupt::BubbleBobbleScene::InitEntities()
@@ -92,6 +93,9 @@ void crupt::BubbleBobbleScene::InitEntities()
 	inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, 'C', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
 	inputManager.AddCommand("JumpP1", new JumpCommand(player1));
 
+	inputManager.AddBinding("SpawnBubble", Binding{ControllerButton::ButtonX, 'X', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+	inputManager.AddCommand("SpawnBubble", new SpawnBubbleCommand(player1));
+
 	//Pressed
 	inputManager.AddBinding("LeftP1", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Down, GamepadIndex::PlayerOne});
 	inputManager.AddCommand("LeftP1", new MoveLeftCommand(player1));
@@ -105,6 +109,7 @@ void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 	m_pPhysicsSystem->PreUpdate(dt);
 	m_pCollisionSystem->Update(dt);
 	m_pPhysicsSystem->Update(dt);
+	m_pBubbleMovementSystem->Update(dt);
 }
 
 void crupt::BubbleBobbleScene::Update(float dt)

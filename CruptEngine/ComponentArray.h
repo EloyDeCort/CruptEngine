@@ -79,6 +79,16 @@ namespace crupt
 			//Get the index through the entity to index map (which will give us the correct index of what component)
 			return m_ComponentArray[m_EntityToIndexMap[entity]];
 		}
+
+		bool HasData(Entity entity)
+		{
+			if(m_EntityToIndexMap.find(entity) == m_EntityToIndexMap.end())
+			{
+				return false;
+			}
+
+			return true;
+		}
 		
 		virtual void EntityDestroyed(Entity entity) override
 		{

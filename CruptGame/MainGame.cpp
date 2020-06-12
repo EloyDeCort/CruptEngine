@@ -28,6 +28,7 @@ void crupt::MainGame::RegisterAdditionalComponents()
 	pCoordinator.RegisterComponent<PlayerStateComponent>();
 	pCoordinator.RegisterComponent<JumpComponent>();
 	pCoordinator.RegisterComponent<MoveComponent>();
+	pCoordinator.RegisterComponent<BubbleComponent>();
 }
 
 void crupt::MainGame::RegisterAdditionalSystems()
@@ -62,4 +63,22 @@ void crupt::MainGame::RegisterAdditionalSystems()
 		pCoordinator.SetSystemSignature<PlayerStateSystem>(signature);
 	}
 	pPlayerStateSystem->Init();
+
+	BubbleSpawnSystem* pBubbleSpawnSystem = pCoordinator.RegisterSystem<BubbleSpawnSystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<BubbleComponent>());
+		pCoordinator.SetSystemSignature<BubbleSpawnSystem>(signature);
+	}
+
+	pBubbleSpawnSystem->Init(m_pRenderSystem->GetSDLRenderer());
+
+	BubbleMovementSystem* pBubbleMovementSystem = pCoordinator.RegisterSystem<BubbleMovementSystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<BubbleComponent>());
+		pCoordinator.SetSystemSignature<BubbleMovementSystem>(signature);
+	}
+
+	pBubbleMovementSystem->Init();
 }

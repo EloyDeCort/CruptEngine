@@ -7,6 +7,7 @@ namespace crupt
 {
 	class JumpSystem;
 	class PlayerStateSystem;
+	class BubbleMovementSystem;
 	class BubbleBobbleScene : public GameScene
 	{
 	public:
@@ -30,6 +31,7 @@ namespace crupt
 		PhysicsSystem* m_pPhysicsSystem;
 		CollisionSystem* m_pCollisionSystem;
 		PlayerStateSystem* m_pPlayerStateSystem;
+		BubbleMovementSystem* m_pBubbleMovementSystem;
 
 		FMOD::Channel* m_pChannel;
 		FMOD::Sound* m_pBGMusic;

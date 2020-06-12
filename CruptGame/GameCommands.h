@@ -38,5 +38,19 @@ namespace crupt
 		Entity m_pReceiver;
 		PlayerStateComponent* m_pState;
 	};
+
+	
+	class SpawnBubbleCommand : public ICommand
+	{
+	public:
+		SpawnBubbleCommand(Entity pPlayer);	
+		virtual ~SpawnBubbleCommand();
+
+		virtual void Execute() override;
+	private:
+		Entity m_pPlayer;
+		float m_Offset;
+		PlayerStateComponent* m_pState;
+	};
 	
 }

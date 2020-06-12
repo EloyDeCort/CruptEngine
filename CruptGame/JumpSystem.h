@@ -12,8 +12,6 @@ namespace crupt
 		void OnDispatch(JumpComponent component);
 
 	private:
-		float m_Time;
-		int m_FpsCounter;
 	};
 }
 

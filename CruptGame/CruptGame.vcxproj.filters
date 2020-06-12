@@ -51,6 +51,12 @@
     <ClCompile Include="PlayerStateSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="BubbleSpawnSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="BubbleMovementSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -90,6 +96,15 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="PlayerStateSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="BubbleComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BubbleSpawnSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="BubbleMovementSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>

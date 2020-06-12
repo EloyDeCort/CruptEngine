@@ -70,3 +70,34 @@ void crupt::MoveRightCommand::Execute()
 
 	SignalHandler<MoveComponent>::GetInstance().Publish(moveComp);
 }
+
+crupt::SpawnBubbleCommand::SpawnBubbleCommand(Entity pPlayer)
+	: ICommand{"SpawnBubbleCommand"}
+	, m_pPlayer{pPlayer}
+	, m_Offset{40.f}
+{
+}
+
+crupt::SpawnBubbleCommand::~SpawnBubbleCommand()
+{
+}
+
+void crupt::SpawnBubbleCommand::Execute()
+{
+	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
+	const TransformComponent& playerTransComp = coordinator->GetComponent<TransformComponent>(m_pPlayer);
+	const RenderableComponent& renderable = coordinator->GetComponent<RenderableComponent>(m_pPlayer);
+	BubbleComponent bubbleComp;
+	bubbleComp.position = playerTransComp.position;
+
+	if(renderable.m_Flip)
+	{
+		bubbleComp.position.x -= m_Offset;
+	}
+	else
+	{
+		bubbleComp.position.x += m_Offset;
+	}
+
+	SignalHandler<BubbleComponent>::GetInstance().Publish(bubbleComp);
+}

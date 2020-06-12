@@ -69,6 +69,13 @@ namespace crupt
 			return GetComponentArray<T>()->GetData(entity);
 		}
 
+		template<typename T>
+		bool HasComponent(Entity entity)
+		{
+			//Return a reference to the component from the array of components for the entity
+			return GetComponentArray<T>()->HasData(entity);
+		}
+
 		void EntityDestroyed(Entity entity)
 		{
 			//Go through all component arrays to notify them that an entity has been destroyed

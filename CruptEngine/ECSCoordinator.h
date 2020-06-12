@@ -81,6 +81,12 @@ namespace crupt
 		}
 
 		template<typename T>
+		bool HasComponent(Entity entity)
+		{
+			return ComponentManager::GetInstance().HasComponent<T>(entity);		
+		}
+
+		template<typename T>
 		ComponentType GetComponentType()
 		{
 			return ComponentManager::GetInstance().GetComponentType<T>();

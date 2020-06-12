@@ -17,7 +17,7 @@ void crupt::MoveSystem::OnDispatch(MoveComponent component)
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(component.m_Target);
 	RenderableComponent& render = coordinator->GetComponent<RenderableComponent>(component.m_Target);
-	//BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(component.m_Target);
+	BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(component.m_Target);
 
 	
 		if(component.m_Speed > 0.01f)
@@ -32,6 +32,12 @@ void crupt::MoveSystem::OnDispatch(MoveComponent component)
 			}
 		}
 
-		
-		movPhysicsComp.m_Force.x = component.m_Speed * component.m_xDirection;
+		if(boxComp.m_ColDirY == eDirection::DOWN)
+		{
+			movPhysicsComp.m_Force.x = component.m_Speed * component.m_xDirection;
+		}
+		else
+		{
+			movPhysicsComp.m_Force.x = component.m_Speed * 0.8f * component.m_xDirection;
+		}
 }

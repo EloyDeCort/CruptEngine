@@ -172,6 +172,8 @@
   <ItemGroup>
     <ClCompile Include="BBMainMenuScene.cpp" />
     <ClCompile Include="BubbleBobbleScene.cpp" />
+    <ClCompile Include="BubbleMovementSystem.cpp" />
+    <ClCompile Include="BubbleSpawnSystem.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="GameCommands.cpp" />
     <ClCompile Include="JumpSystem.cpp" />
@@ -188,6 +190,9 @@
   <ItemGroup>
     <ClInclude Include="BBMainMenuScene.h" />
     <ClInclude Include="BubbleBobbleScene.h" />
+    <ClInclude Include="BubbleComponent.h" />
+    <ClInclude Include="BubbleMovementSystem.h" />
+    <ClInclude Include="BubbleSpawnSystem.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="GameCommands.h" />
     <ClInclude Include="GameComponents.h" />

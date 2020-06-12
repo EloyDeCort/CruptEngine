@@ -4,3 +4,4 @@
 #include "PlayerStateComponent.h"
 #include "JumpComponent.h"
 #include "MoveComponent.h"
+#include "BubbleComponent.h"
