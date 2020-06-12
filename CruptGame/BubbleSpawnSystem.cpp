@@ -31,7 +31,7 @@ void crupt::BubbleSpawnSystem::OnDispatch(BubbleComponent component)
 	coordinator.AddComponent<MovePhysicsComponent>(bubble, MovePhysicsComponent{});
 	
 	//Reusing bubble component as tag
-	coordinator.AddComponent<BubbleComponent>(bubble, BubbleComponent{component.position});
+	coordinator.AddComponent<BubbleComponent>(bubble, component);
 	BoxCollisionComponent col; 
 	col.m_CollisionRect = SDL_Rect{0,0,32,32};
 	col.m_IgnorePlatforms = true;

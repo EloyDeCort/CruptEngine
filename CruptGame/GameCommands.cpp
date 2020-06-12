@@ -93,11 +93,14 @@ void crupt::SpawnBubbleCommand::Execute()
 	if(renderable.m_Flip)
 	{
 		bubbleComp.position.x -= m_Offset;
+		bubbleComp.flipped = true;
 	}
 	else
 	{
 		bubbleComp.position.x += m_Offset;
+		bubbleComp.flipped = false;
 	}
+
 
 	SignalHandler<BubbleComponent>::GetInstance().Publish(bubbleComp);
 }

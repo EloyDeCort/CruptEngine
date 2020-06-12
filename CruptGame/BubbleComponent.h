@@ -12,7 +12,10 @@ namespace crupt
 	struct BubbleComponent
 	{
 		glm::vec2 position;
-		float totalTime;
+		float totalTime = 0.f;
+		float xSpeed = 200.f;
+		float xSpeedTime = 0.5f;
+		bool flipped = false;
 
 		bool shouldPop = false;
 	};

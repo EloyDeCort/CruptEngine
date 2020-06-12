@@ -66,7 +66,20 @@ void crupt::BubbleMovementSystem::PreUpdate(float dt)
 
 		bubbleComp.totalTime += dt;
 
-		movPhysicsComp.m_Velocity.y = -50.f;
-		movPhysicsComp.m_Velocity.x = sin(5.f * bubbleComp.totalTime) * 20.f;
+
+		if(bubbleComp.totalTime < bubbleComp.xSpeedTime)
+		{
+			movPhysicsComp.m_Velocity.x = sin(5.f * bubbleComp.totalTime) * 20.f + bubbleComp.xSpeed;
+
+			if(bubbleComp.flipped)
+			{
+				movPhysicsComp.m_Velocity.x = -movPhysicsComp.m_Velocity.x;
+			}
+		}
+		else
+		{
+			movPhysicsComp.m_Velocity.x = sin(5.f * bubbleComp.totalTime) * 20.f ;
+			movPhysicsComp.m_Velocity.y = -50.f;
+		}
 	}
 }
