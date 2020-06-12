@@ -22,11 +22,12 @@ namespace crupt
 		void Init(SDL_Renderer* renderer);
 		void InitMap(Entity mapEntity);
 		void Update(float dt);
-		bool IsColliding(const Box& obj, const Box& other);
-		float SweptImproved(const Box& obj, const Box& other, eDirection& colDirection, bool platform = false);
-		
+		static bool IsColliding(const Box& obj, const Box& other);
+		static float SweptImproved(const Box& obj, const Box& other, eDirection& colDirection, bool platform = false);
+		static void EntityUpdate(Entity entity, std::set<crupt::Entity>* entities, TileMapComponent* tileComp);
+
 	private:
-		Box GetSweptBroadphase(const Box& object);
+		static Box GetSweptBroadphase(const Box& object);
 		Entity m_MapEntity;
 		TileMapComponent* m_TileComp;
 		SDL_Renderer* m_pRenderer;

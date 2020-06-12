@@ -14,7 +14,7 @@ PlayerStateSystem::~PlayerStateSystem()
 
 		for(size_t i{}; i < stateComp.m_pStateSprites.size(); ++i)
 		{
-			if(i != int(stateComp.m_AnimationState))
+			if(i != size_t(stateComp.m_AnimationState))
 			{
 				delete stateComp.m_pStateSprites[i].m_Texture;
 				stateComp.m_pStateSprites[i].m_Texture = nullptr;

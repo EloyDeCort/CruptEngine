@@ -8,9 +8,12 @@
 namespace crupt
 {
 	//SIGNAL COMPONENT
+	//Later used as normal component (after spawn)
 	struct BubbleComponent
 	{
 		glm::vec2 position;
 		float totalTime;
+
+		bool shouldPop;
 	};
 }

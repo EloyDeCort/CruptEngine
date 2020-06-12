@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_sdl.h"
+#include "CruptEngine.h"
 using namespace crupt;
 
 RenderSystem::~RenderSystem()
@@ -28,7 +29,7 @@ void RenderSystem::Init(SDL_Window * window)
 	}
 
 	ImGui::CreateContext();
-	ImGuiSDL::Initialize(m_Renderer, 640, 480);
+	ImGuiSDL::Initialize(m_Renderer, Settings::m_WindowWidth, Settings::m_WindowHeight);
 	m_Coordinator = &ECSCoordinator::GetInstance();
 }
 

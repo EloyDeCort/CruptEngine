@@ -8,6 +8,8 @@
 #include "ECSCoordinator.h"
 #include <SDL.h>
 #include "Texture2D.h"
+#include <thread>
+#include <future>
 using namespace crupt;
 
 CollisionSystem::~CollisionSystem()
@@ -26,12 +28,9 @@ void crupt::CollisionSystem::InitMap(Entity mapEntity)
 	m_TileComp = &coordinator->GetComponent<TileMapComponent>(m_MapEntity);
 }
 
-void CollisionSystem::Update(float dt)
+void crupt::CollisionSystem::EntityUpdate(Entity entity, std::set<crupt::Entity>* entities,TileMapComponent* tileComp)
 {
-	dt;
-	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
-	for (Entity entity : m_Entities)
-	{
+		ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 		MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(entity);
 		BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
 		Box playerBox{};
@@ -43,7 +42,7 @@ void CollisionSystem::Update(float dt)
 		eDirection finalDirX = eDirection::NONE;
 		eDirection finalDirY = eDirection::NONE;
 		
-		for(const SDL_Rect& collision : m_TileComp->m_SolidCollisionsMap.at(m_TileComp->m_CurrentLevel))
+		for(const SDL_Rect& collision : tileComp->m_SolidCollisionsMap.at(tileComp->m_CurrentLevel))
 		{
 			Box wallBox{};
 			wallBox.rect = collision;
@@ -75,7 +74,7 @@ void CollisionSystem::Update(float dt)
 		
 		//std::cout << int(finalDir) << std::endl;
 		
-		for(const SDL_Rect& collision : m_TileComp->m_PlatformCollisionsMap.at(m_TileComp->m_CurrentLevel))
+		for(const SDL_Rect& collision : tileComp->m_PlatformCollisionsMap.at(tileComp->m_CurrentLevel))
 		{
 			Box wallBox{};
 			wallBox.rect = collision;
@@ -105,10 +104,53 @@ void CollisionSystem::Update(float dt)
 			}
 		}
 
+		for (Entity entity2 : *entities)
+		{
+			MovePhysicsComponent& movPhysicsComp2 = coordinator->GetComponent<MovePhysicsComponent>(entity2);
+			BoxCollisionComponent& boxComp2 = coordinator->GetComponent<BoxCollisionComponent>(entity2);
+
+			Box entity2Box{};
+			entity2Box.rect = boxComp2.m_CollisionRect;
+			entity2Box.velocity = movPhysicsComp2.m_Velocity;
+
+			eDirection result = eDirection::NONE;
+			float collisionTime = SweptImproved(playerBox, entity2Box, result, true);
+
+			if(collisionTime < 1.f)
+			{
+				if(result == eDirection::LEFT || result == eDirection::RIGHT)
+				{
+					if(collisionTime < lowestColTimeX)
+					{
+						lowestColTimeX = collisionTime;
+						finalDirX = result;
+					}
+				}
+				else if(result == eDirection::UP || result == eDirection::DOWN)
+				{
+					if(collisionTime < lowestColTimeY)
+					{
+						lowestColTimeY = collisionTime;
+						finalDirY = result;
+					}
+				}
+			}
+		}
+
 		boxComp.m_EntryTimeX = lowestColTimeX;
 		boxComp.m_EntryTimeY = lowestColTimeY;
 		boxComp.m_ColDirX = finalDirX;
 		boxComp.m_ColDirY = finalDirY;
+}
+
+void CollisionSystem::Update(float dt)
+{
+	dt;
+	std::vector<std::future<void>> futures;
+
+	for (Entity entity : m_Entities)
+	{
+		futures.push_back(std::async(std::launch::async, EntityUpdate, entity, &m_Entities, m_TileComp));
 	}
 }
 
@@ -233,6 +275,8 @@ float crupt::CollisionSystem::SweptImproved(const Box& obj, const Box& other, eD
 	return entryTime;
 
 }
+
+
 
 Box crupt::CollisionSystem::GetSweptBroadphase(const Box& object)
 {
