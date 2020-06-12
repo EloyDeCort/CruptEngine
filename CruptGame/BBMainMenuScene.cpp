@@ -39,9 +39,9 @@ void crupt::BBMainMenuScene::Update(float dt)
 	}
 }
 
-void crupt::BBMainMenuScene::FixedUpdate(float dt)
+void crupt::BBMainMenuScene::FixedUpdate(float)
 {
-	dt;
+
 }
 
 void crupt::BBMainMenuScene::Render()

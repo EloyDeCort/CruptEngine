@@ -20,24 +20,25 @@ void crupt::MoveSystem::OnDispatch(MoveComponent component)
 	BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(component.m_Target);
 
 	
-		if(component.m_Speed > 0.01f)
+	if(component.m_Speed > 0.01f)
+	{
+		if(component.m_xDirection > 0.f)
 		{
-			if(component.m_xDirection > 0.f)
-			{
-				render.m_Flip = false;
-			}
-			else
-			{
-				render.m_Flip = true;
-			}
-		}
-
-		if(boxComp.m_ColDirY == eDirection::DOWN)
-		{
-			movPhysicsComp.m_Force.x = component.m_Speed * component.m_xDirection;
+			render.m_Flip = false;
 		}
 		else
 		{
-			movPhysicsComp.m_Force.x = component.m_Speed * 0.8f * component.m_xDirection;
+			render.m_Flip = true;
 		}
+	}
+
+
+	if(boxComp.m_ColDirY == eDirection::DOWN)
+	{
+		movPhysicsComp.m_Force.x = component.m_Speed * component.m_xDirection;
+	}
+	else
+	{
+		movPhysicsComp.m_Force.x = component.m_Speed * 0.8f * component.m_xDirection;
+	}
 }

@@ -29,6 +29,8 @@ void crupt::MainGame::RegisterAdditionalComponents()
 	pCoordinator.RegisterComponent<JumpComponent>();
 	pCoordinator.RegisterComponent<MoveComponent>();
 	pCoordinator.RegisterComponent<BubbleComponent>();
+	pCoordinator.RegisterComponent<MaitaComponent>();
+	pCoordinator.RegisterComponent<BubbleStateComponent>();
 }
 
 void crupt::MainGame::RegisterAdditionalSystems()
@@ -88,4 +90,12 @@ void crupt::MainGame::RegisterAdditionalSystems()
 		signature.set(pCoordinator.GetComponentType<CollisionCallbackComponent>());
 		pCoordinator.SetSystemSignature<CollisionCallbackSystem>(signature);
 	}
+
+	MaitaMovementSystem* pMaitaMovementSystem = pCoordinator.RegisterSystem<MaitaMovementSystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<MaitaComponent>());
+		pCoordinator.SetSystemSignature<MaitaMovementSystem>(signature);
+	}
+	pMaitaMovementSystem->Init();
 }

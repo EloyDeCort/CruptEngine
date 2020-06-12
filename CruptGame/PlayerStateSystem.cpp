@@ -68,10 +68,10 @@ void PlayerStateSystem::Update(float dt)
 			}
 		}
 
-			StateSprite& newSprite = stateComp.m_pStateSprites[int(stateComp.m_AnimationState)];
-			spriteComp.m_AnimationRate = newSprite.m_SpriteData.m_AnimationRate;
-			spriteComp.m_FrameCount = newSprite.m_SpriteData.m_FrameCount;
-			renderable.m_Texture = stateComp.m_pStateSprites[int(stateComp.m_AnimationState)].m_Texture;
+		StateSprite& newSprite = stateComp.m_pStateSprites[int(stateComp.m_AnimationState)];
+		spriteComp.m_AnimationRate = newSprite.m_SpriteData.m_AnimationRate;
+		spriteComp.m_FrameCount = newSprite.m_SpriteData.m_FrameCount;
+		renderable.m_Texture = stateComp.m_pStateSprites[int(stateComp.m_AnimationState)].m_Texture;
 	
 	}
 }

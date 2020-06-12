@@ -1,4 +1,5 @@
 #include "CruptEnginePCH.h"
+#include "CruptEngine.h"
 #include "BubbleBobbleScene.h"
 #include "Components.h"
 #include "ResourceManager.h"
@@ -41,6 +42,7 @@ void crupt::BubbleBobbleScene::InitSystems()
 	m_pCollisionSystem = pCoordinator.GetSystem<CollisionSystem>();
 	m_pPlayerStateSystem = pCoordinator.GetSystem<PlayerStateSystem>();
 	m_pBubbleMovementSystem = pCoordinator.GetSystem<BubbleMovementSystem>();
+	m_pMaitaMovementSystem = pCoordinator.GetSystem<MaitaMovementSystem>();
 }
 
 void crupt::BubbleBobbleScene::InitEntities()
@@ -51,7 +53,7 @@ void crupt::BubbleBobbleScene::InitEntities()
 	crupt::Font* fontFps = ResourceManager::GetInstance().LoadFont("Bobble.ttf", 16);
 	m_FpsCounter = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<RenderableComponent>(m_FpsCounter, RenderableComponent{});
-	pCoordinator.AddComponent<TransformComponent>(m_FpsCounter, TransformComponent{glm::vec3(90.f,25.f,0.f)});
+	pCoordinator.AddComponent<TransformComponent>(m_FpsCounter, TransformComponent{glm::vec2(90.f,25.f)});
 	pCoordinator.AddComponent<TextComponent>(m_FpsCounter, TextComponent{bool{true}, std::string("FPS:"), fontFps, glm::vec3(255.f, 255.f, 255.f)});
 	pCoordinator.AddComponent<FPSComponent>(m_FpsCounter, FPSComponent{});
 
@@ -65,7 +67,17 @@ void crupt::BubbleBobbleScene::InitEntities()
 	//UI
 	Entity ui = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<RenderableComponent>(ui, RenderableComponent{ResourceManager::GetInstance().LoadTexture("UI.png",renderer)});
-	pCoordinator.AddComponent<TransformComponent>(ui, TransformComponent{glm::vec3(0.f,0.f,0.f)});
+	pCoordinator.AddComponent<TransformComponent>(ui, TransformComponent{glm::vec2(0.f,0.f)});
+
+	
+	InitPlayers();
+	InitEnemies();
+}
+
+void crupt::BubbleBobbleScene::InitPlayers()
+{
+	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
+	SDL_Renderer* renderer{m_pRenderSystem->GetSDLRenderer()};
 
 	//Player 1 
 	SpriteComponent spriteComp{};
@@ -73,14 +85,14 @@ void crupt::BubbleBobbleScene::InitEntities()
 	spriteComp.m_ScaleFactor = 2; 
 	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Player/Bob_Idle.png",renderer);
 
-	Entity player1 = pCoordinator.CreateEntity();
-	pCoordinator.AddComponent<SpriteComponent>(player1, spriteComp);
-	pCoordinator.AddComponent<RenderableComponent>(player1, RenderableComponent{defaultAnim});
-	pCoordinator.AddComponent<TransformComponent>(player1, TransformComponent{glm::vec3(100.f,100.f,0.f)});
-	pCoordinator.AddComponent<MovePhysicsComponent>(player1, MovePhysicsComponent{});
-	pCoordinator.AddComponent<GravityComponent>(player1, GravityComponent{});
-	pCoordinator.AddComponent<BoxCollisionComponent>(player1, BoxCollisionComponent{0,0,32,32});
-	pCoordinator.AddComponent<CollisionCallbackComponent>(player1, CollisionCallbackComponent{});
+	m_Player1 = pCoordinator.CreateEntity();
+	pCoordinator.AddComponent<SpriteComponent>(m_Player1, spriteComp);
+	pCoordinator.AddComponent<RenderableComponent>(m_Player1, RenderableComponent{defaultAnim});
+	pCoordinator.AddComponent<TransformComponent>(m_Player1, TransformComponent{glm::vec2(75.f,100.f)});
+	pCoordinator.AddComponent<MovePhysicsComponent>(m_Player1, MovePhysicsComponent{});
+	pCoordinator.AddComponent<GravityComponent>(m_Player1, GravityComponent{});
+	pCoordinator.AddComponent<BoxCollisionComponent>(m_Player1, BoxCollisionComponent{0,0,32,32});
+	pCoordinator.AddComponent<CollisionCallbackComponent>(m_Player1, CollisionCallbackComponent{});
 	PlayerStateComponent playerStateComp{};
 	playerStateComp.m_AnimationState = PlayerAnimState::IDLE;
 
@@ -90,28 +102,53 @@ void crupt::BubbleBobbleScene::InitEntities()
 	spriteComp.m_FrameCount = 8;
 	playerStateComp.m_pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bob_Walking.png",renderer)});
 
-	pCoordinator.AddComponent<PlayerStateComponent>(player1, playerStateComp);
+	pCoordinator.AddComponent<PlayerStateComponent>(m_Player1, playerStateComp);
 
 	InputManager& inputManager = InputManager::GetInstance();
 
 	inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, 'C', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("JumpP1", new JumpCommand(player1));
+	inputManager.AddCommand("JumpP1", new JumpCommand(m_Player1));
 
 	inputManager.AddBinding("SpawnBubble", Binding{ControllerButton::ButtonX, 'X', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("SpawnBubble", new SpawnBubbleCommand(player1));
+	inputManager.AddCommand("SpawnBubble", new SpawnBubbleCommand(m_Player1));
 
 	//Pressed
 	inputManager.AddBinding("LeftP1", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Down, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("LeftP1", new MoveLeftCommand(player1));
+	inputManager.AddCommand("LeftP1", new MoveLeftCommand(m_Player1));
 	inputManager.AddBinding("RightP1", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Down, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("RightP1", new MoveRightCommand(player1));
+	inputManager.AddCommand("RightP1", new MoveRightCommand(m_Player1));
+}
 
+void crupt::BubbleBobbleScene::InitEnemies()
+{
+	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
+	SDL_Renderer* renderer{m_pRenderSystem->GetSDLRenderer()};
+
+	//Enemy
+	SpriteComponent spriteComp{};
+	spriteComp.m_AnimationRate = 12; 
+	spriteComp.m_ScaleFactor = 2; 
+	spriteComp.m_FrameCount = 8; 
+	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Enemies/ZenChan_Walking.png",renderer);
+
+	Entity maitaEnemy1 = pCoordinator.CreateEntity();
+	pCoordinator.AddComponent<SpriteComponent>(maitaEnemy1, spriteComp);
+	pCoordinator.AddComponent<RenderableComponent>(maitaEnemy1, RenderableComponent{defaultAnim});
+	pCoordinator.AddComponent<TransformComponent>(maitaEnemy1, TransformComponent{glm::vec2(Settings::m_WindowWidth/2.f,100.f)});
+	pCoordinator.AddComponent<MovePhysicsComponent>(maitaEnemy1, MovePhysicsComponent{});
+	pCoordinator.AddComponent<GravityComponent>(maitaEnemy1, GravityComponent{});
+	pCoordinator.AddComponent<BoxCollisionComponent>(maitaEnemy1, BoxCollisionComponent{0,0,32,32});
+	pCoordinator.AddComponent<CollisionCallbackComponent>(maitaEnemy1, CollisionCallbackComponent{});
+	MaitaComponent maitaComp = MaitaComponent{};
+	maitaComp.player1 = m_Player1;
+	pCoordinator.AddComponent<MaitaComponent>(maitaEnemy1, maitaComp);
 }
 
 void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 {
-	m_pPhysicsSystem->PreUpdate(dt);
+	m_pMaitaMovementSystem->PreUpdate(dt);
 	m_pBubbleMovementSystem->PreUpdate(dt);
+	m_pPhysicsSystem->PreUpdate(dt);
 	m_pCollisionSystem->Update(dt);
 	m_pBubbleMovementSystem->Update(dt);
 	m_pPhysicsSystem->Update(dt);

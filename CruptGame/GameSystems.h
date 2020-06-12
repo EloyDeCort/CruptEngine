@@ -5,3 +5,4 @@
 #include "BubbleSpawnSystem.h"
 #include "BubbleMovementSystem.h"
 #include "CollisionCallbackSystem.h"
+#include "MaitaMovementSystem.h"

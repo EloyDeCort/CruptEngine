@@ -14,6 +14,7 @@ namespace crupt
 		void AddEntityCallback(Entity entity);
 		void OnPlayerCallback(Entity self, Entity collider, eDirection direction);
 		void OnBubbleCallback(Entity self, Entity collider, eDirection direction);
+		void OnMaitaCallback(Entity self, Entity collider, eDirection direction);
 
 	private:
 		ECSCoordinator* m_pCoordinator;

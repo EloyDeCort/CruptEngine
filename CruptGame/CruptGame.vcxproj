@@ -180,6 +180,7 @@
     <ClCompile Include="JumpSystem.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="MaitaMovementSystem.cpp" />
     <ClCompile Include="MoveSystem.cpp" />
     <ClCompile Include="PlayerStateSystem.cpp" />
   </ItemGroup>
@@ -194,6 +195,7 @@
     <ClInclude Include="BubbleComponent.h" />
     <ClInclude Include="BubbleMovementSystem.h" />
     <ClInclude Include="BubbleSpawnSystem.h" />
+    <ClInclude Include="BubbleStateComponent.h" />
     <ClInclude Include="CollisionCallbackSystem.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="GameCommands.h" />
@@ -202,6 +204,8 @@
     <ClInclude Include="JumpComponent.h" />
     <ClInclude Include="JumpSystem.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="MaitaComponent.h" />
+    <ClInclude Include="MaitaMovementSystem.h" />
     <ClInclude Include="MoveComponent.h" />
     <ClInclude Include="MoveSystem.h" />
     <ClInclude Include="PlayerStateComponent.h" />

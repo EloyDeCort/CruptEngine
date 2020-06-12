@@ -27,6 +27,10 @@ void crupt::CollisionCallbackSystem::Init()
 		{
 			callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnBubbleCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
 		}
+		else if(m_pCoordinator->HasComponent<MaitaComponent>(entity))
+		{
+			callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnMaitaCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
+		}
 	}
 }
 
@@ -66,4 +70,13 @@ void crupt::CollisionCallbackSystem::OnBubbleCallback(Entity , Entity , eDirecti
 	{
 
 	}*/
+}
+
+void crupt::CollisionCallbackSystem::OnMaitaCallback(Entity self, Entity collider, eDirection)
+{
+	if(m_pCoordinator->HasComponent<BubbleComponent>(collider))
+	{
+		m_pCoordinator->GetComponent<MaitaComponent>(self).shouldDie = true;
+		std::cout << "HIT A BUBBLE" << std::endl;
+	}
 }

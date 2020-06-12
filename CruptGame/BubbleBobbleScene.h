@@ -8,6 +8,7 @@ namespace crupt
 	class JumpSystem;
 	class PlayerStateSystem;
 	class BubbleMovementSystem;
+	class MaitaMovementSystem;
 	class BubbleBobbleScene : public GameScene
 	{
 	public:
@@ -19,6 +20,8 @@ namespace crupt
 	private:
 		void InitSystems();
 		void InitEntities();
+		void InitPlayers();
+		void InitEnemies();
 
 		Entity m_FpsCounter;
 		//Systems
@@ -32,6 +35,9 @@ namespace crupt
 		CollisionSystem* m_pCollisionSystem;
 		PlayerStateSystem* m_pPlayerStateSystem;
 		BubbleMovementSystem* m_pBubbleMovementSystem;
+		MaitaMovementSystem* m_pMaitaMovementSystem;
+		Entity m_Player1;
+		Entity m_Player2;
 
 		FMOD::Channel* m_pChannel;
 		FMOD::Sound* m_pBGMusic;

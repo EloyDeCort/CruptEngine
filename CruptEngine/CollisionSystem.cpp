@@ -167,9 +167,8 @@ void crupt::CollisionSystem::EntityUpdate(crupt::Entity entity)
 		boxComp.m_ColDirY = finalDirY;
 }
 
-void CollisionSystem::Update(float dt)
+void CollisionSystem::Update(float)
 {
-	dt;
 	std::vector<std::future<void>> futures;
 
 	for (Entity entity : m_Entities)
