@@ -132,15 +132,17 @@ void crupt::CollisionSystem::EntityUpdate(crupt::Entity entity)
 				eDirection result = eDirection::NONE;
 				float collisionTime = SweptImproved(playerBox, entity2Box, result, false);
 
+				//Simple AABB to do moving vs moving collision callbacks.
+				if(IsColliding(playerBox, entity2Box))
+				{
+					//Call specific on collision callback
+					colCallbackComp.onCollision(entity, entity2, result);
+				}
+
 				if(collisionTime < 1.f)
 				{
 					//Checking if the collision callback component has a valid collision
-					if(colCallbackComp.onCollision != nullptr)
-					{
-						//Call specific on collision callback
-						colCallbackComp.onCollision(entity, entity2, result);
-					}
-
+				
 					if(result == eDirection::LEFT || result == eDirection::RIGHT)
 					{
 						if(collisionTime < lowestColTimeX)
