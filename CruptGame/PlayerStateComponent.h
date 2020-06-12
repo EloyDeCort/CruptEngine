@@ -1,6 +1,7 @@
 #pragma once
 #include "SpriteComponent.h"
 #include "Texture2D.h"
+#include <vector>
 
 namespace crupt
 {

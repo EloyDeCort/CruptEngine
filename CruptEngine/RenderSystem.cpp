@@ -12,8 +12,11 @@ RenderSystem::~RenderSystem()
 	for (const Entity& entity : m_Entities)
 	{
 		RenderableComponent& rendererable = m_Coordinator->GetComponent<RenderableComponent>(entity);
-		delete rendererable.m_Texture;
-		rendererable.m_Texture = nullptr;
+		if(rendererable.m_Texture != nullptr)
+		{
+			delete rendererable.m_Texture;
+			rendererable.m_Texture = nullptr;
+		}
 	}
 
 	ImGuiSDL::Deinitialize();

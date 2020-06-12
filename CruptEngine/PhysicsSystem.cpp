@@ -15,7 +15,7 @@ void PhysicsSystem::Init()
 
 }
 
-static void EntityUpdate(Entity entity)
+void EntityUpdate(Entity entity)
 {
 	crupt::ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	//Get the transform & Renderable component

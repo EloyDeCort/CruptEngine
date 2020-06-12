@@ -35,6 +35,7 @@ void PlayerStateSystem::Update(float dt)
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	for (Entity entity : m_Entities)
 	{
+		
 		PlayerStateComponent& stateComp = coordinator->GetComponent<PlayerStateComponent>(entity);
 		SpriteComponent& spriteComp = coordinator->GetComponent<SpriteComponent>(entity);
 		MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(entity);

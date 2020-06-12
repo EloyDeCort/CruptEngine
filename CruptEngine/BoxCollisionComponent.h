@@ -20,5 +20,8 @@ namespace crupt
 
 		eDirection m_ColDirX = eDirection::NONE;
 		eDirection m_ColDirY = eDirection::NONE;
+
+		bool m_IgnorePlatforms = false;
+		bool m_IgnoreEntities = false;
 	};
 }

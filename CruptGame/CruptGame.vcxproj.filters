@@ -57,6 +57,9 @@
     <ClCompile Include="BubbleMovementSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionCallbackSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -105,6 +108,9 @@
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="BubbleMovementSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionCallbackSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>

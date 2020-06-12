@@ -23,6 +23,9 @@ void crupt::BubbleBobbleScene::Init()
 	InitSystems();
 	InitEntities();
 
+	//Initalize all callbacks based on entity type.
+	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
+	pCoordinator.GetSystem<CollisionCallbackSystem>()->Init();
 }
 
 void crupt::BubbleBobbleScene::InitSystems()
@@ -77,6 +80,7 @@ void crupt::BubbleBobbleScene::InitEntities()
 	pCoordinator.AddComponent<MovePhysicsComponent>(player1, MovePhysicsComponent{});
 	pCoordinator.AddComponent<GravityComponent>(player1, GravityComponent{});
 	pCoordinator.AddComponent<BoxCollisionComponent>(player1, BoxCollisionComponent{0,0,32,32});
+	pCoordinator.AddComponent<CollisionCallbackComponent>(player1, CollisionCallbackComponent{});
 	PlayerStateComponent playerStateComp{};
 	playerStateComp.m_AnimationState = PlayerAnimState::IDLE;
 
@@ -107,9 +111,10 @@ void crupt::BubbleBobbleScene::InitEntities()
 void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 {
 	m_pPhysicsSystem->PreUpdate(dt);
+	m_pBubbleMovementSystem->PreUpdate(dt);
 	m_pCollisionSystem->Update(dt);
-	m_pPhysicsSystem->Update(dt);
 	m_pBubbleMovementSystem->Update(dt);
+	m_pPhysicsSystem->Update(dt);
 }
 
 void crupt::BubbleBobbleScene::Update(float dt)

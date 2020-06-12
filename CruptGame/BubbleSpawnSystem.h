@@ -1,8 +1,10 @@
 #pragma once
 #include "System.h"
 #include "GameComponents.h"
+#include "Components.h"
 
 struct SDL_Renderer;
+struct Texture2D;
 namespace crupt
 {
 	class BubbleSpawnSystem : public System
@@ -14,6 +16,8 @@ namespace crupt
 
 	private:
 		SDL_Renderer* m_pRenderer;
+		Texture2D* m_pBubbleTexture;	
+		RenderableComponent test;
 	};
 }
 

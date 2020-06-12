@@ -28,11 +28,12 @@ void crupt::CollisionSystem::InitMap(Entity mapEntity)
 	m_TileComp = &coordinator->GetComponent<TileMapComponent>(m_MapEntity);
 }
 
-void crupt::CollisionSystem::EntityUpdate(Entity entity, std::set<crupt::Entity>* entities,TileMapComponent* tileComp)
+void crupt::CollisionSystem::EntityUpdate(crupt::Entity entity)
 {
 		ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 		MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(entity);
 		BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
+		CollisionCallbackComponent& colCallbackComp = coordinator->GetComponent<CollisionCallbackComponent>(entity);
 		Box playerBox{};
 		playerBox.rect = boxComp.m_CollisionRect;
 		playerBox.velocity = movPhysicsComp.m_Velocity;
@@ -42,7 +43,7 @@ void crupt::CollisionSystem::EntityUpdate(Entity entity, std::set<crupt::Entity>
 		eDirection finalDirX = eDirection::NONE;
 		eDirection finalDirY = eDirection::NONE;
 		
-		for(const SDL_Rect& collision : tileComp->m_SolidCollisionsMap.at(tileComp->m_CurrentLevel))
+		for(const SDL_Rect& collision : m_TileComp->m_SolidCollisionsMap.at(m_TileComp->m_CurrentLevel))
 		{
 			Box wallBox{};
 			wallBox.rect = collision;
@@ -53,6 +54,13 @@ void crupt::CollisionSystem::EntityUpdate(Entity entity, std::set<crupt::Entity>
 
 			if(collisionTime < 1.f)
 			{
+				//Checking if the collision callback component has a valid collision
+					if(colCallbackComp.onCollision != nullptr)
+					{
+						//Call specific on collision callback
+						colCallbackComp.onCollision(entity, m_MapEntity, result);
+					}
+
 				if(result == eDirection::LEFT || result == eDirection::RIGHT)
 				{
 					if(collisionTime < lowestColTimeX)
@@ -74,64 +82,80 @@ void crupt::CollisionSystem::EntityUpdate(Entity entity, std::set<crupt::Entity>
 		
 		//std::cout << int(finalDir) << std::endl;
 		
-		for(const SDL_Rect& collision : tileComp->m_PlatformCollisionsMap.at(tileComp->m_CurrentLevel))
+		if(!boxComp.m_IgnorePlatforms)
 		{
-			Box wallBox{};
-			wallBox.rect = collision;
-			wallBox.velocity = glm::vec2{0.f,0.f};
-
-			eDirection result = eDirection::NONE;
-			float collisionTime = SweptImproved(playerBox, wallBox, result, true);
-
-			if(collisionTime < 1.f)
+			for(const SDL_Rect& collision : m_TileComp->m_PlatformCollisionsMap.at(m_TileComp->m_CurrentLevel))
 			{
-				if(result == eDirection::LEFT || result == eDirection::RIGHT)
+				Box wallBox{};
+				wallBox.rect = collision;
+				wallBox.velocity = glm::vec2{0.f,0.f};
+
+				eDirection result = eDirection::NONE;
+				float collisionTime = SweptImproved(playerBox, wallBox, result, true);
+
+				if(collisionTime < 1.f)
 				{
-					if(collisionTime < lowestColTimeX)
+					if(result == eDirection::LEFT || result == eDirection::RIGHT)
 					{
-						lowestColTimeX = collisionTime;
-						finalDirX = result;
+						if(collisionTime < lowestColTimeX)
+						{
+							lowestColTimeX = collisionTime;
+							finalDirX = result;
+						}
 					}
-				}
-				else if(result == eDirection::UP || result == eDirection::DOWN)
-				{
-					if(collisionTime < lowestColTimeY)
+					else if(result == eDirection::UP || result == eDirection::DOWN)
 					{
-						lowestColTimeY = collisionTime;
-						finalDirY = result;
+						if(collisionTime < lowestColTimeY)
+						{
+							lowestColTimeY = collisionTime;
+							finalDirY = result;
+						}
 					}
 				}
 			}
 		}
 
-		for (Entity entity2 : *entities)
+		if(!boxComp.m_IgnoreEntities)
 		{
-			MovePhysicsComponent& movPhysicsComp2 = coordinator->GetComponent<MovePhysicsComponent>(entity2);
-			BoxCollisionComponent& boxComp2 = coordinator->GetComponent<BoxCollisionComponent>(entity2);
-
-			Box entity2Box{};
-			entity2Box.rect = boxComp2.m_CollisionRect;
-			entity2Box.velocity = movPhysicsComp2.m_Velocity;
-
-			eDirection result = eDirection::NONE;
-			float collisionTime = SweptImproved(playerBox, entity2Box, result, true);
-
-			if(collisionTime < 1.f)
+			for (Entity entity2 : m_Entities)
 			{
-				if(result == eDirection::LEFT || result == eDirection::RIGHT)
+				if(entity == entity2)
+					continue;
+
+				MovePhysicsComponent& movPhysicsComp2 = coordinator->GetComponent<MovePhysicsComponent>(entity2);
+				BoxCollisionComponent& boxComp2 = coordinator->GetComponent<BoxCollisionComponent>(entity2);
+
+				Box entity2Box{};
+				entity2Box.rect = boxComp2.m_CollisionRect;
+				entity2Box.velocity = movPhysicsComp2.m_Velocity;
+
+				eDirection result = eDirection::NONE;
+				float collisionTime = SweptImproved(playerBox, entity2Box, result, false);
+
+				if(collisionTime < 1.f)
 				{
-					if(collisionTime < lowestColTimeX)
+					//Checking if the collision callback component has a valid collision
+					if(colCallbackComp.onCollision != nullptr)
 					{
-						lowestColTimeX = collisionTime;
-						finalDirX = result;
+						//Call specific on collision callback
+						colCallbackComp.onCollision(entity, entity2, result);
 					}
-				}
-				else if(result == eDirection::UP || result == eDirection::DOWN)
-				{
-					if(collisionTime < lowestColTimeY)
+
+					if(result == eDirection::LEFT || result == eDirection::RIGHT)
 					{
-						lowestColTimeY = collisionTime;
-						finalDirY = result;
+						if(collisionTime < lowestColTimeX)
+						{
+							lowestColTimeX = collisionTime;
+							finalDirX = result;
+						}
+					}
+					else if(result == eDirection::UP || result == eDirection::DOWN)
+					{
+						if(collisionTime < lowestColTimeY)
+						{
+							lowestColTimeY = collisionTime;
+							finalDirY = result;
+						}
 					}
 				}
 			}
@@ -139,7 +163,7 @@ void crupt::CollisionSystem::EntityUpdate(Entity entity, std::set<crupt::Entity>
 
 		boxComp.m_EntryTimeX = lowestColTimeX;
 		boxComp.m_EntryTimeY = lowestColTimeY;
-		boxComp.m_ColDirX = finalDirX;
+		boxComp.m_ColDirX = finalDirX;	
 		boxComp.m_ColDirY = finalDirY;
 }
 
@@ -150,7 +174,7 @@ void CollisionSystem::Update(float dt)
 
 	for (Entity entity : m_Entities)
 	{
-		futures.push_back(std::async(std::launch::async, EntityUpdate, entity, &m_Entities, m_TileComp));
+		futures.push_back(std::async(std::launch::async, &CollisionSystem::EntityUpdate, this, entity));
 	}
 }
 

@@ -56,6 +56,14 @@ namespace crupt
 			//Add a component to the array for said entity
 			GetComponentArray<T>()->InsertData(entity, component);
 		}
+
+		template<typename T>
+		bool HasComponent(Entity entity)
+		{
+			//Return a reference to the component from the array of components for the entity
+			return GetComponentArray<T>()->HasData(entity);
+		}
+
 		template<typename T>
 		void RemoveComponent(Entity entity)
 		{
@@ -67,13 +75,6 @@ namespace crupt
 		{
 			//Return a reference to the component from the array of components for the entity
 			return GetComponentArray<T>()->GetData(entity);
-		}
-
-		template<typename T>
-		bool HasComponent(Entity entity)
-		{
-			//Return a reference to the component from the array of components for the entity
-			return GetComponentArray<T>()->HasData(entity);
 		}
 
 		void EntityDestroyed(Entity entity)

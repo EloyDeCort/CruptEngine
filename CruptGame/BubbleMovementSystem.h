@@ -2,6 +2,7 @@
 #include "System.h"
 #include "ECSCoordinator.h"
 
+struct SDL_Renderer;
 namespace crupt
 {
 	class BubbleMovementSystem : public System
@@ -10,9 +11,9 @@ namespace crupt
 		virtual ~BubbleMovementSystem();
 		void Init();
 		void Update(float dt);
+		void PreUpdate(float dt);
 
 	private:
-		
 	};
 }
 

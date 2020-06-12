@@ -14,6 +14,6 @@ namespace crupt
 		glm::vec2 position;
 		float totalTime;
 
-		bool shouldPop;
+		bool shouldPop = false;
 	};
 }

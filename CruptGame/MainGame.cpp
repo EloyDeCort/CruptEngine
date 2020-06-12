@@ -81,4 +81,11 @@ void crupt::MainGame::RegisterAdditionalSystems()
 	}
 
 	pBubbleMovementSystem->Init();
+
+	pCoordinator.RegisterSystem<CollisionCallbackSystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<CollisionCallbackComponent>());
+		pCoordinator.SetSystemSignature<CollisionCallbackSystem>(signature);
+	}
 }

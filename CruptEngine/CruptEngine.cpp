@@ -125,6 +125,7 @@ void crupt::CruptEngine::RegisterComponents()
 	pCoordinator.RegisterComponent<GravityComponent>();
 	pCoordinator.RegisterComponent<TileMapComponent>();
 	pCoordinator.RegisterComponent<BoxCollisionComponent>();
+	pCoordinator.RegisterComponent<CollisionCallbackComponent>();
 }
 
 void crupt::CruptEngine::RegisterSystems()

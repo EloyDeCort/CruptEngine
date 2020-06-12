@@ -8,3 +8,4 @@
 #include "VelocityComponent.h"
 #include "TileMapComponent.h"
 #include "BoxCollisionComponent.h"
+#include "CollisionCallbackComponent.h"
