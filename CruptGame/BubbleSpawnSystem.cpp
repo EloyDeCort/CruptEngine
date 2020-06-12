@@ -14,6 +14,15 @@ void crupt::BubbleSpawnSystem::Init(SDL_Renderer* renderer)
 {
 	m_pRenderer = renderer;
 	SignalHandler<BubbleComponent>::GetInstance().AddListener(std::bind(&crupt::BubbleSpawnSystem::OnDispatch, this, std::placeholders::_1));
+	
+	SpriteComponent sprite;
+	sprite.m_FrameCount = 1;
+	sprite.m_ScaleFactor = 2;
+	sprite.m_FrameCount = 1;
+	m_StateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Green_Bubble.png",m_pRenderer)});
+	
+	sprite.m_FrameCount = 8;
+	m_StateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Bubble_Maita.png",m_pRenderer)});
 
 }
 
@@ -23,11 +32,16 @@ void crupt::BubbleSpawnSystem::OnDispatch(BubbleComponent component)
 
 	Entity bubble = coordinator.CreateEntity();
 
-	SpriteComponent sprite;
-	sprite.m_FrameCount = 1;
-	sprite.m_ScaleFactor = 2;
-	coordinator.AddComponent<RenderableComponent>(bubble,RenderableComponent{ResourceManager::GetInstance().LoadTexture("Items/Green_Bubble.png",m_pRenderer)});
-	coordinator.AddComponent<SpriteComponent>(bubble, sprite);
+	coordinator.AddComponent<RenderableComponent>(bubble,RenderableComponent{m_StateSprites[0].m_Texture});
+
+	coordinator.AddComponent<SpriteComponent>(bubble, m_StateSprites[0].m_SpriteData);
+
+	BubbleStateComponent bubbleStateComp;
+	bubbleStateComp.m_AnimationState = BubbleAnimState::NORMAL;
+	bubbleStateComp.stateSprites = m_StateSprites;
+
+	coordinator.AddComponent<BubbleStateComponent>(bubble, bubbleStateComp);
+
 	coordinator.AddComponent<MovePhysicsComponent>(bubble, MovePhysicsComponent{});
 	
 	//Reusing bubble component as tag

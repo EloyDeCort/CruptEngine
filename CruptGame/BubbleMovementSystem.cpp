@@ -48,9 +48,6 @@ void BubbleMovementSystem::Update(float dt)
 
 	for (size_t i{}; i < toDelete.size(); ++i)
 	{
-		RenderableComponent& rendererable = coordinator->GetComponent<RenderableComponent>(toDelete[i]);
-		delete rendererable.m_Texture;
-		rendererable.m_Texture = nullptr;
 		coordinator->DestroyEntity(toDelete[i]);
 	}
 }

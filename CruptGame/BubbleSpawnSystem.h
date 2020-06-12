@@ -16,7 +16,7 @@ namespace crupt
 
 	private:
 		SDL_Renderer* m_pRenderer;
-		Texture2D* m_pBubbleTexture;	
+		std::vector<StateSprite> m_StateSprites;
 		RenderableComponent test;
 	};
 }

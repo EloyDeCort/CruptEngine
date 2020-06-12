@@ -28,8 +28,11 @@ void crupt::CollisionSystem::InitMap(Entity mapEntity)
 	m_TileComp = &coordinator->GetComponent<TileMapComponent>(m_MapEntity);
 }
 
-void crupt::CollisionSystem::EntityUpdate(crupt::Entity entity)
+
+void CollisionSystem::Update(float)
 {
+	for (Entity entity : m_Entities)
+	{
 		ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 		MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(entity);
 		BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
@@ -167,15 +170,6 @@ void crupt::CollisionSystem::EntityUpdate(crupt::Entity entity)
 		boxComp.m_EntryTimeY = lowestColTimeY;
 		boxComp.m_ColDirX = finalDirX;	
 		boxComp.m_ColDirY = finalDirY;
-}
-
-void CollisionSystem::Update(float)
-{
-	std::vector<std::future<void>> futures;
-
-	for (Entity entity : m_Entities)
-	{
-		futures.push_back(std::async(std::launch::async, &CollisionSystem::EntityUpdate, this, entity));
 	}
 }
 

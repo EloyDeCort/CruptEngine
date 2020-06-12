@@ -21,6 +21,7 @@ crupt::BubbleBobbleScene::BubbleBobbleScene()
 
 void crupt::BubbleBobbleScene::Init()
 {
+	InitTextures();
 	InitSystems();
 	InitEntities();
 
@@ -142,6 +143,10 @@ void crupt::BubbleBobbleScene::InitEnemies()
 	MaitaComponent maitaComp = MaitaComponent{};
 	maitaComp.player1 = m_Player1;
 	pCoordinator.AddComponent<MaitaComponent>(maitaEnemy1, maitaComp);
+}
+
+void crupt::BubbleBobbleScene::InitTextures()
+{
 }
 
 void crupt::BubbleBobbleScene::FixedUpdate(float dt)

@@ -4,6 +4,7 @@
 #include "GameComponents.h"
 #include "Components.h"
 #include "ECSCoordinator.h"
+#include "SignalHandler.h"
 
 
 crupt::CollisionCallbackSystem::~CollisionCallbackSystem()
@@ -77,6 +78,11 @@ void crupt::CollisionCallbackSystem::OnMaitaCallback(Entity self, Entity collide
 	if(m_pCoordinator->HasComponent<BubbleComponent>(collider))
 	{
 		m_pCoordinator->GetComponent<MaitaComponent>(self).shouldDie = true;
-		std::cout << "HIT A BUBBLE" << std::endl;
+		
+		BubbleStateComponent stateComp;
+		stateComp.target = collider;
+		stateComp.m_AnimationState = BubbleAnimState::MAITA;
+
+		SignalHandler<BubbleStateComponent>::GetInstance().Publish(stateComp);
 	}
 }

@@ -14,7 +14,9 @@ namespace crupt
 
 	struct BubbleStateComponent
 	{
+		Entity target;
+
 		BubbleAnimState m_AnimationState;
-		std::vector<StateSprite> m_pStateSprites;
+		std::vector<StateSprite> stateSprites;
 	};
 }

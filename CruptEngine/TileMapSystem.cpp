@@ -21,12 +21,12 @@ crupt::TileMapSystem::TileMapSystem()
 
 crupt::TileMapSystem::~TileMapSystem()
 {
-	for (size_t i{}; i < m_TileComp->m_pTileTextures.size(); ++i)
+	/*for (size_t i{}; i < m_TileComp->m_pTileTextures.size(); ++i)
 	{
 		delete m_TileComp->m_pTileTextures[i];
 	}
 
-	m_TileComp->m_pTileTextures.clear();
+	m_TileComp->m_pTileTextures.clear();*/
 
 }
 

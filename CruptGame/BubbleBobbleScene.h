@@ -22,6 +22,7 @@ namespace crupt
 		void InitEntities();
 		void InitPlayers();
 		void InitEnemies();
+		void InitTextures();
 
 		Entity m_FpsCounter;
 		//Systems

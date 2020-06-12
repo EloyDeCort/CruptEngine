@@ -24,7 +24,6 @@ namespace crupt
 		void Update(float dt);
 		 bool IsColliding(const Box& obj, const Box& other);
 		float SweptImproved(const Box& obj, const Box& other, eDirection& colDirection, bool platform = false);
-		void EntityUpdate(crupt::Entity entity);
 
 	private:
 		Box GetSweptBroadphase(const Box& object);

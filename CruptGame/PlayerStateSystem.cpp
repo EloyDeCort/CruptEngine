@@ -7,22 +7,7 @@ using namespace crupt;
 
 PlayerStateSystem::~PlayerStateSystem()
 {
-	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
-	for (Entity entity : m_Entities)
-	{
-		PlayerStateComponent& stateComp = coordinator->GetComponent<PlayerStateComponent>(entity);
-
-		for(size_t i{}; i < stateComp.m_pStateSprites.size(); ++i)
-		{
-			if(i != size_t(stateComp.m_AnimationState))
-			{
-				delete stateComp.m_pStateSprites[i].m_Texture;
-				stateComp.m_pStateSprites[i].m_Texture = nullptr;
-			}
-		}
-
-		stateComp.m_pStateSprites.clear();
-	}
+	
 }
 
 void PlayerStateSystem::Init()

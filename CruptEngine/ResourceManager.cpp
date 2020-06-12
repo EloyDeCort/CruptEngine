@@ -7,6 +7,15 @@
 #include "Texture2D.h"
 #include "Font.h"
 
+crupt::ResourceManager::~ResourceManager()
+{
+	for(size_t i{}; i < m_pTextures.size(); ++i)
+	{
+		delete m_pTextures[i];
+	}
+	m_pTextures.clear();
+}
+
 void crupt::ResourceManager::Init(const std::string& dataPath)
 {
 	m_DataPath = dataPath;
@@ -29,7 +38,7 @@ void crupt::ResourceManager::Init(const std::string& dataPath)
 	}
 }
 
-crupt::Texture2D* crupt::ResourceManager::LoadTexture(const std::string& file, SDL_Renderer* pRenderer) const
+crupt::Texture2D* crupt::ResourceManager::LoadTexture(const std::string& file, SDL_Renderer* pRenderer)
 {
 
 	const auto fullPath = m_DataPath + file;
@@ -38,7 +47,11 @@ crupt::Texture2D* crupt::ResourceManager::LoadTexture(const std::string& file, S
 	{
 		throw std::runtime_error(std::string("Failed to load texture: ") + SDL_GetError());
 	}
-	return new Texture2D(texture);
+
+	Texture2D* newTex = new Texture2D(texture);
+	m_pTextures.push_back(newTex);
+
+	return newTex;
 }
 
 crupt::Font* crupt::ResourceManager::LoadFont(const std::string& file, unsigned int size) const

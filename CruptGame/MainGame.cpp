@@ -98,4 +98,12 @@ void crupt::MainGame::RegisterAdditionalSystems()
 		pCoordinator.SetSystemSignature<MaitaMovementSystem>(signature);
 	}
 	pMaitaMovementSystem->Init();
+
+	BubbleStateSystem* pBubbleStateSystem = pCoordinator.RegisterSystem<BubbleStateSystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<BubbleStateComponent>());
+		pCoordinator.SetSystemSignature<BubbleStateSystem>(signature);
+	}
+	pBubbleStateSystem->Init();
 }

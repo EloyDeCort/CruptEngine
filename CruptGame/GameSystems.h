@@ -2,6 +2,7 @@
 #include "JumpSystem.h"
 #include "MoveSystem.h"
 #include "PlayerStateSystem.h"
+#include "BubbleStateSystem.h"
 #include "BubbleSpawnSystem.h"
 #include "BubbleMovementSystem.h"
 #include "CollisionCallbackSystem.h"

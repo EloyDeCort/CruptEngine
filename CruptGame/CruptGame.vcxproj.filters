@@ -63,11 +63,11 @@
     <ClCompile Include="MaitaMovementSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="BubbleStateSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MainGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DemoScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -124,6 +124,12 @@
     </ClInclude>
     <ClInclude Include="BubbleStateComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BubbleStateSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="MainGame.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
