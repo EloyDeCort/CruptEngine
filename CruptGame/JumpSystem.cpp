@@ -21,7 +21,6 @@ void crupt::JumpSystem::OnDispatch(JumpComponent component)
 	if(boxComp.m_ColDirY == eDirection::DOWN)
 	{
 		movPhysicsComp.m_Force.y = component.m_JumpHeight;
-		std::cout << "[LOG]: JUMPING" << std::endl;
 	}
 	
 }
