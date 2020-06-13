@@ -33,7 +33,7 @@ void crupt::DropMovementSystem::PreUpdate(float dt)
 		if(dropComp.totalTime < dropComp.movTime)
 		{
 			movPhysicsComp.force.x = 2.f;
-			movPhysicsComp.force.y = -500.f;
+			movPhysicsComp.force.y = -400.f;
 		}
 
 	}

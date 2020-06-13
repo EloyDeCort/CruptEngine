@@ -21,6 +21,8 @@ namespace crupt
 
 		int m_MelonScore;
 		int m_FriesScore;
+
+		float m_MaxYOffset;
 	};
 }
 
