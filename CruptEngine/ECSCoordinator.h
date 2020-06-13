@@ -19,17 +19,31 @@ namespace crupt
 			SystemManager::GetInstance();
 		}
 
+		void DestroyAllEntities()
+		{
+			for(size_t i{}; i < m_Entities.size(); ++i)
+			{
+				EntityManager::GetInstance().DestroyEntity(m_Entities[i]);
+				ComponentManager::GetInstance().EntityDestroyed(m_Entities[i]);
+				SystemManager::GetInstance().EntityDestroyed(m_Entities[i]);
+			}
+			m_Entities.clear();
+		}
+
 		//Entities
 		Entity CreateEntity()
 		{
-			return EntityManager::GetInstance().CreateEntity();
+			Entity e = EntityManager::GetInstance().CreateEntity();
+			m_Entities.push_back(e);
+			return e;
 		}
 		void DestroyEntity(Entity entity)
 		{
 			//Destroy and let the content manager and system manager know the entity is gone so they can update their maps
 			EntityManager::GetInstance().DestroyEntity(entity);
 			ComponentManager::GetInstance().EntityDestroyed(entity);
-			SystemManager::GetInstance().EntityDestroyed(entity);		
+			SystemManager::GetInstance().EntityDestroyed(entity);
+			m_Entities.erase(std::remove(m_Entities.begin(), m_Entities.end(), entity), m_Entities.end());
 		}
 
 		//Components
@@ -118,7 +132,7 @@ namespace crupt
 		}
 
 	private:
-	
+		std::vector<Entity> m_Entities;
 	};
 }
 

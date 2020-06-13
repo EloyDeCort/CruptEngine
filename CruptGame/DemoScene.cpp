@@ -68,3 +68,11 @@ void crupt::DemoScene::Render()
 {
 	m_pRenderSystem->Render();
 }
+
+void crupt::DemoScene::SceneLoaded()
+{
+}
+
+void crupt::DemoScene::SceneUnloaded()
+{
+}

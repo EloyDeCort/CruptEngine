@@ -91,7 +91,10 @@ void crupt::SceneManager::Update(float dt)
 	if (m_NewActiveScene != nullptr)
 	{
 		//Set New Scene
+		m_ActiveScene->SceneUnloaded();
 		m_ActiveScene = m_NewActiveScene;
+		m_ActiveScene->SceneLoaded();
+
 		m_NewActiveScene = nullptr;
 		m_ActiveScene->Init();
 	}

@@ -18,7 +18,7 @@ void crupt::MainGame::InitGame()
 	//Adding of scenes
 	sceneManager.AddScene(new BBMainMenuScene());
 	sceneManager.AddScene(new BubbleBobbleScene());
-	sceneManager.SetActiveScene(L"BubbleBobbleScene");
+	sceneManager.SetActiveScene(L"BBMainMenuScene");
 }
 
 void crupt::MainGame::RegisterAdditionalComponents()

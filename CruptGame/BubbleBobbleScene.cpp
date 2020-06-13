@@ -56,11 +56,11 @@ void crupt::BubbleBobbleScene::InitEntities()
 	SDL_Renderer* renderer{m_pRenderSystem->GetSDLRenderer()};
 	//Simple FPS component
 	m_pFont = ResourceManager::GetInstance().LoadFont("Bobble.ttf", 16);
-	/*m_FpsCounter = pCoordinator.CreateEntity();
+	m_FpsCounter = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<RenderableComponent>(m_FpsCounter, RenderableComponent{});
-	pCoordinator.AddComponent<TransformComponent>(m_FpsCounter, TransformComponent{glm::vec2(90.f,25.f)});
+	pCoordinator.AddComponent<TransformComponent>(m_FpsCounter, TransformComponent{glm::vec2(265.f,28.f)});
 	pCoordinator.AddComponent<TextComponent>(m_FpsCounter, TextComponent{bool{true}, std::string("FPS:"), m_pFont, glm::vec3(255.f, 255.f, 255.f)});
-	pCoordinator.AddComponent<FPSComponent>(m_FpsCounter, FPSComponent{});*/
+	pCoordinator.AddComponent<FPSComponent>(m_FpsCounter, FPSComponent{});
 
 	//Init the map entity
 	Entity map = pCoordinator.CreateEntity();
@@ -117,16 +117,16 @@ void crupt::BubbleBobbleScene::InitPlayers()
 
 		InputManager& inputManager = InputManager::GetInstance();
 
-		inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, 'C', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+		inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, VK_SPACE, InputTriggerState::Pressed, GamepadIndex::PlayerOne});
 		inputManager.AddCommand("JumpP1", new JumpCommand(m_Player1));
 
-		inputManager.AddBinding("SpawnBubbleP1", Binding{ControllerButton::ButtonX, 'X', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+		inputManager.AddBinding("SpawnBubbleP1", Binding{ControllerButton::ButtonX, VK_SHIFT, InputTriggerState::Pressed, GamepadIndex::PlayerOne});
 		inputManager.AddCommand("SpawnBubbleP1", new SpawnBubbleCommand(m_Player1, PlayerType::PLAYER1));
 
 		//Pressed
-		inputManager.AddBinding("LeftP1", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Down, GamepadIndex::PlayerOne});
+		inputManager.AddBinding("LeftP1", Binding{ControllerButton::ButtonDPADLeft, 'A', InputTriggerState::Down, GamepadIndex::PlayerOne});
 		inputManager.AddCommand("LeftP1", new MoveLeftCommand(m_Player1));
-		inputManager.AddBinding("RightP1", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Down, GamepadIndex::PlayerOne});
+		inputManager.AddBinding("RightP1", Binding{ControllerButton::ButtonDPADRight, 'D', InputTriggerState::Down, GamepadIndex::PlayerOne});
 		inputManager.AddCommand("RightP1", new MoveRightCommand(m_Player1));
 
 		m_pSpawnEnemySystem->SetPlayer1(m_Player1);
@@ -175,16 +175,16 @@ void crupt::BubbleBobbleScene::InitPlayers()
 
 		InputManager& inputManager = InputManager::GetInstance();
 
-		inputManager.AddBinding("JumpP2", Binding{ControllerButton::ButtonA, 'C', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+		inputManager.AddBinding("JumpP2", Binding{ControllerButton::ButtonA, VK_UP, InputTriggerState::Pressed, GamepadIndex::PlayerTwo});
 		inputManager.AddCommand("JumpP2", new JumpCommand(m_Player2));
 
-		inputManager.AddBinding("SpawnBubbleP2", Binding{ControllerButton::ButtonX, 'X', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+		inputManager.AddBinding("SpawnBubbleP2", Binding{ControllerButton::ButtonX, VK_RCONTROL, InputTriggerState::Pressed, GamepadIndex::PlayerTwo});
 		inputManager.AddCommand("SpawnBubbleP2", new SpawnBubbleCommand(m_Player2, PlayerType::PLAYER2));
 
 		//Pressed
-		inputManager.AddBinding("LeftP2", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Down, GamepadIndex::PlayerOne});
+		inputManager.AddBinding("LeftP2", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Down, GamepadIndex::PlayerTwo});
 		inputManager.AddCommand("LeftP2", new MoveLeftCommand(m_Player2));
-		inputManager.AddBinding("RightP2", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Down, GamepadIndex::PlayerOne});
+		inputManager.AddBinding("RightP2", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Down, GamepadIndex::PlayerTwo});
 		inputManager.AddCommand("RightP2", new MoveRightCommand(m_Player2));
 
 		//m_pSpawnEnemySystem->SetPlayer2(m_Player2);
@@ -245,8 +245,8 @@ void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 void crupt::BubbleBobbleScene::Update(float dt)
 {	
 	m_pPlayerStateSystem->Update(dt);
-	//m_pFPSSystem->Update(m_FpsCounter, dt);
-	//m_pFPSSystem->SetText(m_FpsCounter, "FPS:" + std::to_string(m_pFPSSystem->GetFPS(m_FpsCounter)));
+	m_pFPSSystem->Update(m_FpsCounter, dt);
+	m_pFPSSystem->SetText(m_FpsCounter, "FPS:" + std::to_string(m_pFPSSystem->GetFPS(m_FpsCounter)));
 	m_pTextSystem->Update(dt);
 	m_pSpriteSystem->Update(dt);
 }
@@ -257,5 +257,15 @@ void crupt::BubbleBobbleScene::Render()
 	m_pTileMapSystem->Render();
 	m_pRenderSystem->Render();
 	m_pHealthDisplaySystem->Render();
+}
+
+void crupt::BubbleBobbleScene::SceneLoaded()
+{
+}
+
+void crupt::BubbleBobbleScene::SceneUnloaded()
+{
+	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
+	pCoordinator.DestroyAllEntities();
 }
 

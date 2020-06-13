@@ -22,6 +22,8 @@ namespace crupt
 		virtual void Update(float dt) override;
 		virtual void FixedUpdate(float dt) override;
 		virtual void Render() override;
+		virtual void SceneLoaded() override;
+		virtual void SceneUnloaded() override;
 	private:
 		void InitSystems();
 		void InitEntities();

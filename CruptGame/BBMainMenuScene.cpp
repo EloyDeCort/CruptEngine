@@ -49,3 +49,13 @@ void crupt::BBMainMenuScene::Render()
 	m_pRenderSystem->Render();
 }
 
+void crupt::BBMainMenuScene::SceneLoaded()
+{
+}
+
+void crupt::BBMainMenuScene::SceneUnloaded()
+{
+	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
+	pCoordinator.DestroyAllEntities();
+}
+

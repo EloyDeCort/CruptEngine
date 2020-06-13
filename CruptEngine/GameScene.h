@@ -26,6 +26,8 @@ namespace crupt
 		virtual void Update(float dt) = 0;
 		virtual void FixedUpdate(float dt) = 0;
 		virtual void Render() = 0;
+		virtual void SceneLoaded() = 0;
+		virtual void SceneUnloaded() = 0;
 
 	private:
 		std::wstring m_SceneName;
