@@ -101,7 +101,7 @@ void crupt::CruptEngine::Run()
 				accumulator -= physicsTimeStepMS;
 			}
 
-			//PreUpdate the currently active scene
+			//Update the currently active scene
 			sceneManager.Update(dt);
 
 			sceneManager.Render();

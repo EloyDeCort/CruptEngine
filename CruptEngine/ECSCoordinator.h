@@ -1,4 +1,6 @@
 #pragma once
+//Source & Inspiration: https://austinmorlan.com/posts/entity_component_system
+
 #include "ECSTypes.h"
 #include "EntityManager.h"
 #include "ComponentManager.h"
