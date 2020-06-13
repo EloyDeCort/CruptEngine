@@ -142,53 +142,63 @@ void crupt::BubbleBobbleScene::InitPlayers()
 		m_pScoreDisplaySystem->SetPlayer1(m_Player1, scoreP1);
 	}
 
-	//{
-	//	//Player 2 
-	//	SpriteComponent spriteComp{};
-	//	spriteComp.animationRate = 12; 
-	//	spriteComp.scaleFactor = 2; 
-	//	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Player/Bub_Idle.png",renderer);
+	{
+		//Player 2
+		SpriteComponent spriteComp2{};
+		spriteComp2.animationRate = 12; 
+		spriteComp2.scaleFactor = 2; 
+		Texture2D* defaultAnim2 = ResourceManager::GetInstance().LoadTexture("Player/Bub_Idle.png",renderer);
 
-	//	m_Player2 = pCoordinator.CreateEntity();
-	//	pCoordinator.AddComponent<SpriteComponent>(m_Player2, spriteComp);
-	//	pCoordinator.AddComponent<HealthComponent>(m_Player2, HealthComponent{});
-	//	pCoordinator.AddComponent<RenderableComponent>(m_Player2, RenderableComponent{defaultAnim});
-	//	pCoordinator.AddComponent<TransformComponent>(m_Player2, TransformComponent{glm::vec2(100.f,100.f)});
-	//	pCoordinator.AddComponent<MovePhysicsComponent>(m_Player2, MovePhysicsComponent{});
-	//	pCoordinator.AddComponent<GravityComponent>(m_Player2, GravityComponent{});
-	//	pCoordinator.AddComponent<BoxCollisionComponent>(m_Player2, BoxCollisionComponent{0,0,32,32});
-	//	pCoordinator.AddComponent<CollisionCallbackComponent>(m_Player2, CollisionCallbackComponent{});
-	//	PlayerStateComponent playerStateComp{};
-	//	playerStateComp.animationState = PlayerAnimState::IDLE;
+		m_Player2 = pCoordinator.CreateEntity();
+		pCoordinator.AddComponent<SpriteComponent>(m_Player2, spriteComp2);
+		pCoordinator.AddComponent<HealthComponent>(m_Player2, HealthComponent{});
+		pCoordinator.AddComponent<ScoreComponent>(m_Player2, ScoreComponent{0});
+		pCoordinator.AddComponent<RenderableComponent>(m_Player2, RenderableComponent{defaultAnim2});
+		pCoordinator.AddComponent<TransformComponent>(m_Player2, TransformComponent{glm::vec2(100.f,100.f)});
+		pCoordinator.AddComponent<MovePhysicsComponent>(m_Player2, MovePhysicsComponent{});
+		pCoordinator.AddComponent<GravityComponent>(m_Player2, GravityComponent{});
+		pCoordinator.AddComponent<BoxCollisionComponent>(m_Player2, BoxCollisionComponent{0,0,32,32});
+		pCoordinator.AddComponent<CollisionCallbackComponent>(m_Player2, CollisionCallbackComponent{});
+		PlayerStateComponent playerStateComp2{};
+		playerStateComp2.animationState = PlayerAnimState::IDLE;
 
-	//	spriteComp.frameCount = 1;
-	//	playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,defaultAnim});
-	//
-	//	spriteComp.frameCount = 8;
-	//	playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bub_Walking.png",renderer)});
+		spriteComp2.frameCount = 1;
+		playerStateComp2.pStateSprites.push_back(StateSprite{spriteComp2,defaultAnim2});
+	
+		spriteComp2.frameCount = 8;
+		playerStateComp2.pStateSprites.push_back(StateSprite{spriteComp2,ResourceManager::GetInstance().LoadTexture("Player/Bub_Walking.png",renderer)});
 
-	//	spriteComp.frameCount = 1;
-	//	playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bub_Spit.png",renderer)});
+		spriteComp2.frameCount = 1;
+		playerStateComp2.pStateSprites.push_back(StateSprite{spriteComp2,ResourceManager::GetInstance().LoadTexture("Player/Bub_Spit.png",renderer)});
 
-	//	pCoordinator.AddComponent<PlayerStateComponent>(m_Player2, playerStateComp);
+		pCoordinator.AddComponent<PlayerStateComponent>(m_Player2, playerStateComp2);
 
-	//	InputManager& inputManager = InputManager::GetInstance();
+		InputManager& inputManager = InputManager::GetInstance();
 
-	//	inputManager.AddBinding("JumpP2", Binding{ControllerButton::ButtonA, 'C', InputTriggerState::Pressed, GamepadIndex::PlayerTwo});
-	//	inputManager.AddCommand("JumpP2", new JumpCommand(m_Player2));
+		inputManager.AddBinding("JumpP2", Binding{ControllerButton::ButtonA, 'C', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+		inputManager.AddCommand("JumpP2", new JumpCommand(m_Player2));
 
-	//	inputManager.AddBinding("SpawnBubbleP2", Binding{ControllerButton::ButtonX, 'X', InputTriggerState::Pressed, GamepadIndex::PlayerTwo});
-	//	inputManager.AddCommand("SpawnBubbleP2", new SpawnBubbleCommand(m_Player2, PlayerType::PLAYER2));
+		inputManager.AddBinding("SpawnBubbleP2", Binding{ControllerButton::ButtonX, 'X', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+		inputManager.AddCommand("SpawnBubbleP2", new SpawnBubbleCommand(m_Player2, PlayerType::PLAYER2));
 
-	//	//Pressed
-	//	inputManager.AddBinding("LeftP2", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Down, GamepadIndex::PlayerTwo});
-	//	inputManager.AddCommand("LeftP2", new MoveLeftCommand(m_Player2));
-	//	inputManager.AddBinding("RightP2", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Down, GamepadIndex::PlayerTwo});
-	//	inputManager.AddCommand("RightP2", new MoveRightCommand(m_Player2));
+		//Pressed
+		inputManager.AddBinding("LeftP2", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Down, GamepadIndex::PlayerOne});
+		inputManager.AddCommand("LeftP2", new MoveLeftCommand(m_Player2));
+		inputManager.AddBinding("RightP2", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Down, GamepadIndex::PlayerOne});
+		inputManager.AddCommand("RightP2", new MoveRightCommand(m_Player2));
 
-	//	//m_pSpawnEnemySystem->SetPlayer1(m_Player1);
-	//	m_pHealthDisplaySystem->SetPlayer2(m_Player2);
-	//}
+		//m_pSpawnEnemySystem->SetPlayer2(m_Player2);
+		m_pHealthDisplaySystem->SetPlayer2(m_Player2);
+
+
+		Entity scoreP2 = pCoordinator.CreateEntity();
+		pCoordinator.AddComponent<RenderableComponent>(scoreP2, RenderableComponent{});
+		pCoordinator.AddComponent<ScoreComponent>(scoreP2, ScoreComponent{});
+		pCoordinator.AddComponent<TransformComponent>(scoreP2, TransformComponent{glm::vec2(505.f,25.f)});
+		pCoordinator.AddComponent<TextComponent>(scoreP2, TextComponent{bool{true}, std::string("0"), m_pFont, glm::vec3(255.f, 255.f, 255.f)});
+
+		m_pScoreDisplaySystem->SetPlayer2(m_Player2, scoreP2);
+	}
 
 }
 

@@ -14,14 +14,10 @@ TextSystem::~TextSystem()
 	ECSCoordinator& coordinator = ECSCoordinator::GetInstance();
 	for (const Entity& entity : m_Entities)
 	{
-		TextComponent& text = coordinator.GetComponent<TextComponent>(entity);
 		RenderableComponent& textureComp = coordinator.GetComponent<RenderableComponent>(entity);
 
 		delete textureComp.pTexture;
 		textureComp.pTexture = nullptr;
-
-		delete text.pFont;
-		text.pFont = nullptr;
 	}
 }
 

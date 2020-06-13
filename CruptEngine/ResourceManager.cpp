@@ -15,6 +15,13 @@ crupt::ResourceManager::~ResourceManager()
 		delete it->second;
 	}
 	m_pTextures.clear();
+
+	std::unordered_map<std::string, Font*>::iterator itFont;
+	for(itFont = m_pFonts.begin(); itFont != m_pFonts.end(); ++itFont)
+	{
+		delete itFont->second;
+	}
+	m_pFonts.clear();
 }
 
 void crupt::ResourceManager::Init(const std::string& dataPath)
@@ -60,8 +67,16 @@ crupt::Texture2D* crupt::ResourceManager::LoadTexture(const std::string& file, S
 
 }
 
-crupt::Font* crupt::ResourceManager::LoadFont(const std::string& file, unsigned int size) const
+crupt::Font* crupt::ResourceManager::LoadFont(const std::string& file, unsigned int size)
 {
-	return new Font(m_DataPath + file, size);
+	std::unordered_map<std::string, Font*>::iterator it = m_pFonts.find(file);
+	if(it != m_pFonts.end())
+	{
+		return it->second;
+	}
+
+	Font* newFont = new Font(m_DataPath + file, size);
+	m_pFonts[file] = newFont;
+	return newFont;
 }
 
