@@ -84,7 +84,7 @@ void crupt::CollisionCallbackSystem::OnMaitaCallback(Entity self, Entity collide
 		
 		BubbleStateComponent stateComp;
 		stateComp.target = collider;
-		stateComp.m_AnimationState = BubbleAnimState::ZENCHAN;
+		stateComp.animationState = BubbleAnimState::ZENCHAN;
 
 		SignalHandler<BubbleStateComponent>::GetInstance().Publish(stateComp);
 	}

@@ -39,7 +39,7 @@ void RenderSystem::Render()
 		glm::vec2 pos = transform.position;
 
 		//Render the texture from the renderable component
-		RenderTexture(*renderable.m_Texture, pos.x, pos.y, &renderable.m_SrcRect, renderable.m_ScaleFactor, renderable.m_Flip);
+		RenderTexture(*renderable.pTexture, pos.x, pos.y, &renderable.srcRect, renderable.scaleFactor, renderable.flip);
 	}
 	
 	ImGuiDebug();
@@ -96,8 +96,8 @@ void RenderSystem::Destroy()
 	for (const Entity& entity : m_Entities)
 	{
 		RenderableComponent& rendererable = m_Coordinator->GetComponent<RenderableComponent>(entity);
-		delete rendererable.m_Texture;
-		rendererable.m_Texture = nullptr;
+		delete rendererable.pTexture;
+		rendererable.pTexture = nullptr;
 	}
 
 	if (m_Renderer != nullptr)

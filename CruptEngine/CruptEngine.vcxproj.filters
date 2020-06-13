@@ -156,9 +156,6 @@
     <ClInclude Include="PhysicsSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="VelocityComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="GravityComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -175,6 +172,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="CollisionCallbackComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MovePhysicsComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

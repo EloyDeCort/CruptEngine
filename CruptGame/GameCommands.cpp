@@ -18,7 +18,7 @@ crupt::JumpCommand::~JumpCommand()
 void crupt::JumpCommand::Execute()
 {
 	JumpComponent jumpComp;
-	jumpComp.m_Target = m_pReceiver;
+	jumpComp.target = m_pReceiver;
 
 	SignalHandler<JumpComponent>::GetInstance().Publish(jumpComp);
 }
@@ -36,8 +36,8 @@ crupt::MoveLeftCommand::~MoveLeftCommand()
 void crupt::MoveLeftCommand::Execute()
 {
 	MoveComponent moveComp;
-	moveComp.m_Target = m_pReceiver;
-	moveComp.m_Speed = 200.f;
+	moveComp.target = m_pReceiver;
+	moveComp.speed = 200.f;
 	moveComp.m_xDirection = -1.f;
 	
 	SignalHandler<MoveComponent>::GetInstance().Publish(moveComp);
@@ -57,8 +57,8 @@ void crupt::MoveRightCommand::Execute()
 {
 	MoveComponent moveComp;
 
-	moveComp.m_Target = m_pReceiver;
-	moveComp.m_Speed = 200.f;
+	moveComp.target = m_pReceiver;
+	moveComp.speed = 200.f;
 	moveComp.m_xDirection = 1.f;
 
 	SignalHandler<MoveComponent>::GetInstance().Publish(moveComp);
@@ -86,7 +86,7 @@ void crupt::SpawnBubbleCommand::Execute()
 	BubbleComponent bubbleComp;
 	bubbleComp.position = playerTransComp.position;
 
-	if(renderable.m_Flip)
+	if(renderable.flip)
 	{
 		bubbleComp.position.x -= m_Offset;
 		bubbleComp.flipped = true;
@@ -97,6 +97,6 @@ void crupt::SpawnBubbleCommand::Execute()
 		bubbleComp.flipped = false;
 	}
 
-	m_pState->m_AnimationState = PlayerAnimState::SPITBUBBLE;
+	m_pState->animationState = PlayerAnimState::SPITBUBBLE;
 	SignalHandler<BubbleComponent>::GetInstance().Publish(bubbleComp);
 }

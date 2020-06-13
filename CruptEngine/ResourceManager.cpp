@@ -51,7 +51,7 @@ crupt::Texture2D* crupt::ResourceManager::LoadTexture(const std::string& file, S
 	SDL_Texture* texture = IMG_LoadTexture(pRenderer, fullPath.c_str());
 	if (texture == nullptr) 
 	{
-		throw std::runtime_error(std::string("Failed to load texture: ") + SDL_GetError());
+		throw std::runtime_error(std::string("Failed to load pTexture: ") + SDL_GetError());
 	}
 
 	Texture2D* newTex = new Texture2D(texture);

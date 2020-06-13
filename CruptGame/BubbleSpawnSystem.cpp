@@ -16,20 +16,20 @@ void crupt::BubbleSpawnSystem::Init(SDL_Renderer* renderer)
 	SignalHandler<BubbleComponent>::GetInstance().AddListener(std::bind(&crupt::BubbleSpawnSystem::OnDispatch, this, std::placeholders::_1));
 	
 	SpriteComponent sprite;
-	sprite.m_FrameCount = 1;
-	sprite.m_ScaleFactor = 2;
-	sprite.m_FrameCount = 1;
+	sprite.frameCount = 1;
+	sprite.scaleFactor = 2;
+	sprite.frameCount = 1;
 	m_BubbleStateComp.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Green_Bubble.png",m_pRenderer)});
 	
-	sprite.m_FrameCount = 8;
+	sprite.frameCount = 8;
 	m_BubbleStateComp.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Bubble_Maita.png",m_pRenderer)});
 
-	m_BubbleStateComp.m_AnimationState = BubbleAnimState::NORMAL;
+	m_BubbleStateComp.animationState = BubbleAnimState::NORMAL;
 
 
-	m_BoxCollisionComp.m_CollisionRect = SDL_Rect{0,0,32,32};
-	m_BoxCollisionComp.m_IgnorePlatforms = true;
-	m_BoxCollisionComp.m_IgnoreEntities = true;
+	m_BoxCollisionComp.collisionRect = SDL_Rect{0,0,32,32};
+	m_BoxCollisionComp.ignorePlatforms = true;
+	m_BoxCollisionComp.ignoreEntities = true;
 }
 
 void crupt::BubbleSpawnSystem::OnDispatch(BubbleComponent component)
@@ -38,9 +38,9 @@ void crupt::BubbleSpawnSystem::OnDispatch(BubbleComponent component)
 
 	Entity bubble = coordinator.CreateEntity();
 
-	coordinator.AddComponent<RenderableComponent>(bubble,RenderableComponent{m_BubbleStateComp.stateSprites[0].m_Texture});
+	coordinator.AddComponent<RenderableComponent>(bubble,RenderableComponent{m_BubbleStateComp.stateSprites[0].pTexture});
 
-	coordinator.AddComponent<SpriteComponent>(bubble, m_BubbleStateComp.stateSprites[0].m_SpriteData);
+	coordinator.AddComponent<SpriteComponent>(bubble, m_BubbleStateComp.stateSprites[0].spriteData);
 
 	coordinator.AddComponent<BubbleStateComponent>(bubble, m_BubbleStateComp);
 

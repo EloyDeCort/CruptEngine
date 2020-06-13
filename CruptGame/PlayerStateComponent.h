@@ -14,14 +14,14 @@ namespace crupt
 	
 	struct StateSprite
 	{
-		SpriteComponent m_SpriteData;
-		Texture2D* m_Texture;
+		SpriteComponent spriteData;
+		Texture2D* pTexture;
 	};
 
 	struct PlayerStateComponent
 	{
-		PlayerAnimState m_AnimationState;
+		PlayerAnimState animationState;
 
-		std::vector<StateSprite> m_pStateSprites;
+		std::vector<StateSprite> pStateSprites;
 	};
 }

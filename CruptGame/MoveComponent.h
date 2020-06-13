@@ -5,8 +5,8 @@ namespace crupt
 	//SIGNAL COMPONENT
 	struct MoveComponent
 	{
-		Entity m_Target;
-		float m_Speed = 0.f;
+		Entity target;
+		float speed = 0.f;
 		float m_xDirection = 0.f;
 	};
 }

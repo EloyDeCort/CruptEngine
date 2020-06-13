@@ -14,14 +14,14 @@ namespace crupt
 
 	struct BoxCollisionComponent
 	{
-		SDL_Rect m_CollisionRect;
-		float m_EntryTimeX;
-		float m_EntryTimeY;
+		SDL_Rect collisionRect;
+		float entryTimeX;
+		float entryTimeY;
 
-		eDirection m_ColDirX = eDirection::NONE;
-		eDirection m_ColDirY = eDirection::NONE;
+		eDirection colDirX = eDirection::NONE;
+		eDirection colDirY = eDirection::NONE;
 
-		bool m_IgnorePlatforms = false;
-		bool m_IgnoreEntities = false;
+		bool ignorePlatforms = false;
+		bool ignoreEntities = false;
 	};
 }

@@ -32,11 +32,11 @@ void BubbleMovementSystem::Update(float dt)
 			continue;
 		}
 
-		if(bubbleStateComp.m_AnimationState == BubbleAnimState::ZENCHAN)
+		if(bubbleStateComp.animationState == BubbleAnimState::ZENCHAN)
 		{
 			if(bubbleComp.totalTime > bubbleComp.maxLifeTime)
 			{
-				SpawnEnemy(bubbleStateComp.m_AnimationState, transComp.position);
+				SpawnEnemy(bubbleStateComp.animationState, transComp.position);
 				toDelete.push_back(entity);
 				continue;
 			}
@@ -45,13 +45,13 @@ void BubbleMovementSystem::Update(float dt)
 		BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
 		MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(entity);
 
-		transComp.position.x += movPhysicsComp.m_Velocity.x * dt * boxComp.m_EntryTimeX;
-		transComp.position.y += movPhysicsComp.m_Velocity.y * dt * boxComp.m_EntryTimeY;
+		transComp.position.x += movPhysicsComp.velocity.x * dt * boxComp.entryTimeX;
+		transComp.position.y += movPhysicsComp.velocity.y * dt * boxComp.entryTimeY;
 
-		boxComp.m_CollisionRect.x = int(transComp.position.x);
-		boxComp.m_CollisionRect.y = int(transComp.position.y);
+		boxComp.collisionRect.x = int(transComp.position.x);
+		boxComp.collisionRect.y = int(transComp.position.y);
 
-		if(boxComp.m_EntryTimeY < 0.001f)
+		if(boxComp.entryTimeY < 0.001f)
 		{
 			toDelete.push_back(entity);
 			continue;
@@ -79,17 +79,17 @@ void crupt::BubbleMovementSystem::PreUpdate(float dt)
 
 		if(bubbleComp.totalTime < bubbleComp.xSpeedTime)
 		{
-			movPhysicsComp.m_Velocity.x = sin(5.f * bubbleComp.totalTime) * 20.f + bubbleComp.xSpeed;
+			movPhysicsComp.velocity.x = sin(5.f * bubbleComp.totalTime) * 20.f + bubbleComp.xSpeed;
 
 			if(bubbleComp.flipped)
 			{
-				movPhysicsComp.m_Velocity.x = -movPhysicsComp.m_Velocity.x;
+				movPhysicsComp.velocity.x = -movPhysicsComp.velocity.x;
 			}
 		}
 		else
 		{
-			movPhysicsComp.m_Velocity.x = sin(5.f * bubbleComp.totalTime) * 20.f ;
-			movPhysicsComp.m_Velocity.y = -50.f;
+			movPhysicsComp.velocity.x = sin(5.f * bubbleComp.totalTime) * 20.f ;
+			movPhysicsComp.velocity.y = -50.f;
 		}
 	}
 }

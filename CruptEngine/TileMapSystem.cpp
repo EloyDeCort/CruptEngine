@@ -21,12 +21,12 @@ crupt::TileMapSystem::TileMapSystem()
 
 crupt::TileMapSystem::~TileMapSystem()
 {
-	/*for (size_t i{}; i < m_TileComp->m_pTileTextures.size(); ++i)
+	/*for (size_t i{}; i < m_TileComp->pTileTextures.size(); ++i)
 	{
-		delete m_TileComp->m_pTileTextures[i];
+		delete m_TileComp->pTileTextures[i];
 	}
 
-	m_TileComp->m_pTileTextures.clear();*/
+	m_TileComp->pTileTextures.clear();*/
 
 }
 
@@ -108,7 +108,7 @@ bool crupt::TileMapSystem::AddLevel(const std::string& loc)
 					tempTile.xPos = size_t(x) * tileWidth;
 					tempTile.yPos = m_UIOffset + size_t(y) * tileHeight;
 					//Initialize the tile based on the position etc.
-					m_TileComp->m_TilesMap[m_TileComp->m_TotalLevels].push_back(tempTile);
+					m_TileComp->tilesMap[m_TileComp->totalLevels].push_back(tempTile);
 				}
 			 }
 		}
@@ -127,7 +127,7 @@ bool crupt::TileMapSystem::AddLevel(const std::string& loc)
 					sdlRect.y = m_UIOffset + int(fRect.top);
 					sdlRect.w = int(fRect.width);
 					sdlRect.h = int(fRect.height);
-					m_TileComp->m_SolidCollisionsMap[m_TileComp->m_TotalLevels].push_back(sdlRect);
+					m_TileComp->solidCollisionsMap[m_TileComp->totalLevels].push_back(sdlRect);
 				}
 			}
 			else if(layer->getName() == "PlatformCollision")
@@ -142,13 +142,13 @@ bool crupt::TileMapSystem::AddLevel(const std::string& loc)
 					sdlRect.y = m_UIOffset + int(fRect.top);
 					sdlRect.w = int(fRect.width);
 					sdlRect.h = int(fRect.height);
-					m_TileComp->m_PlatformCollisionsMap[m_TileComp->m_TotalLevels].push_back(sdlRect);
+					m_TileComp->platformCollisionsMap[m_TileComp->totalLevels].push_back(sdlRect);
 				}
 			}
 		}
 	}
 	
-	m_TileComp->m_TotalLevels++;
+	m_TileComp->totalLevels++;
 	return true;
 }
 
@@ -163,7 +163,7 @@ void crupt::TileMapSystem::InitTileSet(const tmx::Map& map)
 		for(const tmx::Tileset::Tile& tile : tset.getTiles())
 		{
 			std::string path = tile.imagePath;
-			m_TileComp->m_pTileTextures.push_back(ResourceManager::GetInstance().LoadTexture(path,m_pRenderer));
+			m_TileComp->pTileTextures.push_back(ResourceManager::GetInstance().LoadTexture(path,m_pRenderer));
 		}
 	}
 }
@@ -171,16 +171,16 @@ void crupt::TileMapSystem::InitTileSet(const tmx::Map& map)
 void crupt::TileMapSystem::Render()
 {
 	//Loop through all tiles and give them to the renderer
-	for(auto& tile : m_TileComp->m_TilesMap.at(m_TileComp->m_CurrentLevel))
+	for(auto& tile : m_TileComp->tilesMap.at(m_TileComp->currentLevel))
 	{
 		//tile.id - 1 will give us what texture we defined in Tiled.
-		RenderTexture(*m_TileComp->m_pTileTextures[tile.id - 1], float(tile.xPos), float(tile.yPos));
+		RenderTexture(*m_TileComp->pTileTextures[tile.id - 1], float(tile.xPos), float(tile.yPos));
 	}
 
 	//Solid Collision DEBUG
-	if(!m_TileComp->m_SolidCollisionsMap.empty())
+	if(!m_TileComp->solidCollisionsMap.empty())
 	{
-		for(auto& collision : m_TileComp->m_SolidCollisionsMap.at(m_TileComp->m_CurrentLevel))
+		for(auto& collision : m_TileComp->solidCollisionsMap.at(m_TileComp->currentLevel))
 		{
 			SDL_SetRenderDrawColor(m_pRenderer, 0, 255, 0, 255);
 			SDL_RenderDrawRect(m_pRenderer, &collision);
@@ -190,9 +190,9 @@ void crupt::TileMapSystem::Render()
 	}
 
 	//Platform Collision DEBUG
-	if(!m_TileComp->m_PlatformCollisionsMap.empty())
+	if(!m_TileComp->platformCollisionsMap.empty())
 	{
-		for(auto& collision : m_TileComp->m_PlatformCollisionsMap.at(m_TileComp->m_CurrentLevel))
+		for(auto& collision : m_TileComp->platformCollisionsMap.at(m_TileComp->currentLevel))
 		{
 			SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 255, 255);
 			SDL_RenderDrawRect(m_pRenderer, &collision);

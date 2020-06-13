@@ -204,6 +204,7 @@
     <ClInclude Include="GameCommands.h" />
     <ClInclude Include="GameComponents.h" />
     <ClInclude Include="GameSystems.h" />
+    <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="JumpComponent.h" />
     <ClInclude Include="JumpSystem.h" />
     <ClInclude Include="MainGame.h" />

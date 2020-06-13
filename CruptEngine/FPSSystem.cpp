@@ -18,7 +18,7 @@ int FPSSystem::GetFPS(Entity& entity) const
 	
 	ECSCoordinator& coordinator = ECSCoordinator::GetInstance();
 	FPSComponent& fpsComp = coordinator.GetComponent<FPSComponent>(entity);
-	return fpsComp.m_Fps;
+	return fpsComp.fps;
 }
 
 void FPSSystem::Update(Entity entity, float deltaTime)
@@ -35,7 +35,7 @@ void FPSSystem::Update(Entity entity, float deltaTime)
 	if(m_Time > 1.f)
 	{
 		m_Time = 0.f;
-		fpsComp.m_Fps = m_FpsCounter;
+		fpsComp.fps = m_FpsCounter;
 		m_FpsCounter = 0;
 	}
 	

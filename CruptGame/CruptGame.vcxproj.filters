@@ -140,5 +140,8 @@
     <ClInclude Include="ZenchanMovementSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

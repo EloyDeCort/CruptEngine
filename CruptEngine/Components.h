@@ -5,7 +5,7 @@
 #include "RenderableComponent.h"
 #include "SpriteComponent.h"
 #include "GravityComponent.h"
-#include "VelocityComponent.h"
+#include "MovePhysicsComponent.h"
 #include "TileMapComponent.h"
 #include "BoxCollisionComponent.h"
 #include "CollisionCallbackComponent.h"

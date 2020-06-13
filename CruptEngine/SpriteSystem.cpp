@@ -21,10 +21,10 @@ static void EntityUpdate(Entity entity, float dt)
 	SpriteComponent& spriteComp = coordinator->GetComponent<SpriteComponent>(entity);
 	RenderableComponent& renderComp = coordinator->GetComponent<RenderableComponent>(entity);
 
-	SDL_Texture* tex = renderComp.m_Texture->GetSDLTexture();
+	SDL_Texture* tex = renderComp.pTexture->GetSDLTexture();
 
-	spriteComp.m_TotalTime += dt;
-	spriteComp.m_CurrentFrame = int(fmod((spriteComp.m_TotalTime * spriteComp.m_AnimationRate), spriteComp.m_FrameCount));
+	spriteComp.totalTime += dt;
+	spriteComp.currentFrame = int(fmod((spriteComp.totalTime * spriteComp.animationRate), spriteComp.frameCount));
 
 	int width{};
 	int height{};
@@ -32,11 +32,11 @@ static void EntityUpdate(Entity entity, float dt)
 	SDL_QueryTexture(tex, nullptr, nullptr, &width, &height);
 
 	rect.h = height;
-	rect.w = width / spriteComp.m_FrameCount;
+	rect.w = width / spriteComp.frameCount;
 	rect.y = 0;
-	rect.x = rect.w * spriteComp.m_CurrentFrame;
-	renderComp.m_SrcRect = rect;
-	renderComp.m_ScaleFactor = spriteComp.m_ScaleFactor;
+	rect.x = rect.w * spriteComp.currentFrame;
+	renderComp.srcRect = rect;
+	renderComp.scaleFactor = spriteComp.scaleFactor;
 }
 
 void SpriteSystem::Update(float dt)

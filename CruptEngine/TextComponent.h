@@ -10,9 +10,9 @@ namespace crupt
 {
 	struct TextComponent
 	{
-		bool m_NeedsUpdate;
-		std::string m_Text;
-		Font* m_pFont;
-		glm::vec3 m_Color;
+		bool needsUpdate;
+		std::string text;
+		Font* pFont;
+		glm::vec3 color;
 	};
 }

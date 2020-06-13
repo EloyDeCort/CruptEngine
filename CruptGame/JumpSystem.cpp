@@ -15,12 +15,12 @@ void crupt::JumpSystem::Init()
 void crupt::JumpSystem::OnDispatch(JumpComponent component)
 {
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
-	MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(component.m_Target);
-	BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(component.m_Target);
+	MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(component.target);
+	BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(component.target);
 
-	if(boxComp.m_ColDirY == eDirection::DOWN)
+	if(boxComp.colDirY == eDirection::DOWN)
 	{
-		movPhysicsComp.m_Force.y = component.m_JumpHeight;
+		movPhysicsComp.force.y = component.jumpHeight;
 	}
 	
 }

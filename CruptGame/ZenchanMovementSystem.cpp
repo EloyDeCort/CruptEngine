@@ -30,10 +30,10 @@ void crupt::ZenchanMovementSystem::PreUpdate(float)
 			continue;
 		}
 
-		if(boxComp.m_ColDirX == eDirection::LEFT || boxComp.m_ColDirX == eDirection::RIGHT)
+		if(boxComp.colDirX == eDirection::LEFT || boxComp.colDirX == eDirection::RIGHT)
 		{
 			zenchanComp.flipped = !zenchanComp.flipped;
-			renderComp.m_Flip = !renderComp.m_Flip;
+			renderComp.flip = !renderComp.flip;
 		}
 		
 
@@ -47,31 +47,31 @@ void crupt::ZenchanMovementSystem::PreUpdate(float)
 				if(distance < 0.f)
 				{
 					zenchanComp.flipped = false;
-					renderComp.m_Flip = false;
+					renderComp.flip = false;
 				}
 				else
 				{
 					zenchanComp.flipped = true;
-					renderComp.m_Flip = true;
+					renderComp.flip = true;
 				}
 			}
 			else
 			{
 				JumpComponent jumpComp;
-				jumpComp.m_Target = entity;
+				jumpComp.target = entity;
 				SignalHandler<JumpComponent>::GetInstance().Publish(jumpComp);
 			}
 		}
 		
-			if(boxComp.m_ColDirY == eDirection::DOWN)
+			if(boxComp.colDirY == eDirection::DOWN)
 			{
 				if(!zenchanComp.flipped)
 				{
-					movPhysicsComp.m_Force.x = zenchanComp.movSpeed;
+					movPhysicsComp.force.x = zenchanComp.movSpeed;
 				}
 				else
 				{
-					movPhysicsComp.m_Force.x = -zenchanComp.movSpeed;
+					movPhysicsComp.force.x = -zenchanComp.movSpeed;
 				}
 			}
 	}

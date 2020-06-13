@@ -23,14 +23,14 @@ void EntityUpdate(Entity entity)
 	MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(entity);
 	BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
 	
-	transform.position.x += movPhysicsComp.m_Velocity.x * boxComp.m_EntryTimeX;
+	transform.position.x += movPhysicsComp.velocity.x * boxComp.entryTimeX;
 	
-	movPhysicsComp.m_Force.x = 0;
+	movPhysicsComp.force.x = 0;
 
-	transform.position.y += movPhysicsComp.m_Velocity.y * boxComp.m_EntryTimeY;
+	transform.position.y += movPhysicsComp.velocity.y * boxComp.entryTimeY;
 
-	boxComp.m_CollisionRect.x = int(transform.position.x);
-	boxComp.m_CollisionRect.y = int(transform.position.y);
+	boxComp.collisionRect.x = int(transform.position.x);
+	boxComp.collisionRect.y = int(transform.position.y);
 }
 
 void PhysicsSystem::Update(float dt)
@@ -54,13 +54,13 @@ void crupt::PhysicsSystem::PreUpdate(float dt)
 		BoxCollisionComponent& boxComp = m_pCoordinator->GetComponent<BoxCollisionComponent>(entity);
 	
 
-		switch(boxComp.m_ColDirY)
+		switch(boxComp.colDirY)
 		{
 		case eDirection::DOWN:
 		case eDirection::UP:
-			if(movPhysicsComp.m_Force.y >= 0.f)
+			if(movPhysicsComp.force.y >= 0.f)
 			{
-				movPhysicsComp.m_Force.y = 0;
+				movPhysicsComp.force.y = 0;
 			}
 			break;
 		default:
@@ -68,9 +68,9 @@ void crupt::PhysicsSystem::PreUpdate(float dt)
 		}
 
 		//Gravity
-		movPhysicsComp.m_Force -= gravity.m_Gravity * dt;
+		movPhysicsComp.force -= gravity.gravity * dt;
 
-		movPhysicsComp.m_Velocity = movPhysicsComp.m_Force * dt;
+		movPhysicsComp.velocity = movPhysicsComp.force * dt;
 	}
 }
 

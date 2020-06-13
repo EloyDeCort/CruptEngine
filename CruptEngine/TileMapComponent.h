@@ -22,15 +22,15 @@ namespace crupt
 		using TileVectorMap = std::map<size_t, TileVector>;
 		using CollisionVectorMap = std::map<size_t, CollisionVector>;
 
-		std::vector<Texture2D*> m_pTileTextures;
+		std::vector<Texture2D*> pTileTextures;
 
-		TileVectorMap m_TilesMap;
-		std::vector<Tile> m_Tiles;
+		TileVectorMap tilesMap;
+		std::vector<Tile> tiles;
 
-		CollisionVectorMap m_SolidCollisionsMap;
-		CollisionVectorMap m_PlatformCollisionsMap;
+		CollisionVectorMap solidCollisionsMap;
+		CollisionVectorMap platformCollisionsMap;
 
-		int m_CurrentLevel = 0;
-		int m_TotalLevels = 0;
+		int currentLevel = 0;
+		int totalLevels = 0;
 	};
 }

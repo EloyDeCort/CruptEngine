@@ -29,49 +29,49 @@ void PlayerStateSystem::Update(float dt)
 		BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
 		RenderableComponent& renderable = coordinator->GetComponent<RenderableComponent>(entity);
 		
-		if(stateComp.m_AnimationState == PlayerAnimState::SPITBUBBLE)
+		if(stateComp.animationState == PlayerAnimState::SPITBUBBLE)
 		{
 			m_SpitTime += dt;
 			if(m_SpitTime >= m_MaxSpitTime)
 			{
-				stateComp.m_AnimationState = PlayerAnimState::IDLE;
+				stateComp.animationState = PlayerAnimState::IDLE;
 				m_SpitTime = 0.f;
 			}
 		}
 		else
 		{
-			if(movPhysicsComp.m_Velocity.x < FLT_EPSILON && movPhysicsComp.m_Velocity.x > -FLT_EPSILON)
+			if(movPhysicsComp.velocity.x < FLT_EPSILON && movPhysicsComp.velocity.x > -FLT_EPSILON)
 			{
-				if(boxComp.m_ColDirY == eDirection::DOWN)
+				if(boxComp.colDirY == eDirection::DOWN)
 				{
-					stateComp.m_AnimationState = PlayerAnimState::IDLE;
+					stateComp.animationState = PlayerAnimState::IDLE;
 			
 				}
 				else
 				{
-					stateComp.m_AnimationState = PlayerAnimState::IDLE;
+					stateComp.animationState = PlayerAnimState::IDLE;
 				
 				}
 			}
 			else
 			{
-				if(boxComp.m_ColDirY == eDirection::DOWN)
+				if(boxComp.colDirY == eDirection::DOWN)
 				{
-					stateComp.m_AnimationState = PlayerAnimState::RUNNING;
+					stateComp.animationState = PlayerAnimState::RUNNING;
 			
 				}
 				else
 				{
-					stateComp.m_AnimationState = PlayerAnimState::IDLE;
+					stateComp.animationState = PlayerAnimState::IDLE;
 				}
 			}
 		}
 	
 
-		StateSprite& newSprite = stateComp.m_pStateSprites[int(stateComp.m_AnimationState)];
-		spriteComp.m_AnimationRate = newSprite.m_SpriteData.m_AnimationRate;
-		spriteComp.m_FrameCount = newSprite.m_SpriteData.m_FrameCount;
-		renderable.m_Texture = stateComp.m_pStateSprites[int(stateComp.m_AnimationState)].m_Texture;
+		StateSprite& newSprite = stateComp.pStateSprites[int(stateComp.animationState)];
+		spriteComp.animationRate = newSprite.spriteData.animationRate;
+		spriteComp.frameCount = newSprite.spriteData.frameCount;
+		renderable.pTexture = stateComp.pStateSprites[int(stateComp.animationState)].pTexture;
 	
 	}
 }

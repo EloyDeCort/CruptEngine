@@ -17,7 +17,7 @@ namespace crupt
 	{
 		Entity target;
 
-		BubbleAnimState m_AnimationState;
+		BubbleAnimState animationState;
 		std::vector<StateSprite> stateSprites;
 	};
 }

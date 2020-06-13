@@ -6,9 +6,9 @@ namespace crupt
 {
 	struct RenderableComponent
 	{
-		Texture2D* m_Texture{nullptr};
-		SDL_Rect m_SrcRect{0,0,0,0};
-		int m_ScaleFactor{1};
-		bool m_Flip = false;
+		Texture2D* pTexture{nullptr};
+		SDL_Rect srcRect{0,0,0,0};
+		int scaleFactor{1};
+		bool flip = false;
 	};
 }

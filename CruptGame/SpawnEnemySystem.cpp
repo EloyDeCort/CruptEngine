@@ -33,9 +33,9 @@ void crupt::SpawnEnemySystem::SpawnZenchan(const glm::vec2& pos)
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	//ZenChan
 	SpriteComponent spriteComp{};
-	spriteComp.m_AnimationRate = 12; 
-	spriteComp.m_ScaleFactor = 2; 
-	spriteComp.m_FrameCount = 8; 
+	spriteComp.animationRate = 12; 
+	spriteComp.scaleFactor = 2; 
+	spriteComp.frameCount = 8; 
 	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Enemies/ZenChan_Walking.png",m_pRenderer);
 
 	Entity zenchanEnemy = coordinator->CreateEntity();

@@ -15,30 +15,30 @@ void crupt::MoveSystem::Init()
 void crupt::MoveSystem::OnDispatch(MoveComponent component)
 {
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
-	MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(component.m_Target);
-	RenderableComponent& render = coordinator->GetComponent<RenderableComponent>(component.m_Target);
-	BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(component.m_Target);
+	MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(component.target);
+	RenderableComponent& render = coordinator->GetComponent<RenderableComponent>(component.target);
+	BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(component.target);
 
 	
-	if(component.m_Speed > 0.01f)
+	if(component.speed > 0.01f)
 	{
 		if(component.m_xDirection > 0.f)
 		{
-			render.m_Flip = false;
+			render.flip = false;
 		}
 		else
 		{
-			render.m_Flip = true;
+			render.flip = true;
 		}
 	}
 
 
-	if(boxComp.m_ColDirY == eDirection::DOWN)
+	if(boxComp.colDirY == eDirection::DOWN)
 	{
-		movPhysicsComp.m_Force.x = component.m_Speed * component.m_xDirection;
+		movPhysicsComp.force.x = component.speed * component.m_xDirection;
 	}
 	else
 	{
-		movPhysicsComp.m_Force.x = component.m_Speed * 0.8f * component.m_xDirection;
+		movPhysicsComp.force.x = component.speed * 0.8f * component.m_xDirection;
 	}
 }

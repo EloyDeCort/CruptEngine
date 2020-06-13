@@ -270,7 +270,7 @@ xcopy "$(SolutionDir)3rdParty\FMOD\lib\x64\*.dll" "$(OutputPath)" /R /Y</Command
     <ClInclude Include="TileMapComponent.h" />
     <ClInclude Include="TileMapSystem.h" />
     <ClInclude Include="TransformComponent.h" />
-    <ClInclude Include="VelocityComponent.h" />
+    <ClInclude Include="MovePhysicsComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionSystem.cpp" />

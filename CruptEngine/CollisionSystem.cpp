@@ -38,15 +38,15 @@ void CollisionSystem::Update(float)
 		BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
 		CollisionCallbackComponent& colCallbackComp = coordinator->GetComponent<CollisionCallbackComponent>(entity);
 		Box playerBox{};
-		playerBox.rect = boxComp.m_CollisionRect;
-		playerBox.velocity = movPhysicsComp.m_Velocity;
+		playerBox.rect = boxComp.collisionRect;
+		playerBox.velocity = movPhysicsComp.velocity;
 
 		float lowestColTimeX = 1.f;
 		float lowestColTimeY = 1.f;
 		eDirection finalDirX = eDirection::NONE;
 		eDirection finalDirY = eDirection::NONE;
 		
-		for(const SDL_Rect& collision : m_TileComp->m_SolidCollisionsMap.at(m_TileComp->m_CurrentLevel))
+		for(const SDL_Rect& collision : m_TileComp->solidCollisionsMap.at(m_TileComp->currentLevel))
 		{
 			Box wallBox{};
 			wallBox.rect = collision;
@@ -85,9 +85,9 @@ void CollisionSystem::Update(float)
 		
 		//std::cout << int(finalDir) << std::endl;
 		
-		if(!boxComp.m_IgnorePlatforms)
+		if(!boxComp.ignorePlatforms)
 		{
-			for(const SDL_Rect& collision : m_TileComp->m_PlatformCollisionsMap.at(m_TileComp->m_CurrentLevel))
+			for(const SDL_Rect& collision : m_TileComp->platformCollisionsMap.at(m_TileComp->currentLevel))
 			{
 				Box wallBox{};
 				wallBox.rect = collision;
@@ -118,7 +118,7 @@ void CollisionSystem::Update(float)
 			}
 		}
 
-		if(!boxComp.m_IgnoreEntities)
+		if(!boxComp.ignoreEntities)
 		{
 			for (Entity entity2 : m_Entities)
 			{
@@ -129,8 +129,8 @@ void CollisionSystem::Update(float)
 				BoxCollisionComponent& boxComp2 = coordinator->GetComponent<BoxCollisionComponent>(entity2);
 
 				Box entity2Box{};
-				entity2Box.rect = boxComp2.m_CollisionRect;
-				entity2Box.velocity = movPhysicsComp2.m_Velocity;
+				entity2Box.rect = boxComp2.collisionRect;
+				entity2Box.velocity = movPhysicsComp2.velocity;
 
 				eDirection result = eDirection::NONE;
 				float collisionTime = SweptImproved(playerBox, entity2Box, result, false);
@@ -166,10 +166,10 @@ void CollisionSystem::Update(float)
 			}
 		}
 
-		boxComp.m_EntryTimeX = lowestColTimeX;
-		boxComp.m_EntryTimeY = lowestColTimeY;
-		boxComp.m_ColDirX = finalDirX;	
-		boxComp.m_ColDirY = finalDirY;
+		boxComp.entryTimeX = lowestColTimeX;
+		boxComp.entryTimeY = lowestColTimeY;
+		boxComp.colDirX = finalDirX;	
+		boxComp.colDirY = finalDirY;
 	}
 }
 

@@ -83,8 +83,8 @@ void crupt::BubbleBobbleScene::InitPlayers()
 
 	//Player 1 
 	SpriteComponent spriteComp{};
-	spriteComp.m_AnimationRate = 12; 
-	spriteComp.m_ScaleFactor = 2; 
+	spriteComp.animationRate = 12; 
+	spriteComp.scaleFactor = 2; 
 	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Player/Bob_Idle.png",renderer);
 
 	m_Player1 = pCoordinator.CreateEntity();
@@ -96,16 +96,16 @@ void crupt::BubbleBobbleScene::InitPlayers()
 	pCoordinator.AddComponent<BoxCollisionComponent>(m_Player1, BoxCollisionComponent{0,0,32,32});
 	pCoordinator.AddComponent<CollisionCallbackComponent>(m_Player1, CollisionCallbackComponent{});
 	PlayerStateComponent playerStateComp{};
-	playerStateComp.m_AnimationState = PlayerAnimState::IDLE;
+	playerStateComp.animationState = PlayerAnimState::IDLE;
 
-	spriteComp.m_FrameCount = 1;
-	playerStateComp.m_pStateSprites.push_back(StateSprite{spriteComp,defaultAnim});
+	spriteComp.frameCount = 1;
+	playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,defaultAnim});
 	
-	spriteComp.m_FrameCount = 8;
-	playerStateComp.m_pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bob_Walking.png",renderer)});
+	spriteComp.frameCount = 8;
+	playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bob_Walking.png",renderer)});
 
-	spriteComp.m_FrameCount = 1;
-	playerStateComp.m_pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bob_Spit.png",renderer)});
+	spriteComp.frameCount = 1;
+	playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bob_Spit.png",renderer)});
 
 	pCoordinator.AddComponent<PlayerStateComponent>(m_Player1, playerStateComp);
 
@@ -133,9 +133,9 @@ void crupt::BubbleBobbleScene::InitEnemies()
 
 	//Enemy
 	SpriteComponent spriteComp{};
-	spriteComp.m_AnimationRate = 12; 
-	spriteComp.m_ScaleFactor = 2; 
-	spriteComp.m_FrameCount = 8; 
+	spriteComp.animationRate = 12; 
+	spriteComp.scaleFactor = 2; 
+	spriteComp.frameCount = 8; 
 	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Enemies/ZenChan_Walking.png",renderer);
 
 	Entity zenchanEnemy1 = pCoordinator.CreateEntity();
