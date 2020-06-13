@@ -9,6 +9,7 @@ namespace crupt
 	enum class BubbleAnimState
 	{
 		NORMAL,
+		ZENCHAN,
 		MAITA
 	};
 

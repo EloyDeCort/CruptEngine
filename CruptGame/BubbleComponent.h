@@ -13,6 +13,7 @@ namespace crupt
 	{
 		glm::vec2 position;
 		float totalTime = 0.f;
+		float maxLifeTime = 5.f;
 		float xSpeed = 200.f;
 		float xSpeedTime = 0.5f;
 		bool flipped = false;

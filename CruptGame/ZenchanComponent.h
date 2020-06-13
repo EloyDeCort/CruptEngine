@@ -2,7 +2,7 @@
 
 namespace crupt
 {
-	struct MaitaComponent
+	struct ZenchanComponent
 	{
 		Entity player1;
 		float movSpeed = 200.f;

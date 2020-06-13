@@ -1,5 +1,6 @@
 #pragma once
 #include "Singleton.h"
+#include <unordered_map>
 
 	struct SDL_Renderer;
 namespace crupt
@@ -16,6 +17,6 @@ namespace crupt
 		Font* LoadFont(const std::string& file, unsigned int size) const;
 	private:
 		std::string m_DataPath;
-		std::vector<Texture2D*> m_pTextures;
+		std::unordered_map<std::string,Texture2D*> m_pTextures;
 	};
 }

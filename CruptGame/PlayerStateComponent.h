@@ -8,7 +8,8 @@ namespace crupt
 	enum class PlayerAnimState
 	{
 		IDLE,
-		RUNNING
+		RUNNING,
+		SPITBUBBLE
 	};
 	
 	struct StateSprite

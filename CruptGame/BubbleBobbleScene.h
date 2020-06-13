@@ -8,7 +8,8 @@ namespace crupt
 	class JumpSystem;
 	class PlayerStateSystem;
 	class BubbleMovementSystem;
-	class MaitaMovementSystem;
+	class ZenchanMovementSystem;
+	class SpawnEnemySystem;
 	class BubbleBobbleScene : public GameScene
 	{
 	public:
@@ -25,7 +26,8 @@ namespace crupt
 		void InitTextures();
 
 		Entity m_FpsCounter;
-		//Systems
+
+		//Systems (Used to have a specific update loop for each scene, only using the systems we need for that scene)
 		TextSystem* m_pTextSystem;
 		FPSSystem* m_pFPSSystem;
 		RenderSystem* m_pRenderSystem;
@@ -36,7 +38,9 @@ namespace crupt
 		CollisionSystem* m_pCollisionSystem;
 		PlayerStateSystem* m_pPlayerStateSystem;
 		BubbleMovementSystem* m_pBubbleMovementSystem;
-		MaitaMovementSystem* m_pMaitaMovementSystem;
+		ZenchanMovementSystem* m_pZenchanMovementSystem;
+		SpawnEnemySystem* m_pSpawnEnemySystem;
+
 		Entity m_Player1;
 		Entity m_Player2;
 

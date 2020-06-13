@@ -181,9 +181,10 @@
     <ClCompile Include="JumpSystem.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainGame.cpp" />
-    <ClCompile Include="MaitaMovementSystem.cpp" />
+    <ClCompile Include="ZenchanMovementSystem.cpp" />
     <ClCompile Include="MoveSystem.cpp" />
     <ClCompile Include="PlayerStateSystem.cpp" />
+    <ClCompile Include="SpawnEnemySystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CruptEngine\CruptEngine.vcxproj">
@@ -206,12 +207,14 @@
     <ClInclude Include="JumpComponent.h" />
     <ClInclude Include="JumpSystem.h" />
     <ClInclude Include="MainGame.h" />
-    <ClInclude Include="MaitaComponent.h" />
-    <ClInclude Include="MaitaMovementSystem.h" />
+    <ClInclude Include="ZenchanComponent.h" />
+    <ClInclude Include="ZenchanMovementSystem.h" />
     <ClInclude Include="MoveComponent.h" />
     <ClInclude Include="MoveSystem.h" />
     <ClInclude Include="PlayerStateComponent.h" />
     <ClInclude Include="PlayerStateSystem.h" />
+    <ClInclude Include="SpawnEnemyComponent.h" />
+    <ClInclude Include="SpawnEnemySystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

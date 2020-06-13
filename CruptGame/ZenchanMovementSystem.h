@@ -5,10 +5,10 @@
 struct SDL_Renderer;
 namespace crupt
 {
-	class MaitaMovementSystem : public System
+	class ZenchanMovementSystem : public System
 	{
 	public:
-		virtual ~MaitaMovementSystem();
+		virtual ~ZenchanMovementSystem();
 		void Init();
 		void PreUpdate(float dt);
 

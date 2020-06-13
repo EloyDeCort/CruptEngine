@@ -11,7 +11,8 @@ namespace crupt
 		void Update(float dt);
 
 	private:
-		void ChangeState();
+		float m_SpitTime;
+		float m_MaxSpitTime;
 	};
 }
 

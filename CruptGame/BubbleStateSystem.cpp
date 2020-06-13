@@ -19,6 +19,7 @@ void crupt::BubbleStateSystem::OnDispatch(BubbleStateComponent component)
 	RenderableComponent& renderable = coordinator->GetComponent<RenderableComponent>(component.target);
 	BubbleStateComponent& bubbleStateComp = coordinator->GetComponent<BubbleStateComponent>(component.target);
 
+	bubbleStateComp.m_AnimationState = component.m_AnimationState;
 	StateSprite& newSprite = bubbleStateComp.stateSprites[int(component.m_AnimationState)];
 	spriteComp.m_AnimationRate = newSprite.m_SpriteData.m_AnimationRate;
 	spriteComp.m_FrameCount = newSprite.m_SpriteData.m_FrameCount;

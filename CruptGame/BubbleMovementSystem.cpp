@@ -1,7 +1,8 @@
 #include "CruptEnginePCH.h"
 #include "BubbleMovementSystem.h"
-#include "Components.h"
-#include "GameComponents.h"
+#include "ResourceManager.h"
+#include "SignalHandler.h"
+
 using namespace crupt;
 
 BubbleMovementSystem::~BubbleMovementSystem()
@@ -9,9 +10,9 @@ BubbleMovementSystem::~BubbleMovementSystem()
 	
 }
 
-void BubbleMovementSystem::Init()
+void BubbleMovementSystem::Init(SDL_Renderer* renderer)
 {
-
+	m_pRenderer = renderer;
 }
 
 void BubbleMovementSystem::Update(float dt)
@@ -21,14 +22,26 @@ void BubbleMovementSystem::Update(float dt)
 
 	for (Entity entity : m_Entities)
 	{
+		TransformComponent& transComp = coordinator->GetComponent<TransformComponent>(entity);
+		BubbleStateComponent& bubbleStateComp = coordinator->GetComponent<BubbleStateComponent>(entity);
 		BubbleComponent& bubbleComp = coordinator->GetComponent<BubbleComponent>(entity);
+
 		if(bubbleComp.shouldPop)
 		{
 			toDelete.push_back(entity);
 			continue;
 		}
 
-		TransformComponent& transComp = coordinator->GetComponent<TransformComponent>(entity);
+		if(bubbleStateComp.m_AnimationState == BubbleAnimState::ZENCHAN)
+		{
+			if(bubbleComp.totalTime > bubbleComp.maxLifeTime)
+			{
+				SpawnEnemy(bubbleStateComp.m_AnimationState, transComp.position);
+				toDelete.push_back(entity);
+				continue;
+			}
+		}
+
 		BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
 		MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(entity);
 
@@ -79,4 +92,18 @@ void crupt::BubbleMovementSystem::PreUpdate(float dt)
 			movPhysicsComp.m_Velocity.y = -50.f;
 		}
 	}
+}
+
+
+void crupt::BubbleMovementSystem::SpawnEnemy(BubbleAnimState state, const glm::vec2& pos)
+{
+	SpawnEnemyComponent enemyComp;
+	switch(state)
+	{
+	case BubbleAnimState::ZENCHAN:
+		enemyComp.type = EnemyType::ZENCHAN;
+		break;
+	}
+	enemyComp.spawnPos = pos;
+	SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
 }

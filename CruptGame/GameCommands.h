@@ -24,7 +24,6 @@ namespace crupt
 		virtual void Execute() override;
 	private:
 		Entity m_pReceiver;
-		PlayerStateComponent* m_pState;
 	};
 
 	class MoveRightCommand : public ICommand
@@ -36,7 +35,6 @@ namespace crupt
 		virtual void Execute() override;
 	private:
 		Entity m_pReceiver;
-		PlayerStateComponent* m_pState;
 	};
 
 	

@@ -60,10 +60,13 @@
     <ClCompile Include="CollisionCallbackSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="MaitaMovementSystem.cpp">
+    <ClCompile Include="BubbleStateSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="BubbleStateSystem.cpp">
+    <ClCompile Include="SpawnEnemySystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ZenchanMovementSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,12 +119,6 @@
     <ClInclude Include="CollisionCallbackSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="MaitaComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="MaitaMovementSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
     <ClInclude Include="BubbleStateComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -130,6 +127,18 @@
     </ClInclude>
     <ClInclude Include="MainGame.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnEnemySystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnEnemyComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ZenchanComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ZenchanMovementSystem.h">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

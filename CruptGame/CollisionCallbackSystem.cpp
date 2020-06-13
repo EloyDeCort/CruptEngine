@@ -28,7 +28,7 @@ void crupt::CollisionCallbackSystem::Init()
 		{
 			callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnBubbleCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
 		}
-		else if(m_pCoordinator->HasComponent<MaitaComponent>(entity))
+		else if(m_pCoordinator->HasComponent<ZenchanComponent>(entity))
 		{
 			callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnMaitaCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
 		}
@@ -43,14 +43,17 @@ void crupt::CollisionCallbackSystem::AddEntityCallback(Entity entity)
 	{
 		callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnPlayerCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
 	}
-
+	else if(m_pCoordinator->HasComponent<ZenchanComponent>(entity))
+	{
+		callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnMaitaCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
+	}
 }
 
 void crupt::CollisionCallbackSystem::OnPlayerCallback(Entity self, Entity collider, eDirection direction)
 {
 	if(m_pCoordinator->HasComponent<BubbleComponent>(collider))
 	{
-		std::cout << int(direction) << std::endl;
+		//std::cout << int(direction) << std::endl;
 		if(direction != eDirection::DOWN)
 		{
 			m_pCoordinator->GetComponent<BubbleComponent>(collider).shouldPop = true;
@@ -77,11 +80,11 @@ void crupt::CollisionCallbackSystem::OnMaitaCallback(Entity self, Entity collide
 {
 	if(m_pCoordinator->HasComponent<BubbleComponent>(collider))
 	{
-		m_pCoordinator->GetComponent<MaitaComponent>(self).shouldDie = true;
+		m_pCoordinator->GetComponent<ZenchanComponent>(self).shouldDie = true;
 		
 		BubbleStateComponent stateComp;
 		stateComp.target = collider;
-		stateComp.m_AnimationState = BubbleAnimState::MAITA;
+		stateComp.m_AnimationState = BubbleAnimState::ZENCHAN;
 
 		SignalHandler<BubbleStateComponent>::GetInstance().Publish(stateComp);
 	}

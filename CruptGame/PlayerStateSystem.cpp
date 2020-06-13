@@ -12,6 +12,8 @@ PlayerStateSystem::~PlayerStateSystem()
 
 void PlayerStateSystem::Init()
 {
+	m_SpitTime = 0.f;
+	m_MaxSpitTime = 0.2f;
 }
 
 void PlayerStateSystem::Update(float dt)
@@ -27,31 +29,44 @@ void PlayerStateSystem::Update(float dt)
 		BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
 		RenderableComponent& renderable = coordinator->GetComponent<RenderableComponent>(entity);
 		
-		if(movPhysicsComp.m_Velocity.x < FLT_EPSILON && movPhysicsComp.m_Velocity.x > -FLT_EPSILON)
+		if(stateComp.m_AnimationState == PlayerAnimState::SPITBUBBLE)
 		{
-			if(boxComp.m_ColDirY == eDirection::DOWN)
+			m_SpitTime += dt;
+			if(m_SpitTime >= m_MaxSpitTime)
 			{
 				stateComp.m_AnimationState = PlayerAnimState::IDLE;
-			
-			}
-			else
-			{
-				stateComp.m_AnimationState = PlayerAnimState::IDLE;
-				
+				m_SpitTime = 0.f;
 			}
 		}
 		else
 		{
-			if(boxComp.m_ColDirY == eDirection::DOWN)
+			if(movPhysicsComp.m_Velocity.x < FLT_EPSILON && movPhysicsComp.m_Velocity.x > -FLT_EPSILON)
 			{
-				stateComp.m_AnimationState = PlayerAnimState::RUNNING;
+				if(boxComp.m_ColDirY == eDirection::DOWN)
+				{
+					stateComp.m_AnimationState = PlayerAnimState::IDLE;
 			
+				}
+				else
+				{
+					stateComp.m_AnimationState = PlayerAnimState::IDLE;
+				
+				}
 			}
 			else
 			{
-				stateComp.m_AnimationState = PlayerAnimState::IDLE;
+				if(boxComp.m_ColDirY == eDirection::DOWN)
+				{
+					stateComp.m_AnimationState = PlayerAnimState::RUNNING;
+			
+				}
+				else
+				{
+					stateComp.m_AnimationState = PlayerAnimState::IDLE;
+				}
 			}
 		}
+	
 
 		StateSprite& newSprite = stateComp.m_pStateSprites[int(stateComp.m_AnimationState)];
 		spriteComp.m_AnimationRate = newSprite.m_SpriteData.m_AnimationRate;

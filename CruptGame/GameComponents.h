@@ -5,5 +5,6 @@
 #include "JumpComponent.h"
 #include "MoveComponent.h"
 #include "BubbleComponent.h"
-#include "MaitaComponent.h"
+#include "ZenchanComponent.h"
 #include "BubbleStateComponent.h"
+#include "SpawnEnemyComponent.h"

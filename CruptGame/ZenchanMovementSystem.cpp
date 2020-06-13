@@ -1,30 +1,30 @@
 #include "CruptEnginePCH.h"
-#include "MaitaMovementSystem.h"
+#include "ZenchanMovementSystem.h"
 #include "Components.h"
 #include "GameComponents.h"
 #include "SignalHandler.h"
 
-crupt::MaitaMovementSystem::~MaitaMovementSystem()
+crupt::ZenchanMovementSystem::~ZenchanMovementSystem()
 {
 }
 
-void crupt::MaitaMovementSystem::Init()
+void crupt::ZenchanMovementSystem::Init()
 {
 }
 
-void crupt::MaitaMovementSystem::PreUpdate(float)
+void crupt::ZenchanMovementSystem::PreUpdate(float)
 {
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	std::vector<Entity> toDelete;
 	for (Entity entity : m_Entities)
 	{
-		MaitaComponent& maitaComp = coordinator->GetComponent<MaitaComponent>(entity);
+		ZenchanComponent& zenchanComp = coordinator->GetComponent<ZenchanComponent>(entity);
 		MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(entity);
 		BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
 		RenderableComponent& renderComp = coordinator->GetComponent<RenderableComponent>(entity);
 		TransformComponent& transComp = coordinator->GetComponent<TransformComponent>(entity);
 
-		if(maitaComp.shouldDie)
+		if(zenchanComp.shouldDie)
 		{
 			toDelete.push_back(entity);
 			continue;
@@ -32,26 +32,26 @@ void crupt::MaitaMovementSystem::PreUpdate(float)
 
 		if(boxComp.m_ColDirX == eDirection::LEFT || boxComp.m_ColDirX == eDirection::RIGHT)
 		{
-			maitaComp.flipped = !maitaComp.flipped;
+			zenchanComp.flipped = !zenchanComp.flipped;
 			renderComp.m_Flip = !renderComp.m_Flip;
 		}
 		
 
-		TransformComponent& playerTransComp = coordinator->GetComponent<TransformComponent>(maitaComp.player1);
+		TransformComponent& playerTransComp = coordinator->GetComponent<TransformComponent>(zenchanComp.player1);
 
-		if(playerTransComp.position.y < transComp.position.y - maitaComp.jumpOffset)
+		if(playerTransComp.position.y < transComp.position.y - zenchanComp.jumpOffset)
 		{
 			float distance =  transComp.position.x - playerTransComp.position.x;
-			if(fabs(distance) > maitaComp.maxDistanceOffset)
+			if(fabs(distance) > zenchanComp.maxDistanceOffset)
 			{
 				if(distance < 0.f)
 				{
-					maitaComp.flipped = false;
+					zenchanComp.flipped = false;
 					renderComp.m_Flip = false;
 				}
 				else
 				{
-					maitaComp.flipped = true;
+					zenchanComp.flipped = true;
 					renderComp.m_Flip = true;
 				}
 			}
@@ -65,13 +65,13 @@ void crupt::MaitaMovementSystem::PreUpdate(float)
 		
 			if(boxComp.m_ColDirY == eDirection::DOWN)
 			{
-				if(!maitaComp.flipped)
+				if(!zenchanComp.flipped)
 				{
-					movPhysicsComp.m_Force.x = maitaComp.movSpeed;
+					movPhysicsComp.m_Force.x = zenchanComp.movSpeed;
 				}
 				else
 				{
-					movPhysicsComp.m_Force.x = -maitaComp.movSpeed;
+					movPhysicsComp.m_Force.x = -zenchanComp.movSpeed;
 				}
 			}
 	}

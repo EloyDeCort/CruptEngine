@@ -19,11 +19,17 @@ void crupt::BubbleSpawnSystem::Init(SDL_Renderer* renderer)
 	sprite.m_FrameCount = 1;
 	sprite.m_ScaleFactor = 2;
 	sprite.m_FrameCount = 1;
-	m_StateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Green_Bubble.png",m_pRenderer)});
+	m_BubbleStateComp.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Green_Bubble.png",m_pRenderer)});
 	
 	sprite.m_FrameCount = 8;
-	m_StateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Bubble_Maita.png",m_pRenderer)});
+	m_BubbleStateComp.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Bubble_Maita.png",m_pRenderer)});
 
+	m_BubbleStateComp.m_AnimationState = BubbleAnimState::NORMAL;
+
+
+	m_BoxCollisionComp.m_CollisionRect = SDL_Rect{0,0,32,32};
+	m_BoxCollisionComp.m_IgnorePlatforms = true;
+	m_BoxCollisionComp.m_IgnoreEntities = true;
 }
 
 void crupt::BubbleSpawnSystem::OnDispatch(BubbleComponent component)
@@ -32,25 +38,18 @@ void crupt::BubbleSpawnSystem::OnDispatch(BubbleComponent component)
 
 	Entity bubble = coordinator.CreateEntity();
 
-	coordinator.AddComponent<RenderableComponent>(bubble,RenderableComponent{m_StateSprites[0].m_Texture});
+	coordinator.AddComponent<RenderableComponent>(bubble,RenderableComponent{m_BubbleStateComp.stateSprites[0].m_Texture});
 
-	coordinator.AddComponent<SpriteComponent>(bubble, m_StateSprites[0].m_SpriteData);
+	coordinator.AddComponent<SpriteComponent>(bubble, m_BubbleStateComp.stateSprites[0].m_SpriteData);
 
-	BubbleStateComponent bubbleStateComp;
-	bubbleStateComp.m_AnimationState = BubbleAnimState::NORMAL;
-	bubbleStateComp.stateSprites = m_StateSprites;
-
-	coordinator.AddComponent<BubbleStateComponent>(bubble, bubbleStateComp);
+	coordinator.AddComponent<BubbleStateComponent>(bubble, m_BubbleStateComp);
 
 	coordinator.AddComponent<MovePhysicsComponent>(bubble, MovePhysicsComponent{});
 	
 	//Reusing bubble component as tag
 	coordinator.AddComponent<BubbleComponent>(bubble, component);
-	BoxCollisionComponent col; 
-	col.m_CollisionRect = SDL_Rect{0,0,32,32};
-	col.m_IgnorePlatforms = true;
-	col.m_IgnoreEntities = true;
-	coordinator.AddComponent<BoxCollisionComponent>(bubble,col);
+
+	coordinator.AddComponent<BoxCollisionComponent>(bubble,m_BoxCollisionComp);
 	coordinator.AddComponent<TransformComponent>(bubble, TransformComponent{component.position});
 	coordinator.AddComponent<CollisionCallbackComponent>(bubble, CollisionCallbackComponent{});
 

@@ -29,8 +29,9 @@ void crupt::MainGame::RegisterAdditionalComponents()
 	pCoordinator.RegisterComponent<JumpComponent>();
 	pCoordinator.RegisterComponent<MoveComponent>();
 	pCoordinator.RegisterComponent<BubbleComponent>();
-	pCoordinator.RegisterComponent<MaitaComponent>();
+	pCoordinator.RegisterComponent<ZenchanComponent>();
 	pCoordinator.RegisterComponent<BubbleStateComponent>();
+	pCoordinator.RegisterComponent<SpawnEnemyComponent>();
 }
 
 void crupt::MainGame::RegisterAdditionalSystems()
@@ -82,20 +83,20 @@ void crupt::MainGame::RegisterAdditionalSystems()
 		pCoordinator.SetSystemSignature<BubbleMovementSystem>(signature);
 	}
 
-	pBubbleMovementSystem->Init();
+	pBubbleMovementSystem->Init(m_pRenderSystem->GetSDLRenderer());
 
-	pCoordinator.RegisterSystem<CollisionCallbackSystem>();
+	CollisionCallbackSystem* colCallbackSystem = pCoordinator.RegisterSystem<CollisionCallbackSystem>();
 	{
 		Signature signature;
 		signature.set(pCoordinator.GetComponentType<CollisionCallbackComponent>());
 		pCoordinator.SetSystemSignature<CollisionCallbackSystem>(signature);
 	}
 
-	MaitaMovementSystem* pMaitaMovementSystem = pCoordinator.RegisterSystem<MaitaMovementSystem>();
+	ZenchanMovementSystem* pMaitaMovementSystem = pCoordinator.RegisterSystem<ZenchanMovementSystem>();
 	{
 		Signature signature;
-		signature.set(pCoordinator.GetComponentType<MaitaComponent>());
-		pCoordinator.SetSystemSignature<MaitaMovementSystem>(signature);
+		signature.set(pCoordinator.GetComponentType<ZenchanComponent>());
+		pCoordinator.SetSystemSignature<ZenchanMovementSystem>(signature);
 	}
 	pMaitaMovementSystem->Init();
 
@@ -106,4 +107,12 @@ void crupt::MainGame::RegisterAdditionalSystems()
 		pCoordinator.SetSystemSignature<BubbleStateSystem>(signature);
 	}
 	pBubbleStateSystem->Init();
+
+	SpawnEnemySystem* pSpawnEnemySystem = pCoordinator.RegisterSystem<SpawnEnemySystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<SpawnEnemyComponent>());
+		pCoordinator.SetSystemSignature<SpawnEnemySystem>(signature);
+	}
+	pSpawnEnemySystem->Init(m_pRenderSystem->GetSDLRenderer(), colCallbackSystem);
 }

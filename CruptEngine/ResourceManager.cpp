@@ -9,9 +9,10 @@
 
 crupt::ResourceManager::~ResourceManager()
 {
-	for(size_t i{}; i < m_pTextures.size(); ++i)
+	std::unordered_map<std::string, Texture2D*>::iterator it;
+	for(it = m_pTextures.begin(); it != m_pTextures.end(); ++it)
 	{
-		delete m_pTextures[i];
+		delete it->second;
 	}
 	m_pTextures.clear();
 }
@@ -40,7 +41,12 @@ void crupt::ResourceManager::Init(const std::string& dataPath)
 
 crupt::Texture2D* crupt::ResourceManager::LoadTexture(const std::string& file, SDL_Renderer* pRenderer)
 {
-
+	std::unordered_map<std::string, Texture2D*>::iterator it = m_pTextures.find(file);
+	if(it != m_pTextures.end())
+	{
+		return it->second;
+	}
+	
 	const auto fullPath = m_DataPath + file;
 	SDL_Texture* texture = IMG_LoadTexture(pRenderer, fullPath.c_str());
 	if (texture == nullptr) 
@@ -49,9 +55,9 @@ crupt::Texture2D* crupt::ResourceManager::LoadTexture(const std::string& file, S
 	}
 
 	Texture2D* newTex = new Texture2D(texture);
-	m_pTextures.push_back(newTex);
-
+	m_pTextures[file] = newTex;
 	return newTex;
+
 }
 
 crupt::Font* crupt::ResourceManager::LoadFont(const std::string& file, unsigned int size) const

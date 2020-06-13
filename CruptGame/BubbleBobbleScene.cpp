@@ -43,7 +43,8 @@ void crupt::BubbleBobbleScene::InitSystems()
 	m_pCollisionSystem = pCoordinator.GetSystem<CollisionSystem>();
 	m_pPlayerStateSystem = pCoordinator.GetSystem<PlayerStateSystem>();
 	m_pBubbleMovementSystem = pCoordinator.GetSystem<BubbleMovementSystem>();
-	m_pMaitaMovementSystem = pCoordinator.GetSystem<MaitaMovementSystem>();
+	m_pZenchanMovementSystem = pCoordinator.GetSystem<ZenchanMovementSystem>();
+	m_pSpawnEnemySystem = pCoordinator.GetSystem<SpawnEnemySystem>();
 }
 
 void crupt::BubbleBobbleScene::InitEntities()
@@ -103,6 +104,9 @@ void crupt::BubbleBobbleScene::InitPlayers()
 	spriteComp.m_FrameCount = 8;
 	playerStateComp.m_pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bob_Walking.png",renderer)});
 
+	spriteComp.m_FrameCount = 1;
+	playerStateComp.m_pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bob_Spit.png",renderer)});
+
 	pCoordinator.AddComponent<PlayerStateComponent>(m_Player1, playerStateComp);
 
 	InputManager& inputManager = InputManager::GetInstance();
@@ -118,6 +122,8 @@ void crupt::BubbleBobbleScene::InitPlayers()
 	inputManager.AddCommand("LeftP1", new MoveLeftCommand(m_Player1));
 	inputManager.AddBinding("RightP1", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Down, GamepadIndex::PlayerOne});
 	inputManager.AddCommand("RightP1", new MoveRightCommand(m_Player1));
+
+	m_pSpawnEnemySystem->SetPlayer1(m_Player1);
 }
 
 void crupt::BubbleBobbleScene::InitEnemies()
@@ -132,17 +138,17 @@ void crupt::BubbleBobbleScene::InitEnemies()
 	spriteComp.m_FrameCount = 8; 
 	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Enemies/ZenChan_Walking.png",renderer);
 
-	Entity maitaEnemy1 = pCoordinator.CreateEntity();
-	pCoordinator.AddComponent<SpriteComponent>(maitaEnemy1, spriteComp);
-	pCoordinator.AddComponent<RenderableComponent>(maitaEnemy1, RenderableComponent{defaultAnim});
-	pCoordinator.AddComponent<TransformComponent>(maitaEnemy1, TransformComponent{glm::vec2(Settings::m_WindowWidth/2.f,100.f)});
-	pCoordinator.AddComponent<MovePhysicsComponent>(maitaEnemy1, MovePhysicsComponent{});
-	pCoordinator.AddComponent<GravityComponent>(maitaEnemy1, GravityComponent{});
-	pCoordinator.AddComponent<BoxCollisionComponent>(maitaEnemy1, BoxCollisionComponent{0,0,32,32});
-	pCoordinator.AddComponent<CollisionCallbackComponent>(maitaEnemy1, CollisionCallbackComponent{});
-	MaitaComponent maitaComp = MaitaComponent{};
+	Entity zenchanEnemy1 = pCoordinator.CreateEntity();
+	pCoordinator.AddComponent<SpriteComponent>(zenchanEnemy1, spriteComp);
+	pCoordinator.AddComponent<RenderableComponent>(zenchanEnemy1, RenderableComponent{defaultAnim});
+	pCoordinator.AddComponent<TransformComponent>(zenchanEnemy1, TransformComponent{glm::vec2(Settings::m_WindowWidth/2.f,100.f)});
+	pCoordinator.AddComponent<MovePhysicsComponent>(zenchanEnemy1, MovePhysicsComponent{});
+	pCoordinator.AddComponent<GravityComponent>(zenchanEnemy1, GravityComponent{});
+	pCoordinator.AddComponent<BoxCollisionComponent>(zenchanEnemy1, BoxCollisionComponent{0,0,32,32});
+	pCoordinator.AddComponent<CollisionCallbackComponent>(zenchanEnemy1, CollisionCallbackComponent{});
+	ZenchanComponent maitaComp = ZenchanComponent{};
 	maitaComp.player1 = m_Player1;
-	pCoordinator.AddComponent<MaitaComponent>(maitaEnemy1, maitaComp);
+	pCoordinator.AddComponent<ZenchanComponent>(zenchanEnemy1, maitaComp);
 }
 
 void crupt::BubbleBobbleScene::InitTextures()
@@ -151,7 +157,7 @@ void crupt::BubbleBobbleScene::InitTextures()
 
 void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 {
-	m_pMaitaMovementSystem->PreUpdate(dt);
+	m_pZenchanMovementSystem->PreUpdate(dt);
 	m_pBubbleMovementSystem->PreUpdate(dt);
 	m_pPhysicsSystem->PreUpdate(dt);
 	m_pCollisionSystem->Update(dt);

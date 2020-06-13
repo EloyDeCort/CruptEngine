@@ -16,8 +16,8 @@ namespace crupt
 
 	private:
 		SDL_Renderer* m_pRenderer;
-		std::vector<StateSprite> m_StateSprites;
-		RenderableComponent test;
+		BubbleStateComponent m_BubbleStateComp;
+		BoxCollisionComponent m_BoxCollisionComp;
 	};
 }
 
