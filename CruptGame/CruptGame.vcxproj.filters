@@ -78,6 +78,9 @@
     <ClCompile Include="ScoreDisplaySystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="DropMovementSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DemoScene.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="ScoreComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DropMovementSystem.h">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

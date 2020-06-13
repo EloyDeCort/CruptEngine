@@ -97,6 +97,7 @@ void crupt::CollisionCallbackSystem::OnPlayerCallback(Entity self, Entity collid
 		ScoreComponent& playerScore = m_pCoordinator->GetComponent<ScoreComponent>(self);
 
 		playerScore.score += dropComp.score;
+		dropComp.destroy = true;
 
 		SignalHandler<ScoreComponent>::GetInstance().Publish(playerScore);
 	}

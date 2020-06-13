@@ -177,6 +177,7 @@
     <ClCompile Include="BubbleStateSystem.cpp" />
     <ClCompile Include="CollisionCallbackSystem.cpp" />
     <ClCompile Include="DemoScene.cpp" />
+    <ClCompile Include="DropMovementSystem.cpp" />
     <ClCompile Include="GameCommands.cpp" />
     <ClCompile Include="HealthDisplaySystem.cpp" />
     <ClCompile Include="JumpSystem.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="CollisionCallbackSystem.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="DropComponent.h" />
+    <ClInclude Include="DropMovementSystem.h" />
     <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="GameCommands.h" />
     <ClInclude Include="GameComponents.h" />

@@ -13,6 +13,14 @@ namespace crupt
 	class SpawnEnemySystem;
 	class HealthDisplaySystem;
 	class ScoreDisplaySystem;
+	class DropMovementSystem;
+
+	enum class GameMode
+	{
+		SINGLE,
+		COOP,
+		VERSUS
+	};
 
 	class BubbleBobbleScene : public GameScene
 	{
@@ -27,7 +35,8 @@ namespace crupt
 	private:
 		void InitSystems();
 		void InitEntities();
-		void InitPlayers();
+		void InitPlayer1();
+		void InitPlayer2();
 		void InitEnemies();
 		void InitTextures();
 
@@ -47,7 +56,10 @@ namespace crupt
 		ZenchanMovementSystem* m_pZenchanMovementSystem;
 		SpawnEnemySystem* m_pSpawnEnemySystem;
 		HealthDisplaySystem* m_pHealthDisplaySystem;
+		DropMovementSystem* m_pDropMovementSystem;
 		ScoreDisplaySystem* m_pScoreDisplaySystem;
+
+		GameMode m_GameMode;
 
 		//Font
 		crupt::Font* m_pFont;

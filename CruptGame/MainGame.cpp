@@ -145,4 +145,14 @@ void crupt::MainGame::RegisterAdditionalSystems()
 		pCoordinator.SetSystemSignature<ScoreDisplaySystem>(signature);
 	}
 	pScoreDisplaySystem->Init(m_pRenderSystem->GetSDLRenderer());
+
+	
+	DropMovementSystem* pDropMovementSystem = pCoordinator.RegisterSystem<DropMovementSystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<DropComponent>());
+		pCoordinator.SetSystemSignature<DropMovementSystem>(signature);
+	}
+
+	pDropMovementSystem->Init();
 }

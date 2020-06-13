@@ -19,6 +19,9 @@ namespace crupt
 		int score;
 		glm::vec2 pos = {0.f,0.f};
 
+		float movTime = 0.1f;
+		float totalTime = 0.f;
+
 		bool destroy = false;
 	};
 }

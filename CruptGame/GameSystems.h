@@ -10,4 +10,5 @@
 #include "SpawnEnemySystem.h"
 #include "HealthDisplaySystem.h"
 #include "SpawnDropSystem.h"
+#include "DropMovementSystem.h"
 #include "ScoreDisplaySystem.h"

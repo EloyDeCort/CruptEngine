@@ -32,7 +32,7 @@ void PlayerStateSystem::Update(float dt)
 		if(healthComp.dead)
 		{
 			//stateComp.animationState = PlayerAnimState::IDLE;
-			return;
+			//return;
 		}
 
 		if(healthComp.gotHit)

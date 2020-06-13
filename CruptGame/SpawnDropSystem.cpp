@@ -42,7 +42,7 @@ void crupt::SpawnDropSystem::SpawnMelon(const glm::vec2& pos)
 
 	coordinator->AddComponent<SpriteComponent>(melonDrop, spriteComp);
 	coordinator->AddComponent<RenderableComponent>(melonDrop, RenderableComponent{defaultAnim});
-	coordinator->AddComponent<TransformComponent>(melonDrop, TransformComponent{pos});
+	coordinator->AddComponent<TransformComponent>(melonDrop, TransformComponent{{pos.x, pos.y - 32.f}});
 	coordinator->AddComponent<MovePhysicsComponent>(melonDrop, MovePhysicsComponent{});
 	coordinator->AddComponent<GravityComponent>(melonDrop, GravityComponent{});
 	coordinator->AddComponent<BoxCollisionComponent>(melonDrop, BoxCollisionComponent{0,0,32,32});
@@ -51,6 +51,7 @@ void crupt::SpawnDropSystem::SpawnMelon(const glm::vec2& pos)
 	dropComp.pos = pos;
 	dropComp.score = m_MelonScore;
 	dropComp.type = DropType::MELON;
+
 
 	coordinator->AddComponent<DropComponent>(melonDrop, dropComp);
 	m_pCollisionCallbackSystem->AddEntityCallback(melonDrop);
