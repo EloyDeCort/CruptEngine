@@ -12,7 +12,7 @@ namespace crupt
 	public:
 		virtual ~BubbleSpawnSystem();
 		void Init(SDL_Renderer* renderer);
-		void OnDispatch(BubbleComponent component);
+		void OnDispatch(const BubbleComponent& component);
 
 	private:
 		SDL_Renderer* m_pRenderer;

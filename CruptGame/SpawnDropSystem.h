@@ -12,7 +12,7 @@ namespace crupt
 	public:
 		virtual ~SpawnDropSystem();
 		void Init(SDL_Renderer* renderer, CollisionCallbackSystem* colCallbackSystem);
-		void OnDispatch(DropComponent component);
+		void OnDispatch(const DropComponent& component);
 
 	private:
 		void SpawnMelon(const glm::vec2& pos);

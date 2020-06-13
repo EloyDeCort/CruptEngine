@@ -6,6 +6,7 @@
 #include "MoveComponent.h"
 #include "HealthComponent.h"
 
+
 //Bubble components
 #include "BubbleComponent.h"
 #include "BubbleStateComponent.h"
@@ -18,3 +19,7 @@
 //Drop components
 #include "DropComponent.h"
 #include "ScoreComponent.h"
+
+//Level Related
+#include "EntityComponent.h"
+#include "LevelStateComponent.h"

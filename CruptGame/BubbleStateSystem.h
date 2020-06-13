@@ -9,7 +9,7 @@ namespace crupt
 	public:
 		virtual ~BubbleStateSystem();
 		void Init();
-		void OnDispatch(BubbleStateComponent component);
+		void OnDispatch(const BubbleStateComponent& component);
 
 	private:
 	};

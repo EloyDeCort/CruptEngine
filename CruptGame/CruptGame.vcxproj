@@ -181,10 +181,13 @@
     <ClCompile Include="GameCommands.cpp" />
     <ClCompile Include="HealthDisplaySystem.cpp" />
     <ClCompile Include="JumpSystem.cpp" />
+    <ClCompile Include="LevelSpawnSystem.cpp" />
+    <ClCompile Include="LevelStateSystem.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="ScoreDisplaySystem.cpp" />
     <ClCompile Include="SpawnDropSystem.cpp" />
+    <ClCompile Include="WorldBorderSystem.cpp" />
     <ClCompile Include="ZenchanMovementSystem.cpp" />
     <ClCompile Include="MoveSystem.cpp" />
     <ClCompile Include="PlayerStateSystem.cpp" />
@@ -208,6 +211,7 @@
     <ClInclude Include="DropComponent.h" />
     <ClInclude Include="DropMovementSystem.h" />
     <ClInclude Include="EnemyComponent.h" />
+    <ClInclude Include="EntityComponent.h" />
     <ClInclude Include="GameCommands.h" />
     <ClInclude Include="GameComponents.h" />
     <ClInclude Include="GameSystems.h" />
@@ -215,10 +219,14 @@
     <ClInclude Include="HealthDisplaySystem.h" />
     <ClInclude Include="JumpComponent.h" />
     <ClInclude Include="JumpSystem.h" />
+    <ClInclude Include="LevelSpawnSystem.h" />
+    <ClInclude Include="LevelStateComponent.h" />
+    <ClInclude Include="LevelStateSystem.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="ScoreDisplaySystem.h" />
     <ClInclude Include="SpawnDropSystem.h" />
+    <ClInclude Include="WorldBorderSystem.h" />
     <ClInclude Include="ZenchanComponent.h" />
     <ClInclude Include="ZenchanMovementSystem.h" />
     <ClInclude Include="MoveComponent.h" />

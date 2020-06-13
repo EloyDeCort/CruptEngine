@@ -11,13 +11,14 @@ void crupt::BubbleStateSystem::Init()
 	SignalHandler<BubbleStateComponent>::GetInstance().AddListener(std::bind(&crupt::BubbleStateSystem::OnDispatch, this, std::placeholders::_1));
 }
 
-void crupt::BubbleStateSystem::OnDispatch(BubbleStateComponent component)
+void crupt::BubbleStateSystem::OnDispatch(const BubbleStateComponent& component)
 {
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 
 	SpriteComponent& spriteComp = coordinator->GetComponent<SpriteComponent>(component.target);
 	RenderableComponent& renderable = coordinator->GetComponent<RenderableComponent>(component.target);
 	BubbleStateComponent& bubbleStateComp = coordinator->GetComponent<BubbleStateComponent>(component.target);
+	coordinator->AddComponent<EntityComponent>(component.target, EntityComponent{});
 
 	bubbleStateComp.animationState = component.animationState;
 	StateSprite& newSprite = bubbleStateComp.stateSprites[int(component.animationState)];

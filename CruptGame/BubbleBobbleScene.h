@@ -14,6 +14,7 @@ namespace crupt
 	class HealthDisplaySystem;
 	class ScoreDisplaySystem;
 	class DropMovementSystem;
+	class LevelStateSystem;
 
 	enum class GameMode
 	{
@@ -58,6 +59,7 @@ namespace crupt
 		HealthDisplaySystem* m_pHealthDisplaySystem;
 		DropMovementSystem* m_pDropMovementSystem;
 		ScoreDisplaySystem* m_pScoreDisplaySystem;
+		LevelStateSystem* m_pLevelStateSystem;
 
 		GameMode m_GameMode;
 

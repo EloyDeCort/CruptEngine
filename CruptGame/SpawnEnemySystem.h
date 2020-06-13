@@ -12,7 +12,7 @@ namespace crupt
 	public:
 		virtual ~SpawnEnemySystem();
 		void Init(SDL_Renderer* renderer, CollisionCallbackSystem* colCallbackSystem);
-		void OnDispatch(SpawnEnemyComponent component);
+		void OnDispatch(const SpawnEnemyComponent& component);
 		void SetPlayer1(Entity player);
 
 	private:

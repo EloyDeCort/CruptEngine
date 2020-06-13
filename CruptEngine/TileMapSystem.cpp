@@ -21,13 +21,7 @@ crupt::TileMapSystem::TileMapSystem()
 
 crupt::TileMapSystem::~TileMapSystem()
 {
-	/*for (size_t i{}; i < m_TileComp->pTileTextures.size(); ++i)
-	{
-		delete m_TileComp->pTileTextures[i];
-	}
-
-	m_TileComp->pTileTextures.clear();*/
-
+	
 }
 
 void crupt::TileMapSystem::Init(SDL_Renderer* renderer)
@@ -202,7 +196,6 @@ void crupt::TileMapSystem::Render()
 	}
    
 }
-
 
 void crupt::TileMapSystem::RenderTexture(const Texture2D& texture, const float x, const float y) const
 {

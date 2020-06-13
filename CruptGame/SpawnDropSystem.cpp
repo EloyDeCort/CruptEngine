@@ -20,7 +20,7 @@ void crupt::SpawnDropSystem::Init(SDL_Renderer* renderer, CollisionCallbackSyste
 	SignalHandler<DropComponent>::GetInstance().AddListener(std::bind(&crupt::SpawnDropSystem::OnDispatch, this, std::placeholders::_1));
 }
 
-void crupt::SpawnDropSystem::OnDispatch(DropComponent component)
+void crupt::SpawnDropSystem::OnDispatch(const DropComponent& component)
 {
 	if(component.type == DropType::MELON)
 	{
@@ -42,6 +42,7 @@ void crupt::SpawnDropSystem::SpawnMelon(const glm::vec2& pos)
 	Entity melonDrop = coordinator->CreateEntity();
 
 	coordinator->AddComponent<SpriteComponent>(melonDrop, spriteComp);
+	coordinator->AddComponent<EntityComponent>(melonDrop, EntityComponent{});
 	coordinator->AddComponent<RenderableComponent>(melonDrop, RenderableComponent{defaultAnim});
 
 	float yPos = pos.y;

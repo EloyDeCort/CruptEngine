@@ -42,7 +42,7 @@ void crupt::ScoreDisplaySystem::Render()
 	
 }
 
-void crupt::ScoreDisplaySystem::OnDispatch(ScoreComponent)
+void crupt::ScoreDisplaySystem::OnDispatch(const ScoreComponent&)
 {
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 

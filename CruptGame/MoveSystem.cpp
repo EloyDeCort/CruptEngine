@@ -12,7 +12,7 @@ void crupt::MoveSystem::Init()
 	SignalHandler<MoveComponent>::GetInstance().AddListener(std::bind(&crupt::MoveSystem::OnDispatch, this, std::placeholders::_1));
 }
 
-void crupt::MoveSystem::OnDispatch(MoveComponent component)
+void crupt::MoveSystem::OnDispatch(const MoveComponent& component)
 {
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(component.target);

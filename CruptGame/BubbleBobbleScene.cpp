@@ -52,6 +52,7 @@ void crupt::BubbleBobbleScene::InitSystems()
 	m_pHealthDisplaySystem = pCoordinator.GetSystem<HealthDisplaySystem>();
 	m_pScoreDisplaySystem = pCoordinator.GetSystem<ScoreDisplaySystem>();
 	m_pDropMovementSystem = pCoordinator.GetSystem<DropMovementSystem>();
+	m_pLevelStateSystem = pCoordinator.GetSystem<LevelStateSystem>();
 }
 
 void crupt::BubbleBobbleScene::InitEntities()
@@ -70,6 +71,7 @@ void crupt::BubbleBobbleScene::InitEntities()
 	Entity map = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<TileMapComponent>(map, TileMapComponent{});
 	//We pass the map to both systems to optimize the find time. This entity won't change.
+	m_pLevelStateSystem->SetMap(map);
 	m_pTileMapSystem->InitMap(map);
 	m_pCollisionSystem->InitMap(map);
 
@@ -212,28 +214,9 @@ void crupt::BubbleBobbleScene::InitPlayer2()
 
 void crupt::BubbleBobbleScene::InitEnemies()
 {
-	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
-	SDL_Renderer* renderer{m_pRenderSystem->GetSDLRenderer()};
-
-	//Enemy
-	SpriteComponent spriteComp{};
-	spriteComp.animationRate = 12; 
-	spriteComp.scaleFactor = 2; 
-	spriteComp.frameCount = 8; 
-	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Enemies/ZenChan_Walking.png",renderer);
-
-	Entity zenchanEnemy1 = pCoordinator.CreateEntity();
-	pCoordinator.AddComponent<SpriteComponent>(zenchanEnemy1, spriteComp);
-	pCoordinator.AddComponent<EnemyComponent>(zenchanEnemy1, EnemyComponent{});
-	pCoordinator.AddComponent<RenderableComponent>(zenchanEnemy1, RenderableComponent{defaultAnim});
-	pCoordinator.AddComponent<TransformComponent>(zenchanEnemy1, TransformComponent{glm::vec2(Settings::windowWidth/2.f,100.f)});
-	pCoordinator.AddComponent<MovePhysicsComponent>(zenchanEnemy1, MovePhysicsComponent{});
-	pCoordinator.AddComponent<GravityComponent>(zenchanEnemy1, GravityComponent{});
-	pCoordinator.AddComponent<BoxCollisionComponent>(zenchanEnemy1, BoxCollisionComponent{0,0,32,32});
-	pCoordinator.AddComponent<CollisionCallbackComponent>(zenchanEnemy1, CollisionCallbackComponent{});
-	ZenchanComponent maitaComp = ZenchanComponent{};
-	maitaComp.player1 = m_Player1;
-	pCoordinator.AddComponent<ZenchanComponent>(zenchanEnemy1, maitaComp);
+	LevelStateComponent stateComp;
+	stateComp.currentLevel = 1;
+	SignalHandler<LevelStateComponent>::GetInstance().Publish(stateComp);
 }
 
 void crupt::BubbleBobbleScene::InitTextures()
@@ -253,6 +236,7 @@ void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 
 void crupt::BubbleBobbleScene::Update(float dt)
 {	
+	m_pLevelStateSystem->Update(dt);
 	m_pPlayerStateSystem->Update(dt);
 	m_pFPSSystem->Update(m_FpsCounter, dt);
 	m_pFPSSystem->SetText(m_FpsCounter, "FPS:" + std::to_string(m_pFPSSystem->GetFPS(m_FpsCounter)));

@@ -36,6 +36,8 @@ void crupt::MainGame::RegisterAdditionalComponents()
 	pCoordinator.RegisterComponent<EnemyComponent>();
 	pCoordinator.RegisterComponent<DropComponent>();
 	pCoordinator.RegisterComponent<ScoreComponent>();
+	pCoordinator.RegisterComponent<LevelStateComponent>();
+	pCoordinator.RegisterComponent<EntityComponent>();
 }
 
 void crupt::MainGame::RegisterAdditionalSystems()
@@ -155,4 +157,25 @@ void crupt::MainGame::RegisterAdditionalSystems()
 	}
 
 	pDropMovementSystem->Init();
+
+
+	LevelStateSystem* pLevelStateSystem = pCoordinator.RegisterSystem<LevelStateSystem>();
+	{
+		Signature signature;
+		//Using enemies to check how many are left.
+		signature.set(pCoordinator.GetComponentType<EntityComponent>());
+		pCoordinator.SetSystemSignature<LevelStateSystem>(signature);
+	}
+
+	pLevelStateSystem->Init();
+
+	LevelSpawnSystem* pLevelSpawnSystem = pCoordinator.RegisterSystem<LevelSpawnSystem>();
+	{
+		Signature signature;
+		//Using enemies to check how many are left.
+		signature.set(pCoordinator.GetComponentType<LevelStateComponent>());
+		pCoordinator.SetSystemSignature<LevelSpawnSystem>(signature);
+	}
+
+	pLevelSpawnSystem->Init();
 }

@@ -15,7 +15,7 @@ void crupt::SpawnEnemySystem::Init(SDL_Renderer* renderer, CollisionCallbackSyst
 	SignalHandler<SpawnEnemyComponent>::GetInstance().AddListener(std::bind(&crupt::SpawnEnemySystem::OnDispatch, this, std::placeholders::_1));
 }
 
-void crupt::SpawnEnemySystem::OnDispatch(SpawnEnemyComponent component)
+void crupt::SpawnEnemySystem::OnDispatch(const SpawnEnemyComponent& component)
 {
 	if(component.type == EnemyType::ZENCHAN)
 	{
@@ -40,6 +40,7 @@ void crupt::SpawnEnemySystem::SpawnZenchan(const glm::vec2& pos)
 
 	Entity zenchanEnemy = coordinator->CreateEntity();
 	coordinator->AddComponent<SpriteComponent>(zenchanEnemy, spriteComp);
+	coordinator->AddComponent<EntityComponent>(zenchanEnemy, EntityComponent{});
 	coordinator->AddComponent<EnemyComponent>(zenchanEnemy, EnemyComponent{});
 	coordinator->AddComponent<RenderableComponent>(zenchanEnemy, RenderableComponent{defaultAnim});
 	coordinator->AddComponent<TransformComponent>(zenchanEnemy, TransformComponent{pos});

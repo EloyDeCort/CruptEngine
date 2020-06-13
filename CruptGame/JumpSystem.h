@@ -9,7 +9,7 @@ namespace crupt
 	public:
 		virtual ~JumpSystem();
 		void Init();
-		void OnDispatch(JumpComponent component);
+		void OnDispatch(const JumpComponent& component);
 
 	private:
 	};

@@ -23,7 +23,7 @@ namespace crupt
 		void SetPlayer1(Entity player, Entity scoreEntity);
 		void SetPlayer2(Entity player, Entity scoreEntity);
 		void Render();
-		void OnDispatch(ScoreComponent component);
+		void OnDispatch(const ScoreComponent& component);
 	
 	private:
 

@@ -9,7 +9,7 @@ namespace crupt
 	public:
 		virtual ~MoveSystem();
 		void Init();
-		void OnDispatch(MoveComponent component);
+		void OnDispatch(const MoveComponent& component);
 
 	private:
 	};

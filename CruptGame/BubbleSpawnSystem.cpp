@@ -34,7 +34,7 @@ void crupt::BubbleSpawnSystem::Init(SDL_Renderer* renderer)
 	m_BoxCollisionComp.ignoreEntities = true;
 }
 
-void crupt::BubbleSpawnSystem::OnDispatch(BubbleComponent component)
+void crupt::BubbleSpawnSystem::OnDispatch(const BubbleComponent& component)
 {
 	ECSCoordinator& coordinator = ECSCoordinator::GetInstance();
 
