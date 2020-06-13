@@ -29,8 +29,8 @@ void crupt::CruptEngine::Initialize()
 		"Programming 4: CruptEngine",
 		SDL_WINDOWPOS_CENTERED,	
 		SDL_WINDOWPOS_CENTERED,
-		Settings::m_WindowWidth,
-		Settings::m_WindowHeight,
+		Settings::windowWidth,
+		Settings::windowHeight,
 		SDL_WINDOW_OPENGL
 	);
 	if (m_Window == nullptr) 

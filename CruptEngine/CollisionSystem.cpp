@@ -19,6 +19,10 @@ CollisionSystem::~CollisionSystem()
 void CollisionSystem::Init(SDL_Renderer* renderer)
 {
 	m_pRenderer = renderer;
+
+	//Time delay to ensure no callbacks before this.
+	m_TimeDelay = 0.1f;
+	m_TotalTime = 0.f;
 }
 
 void crupt::CollisionSystem::InitMap(Entity mapEntity)
@@ -29,8 +33,13 @@ void crupt::CollisionSystem::InitMap(Entity mapEntity)
 }
 
 
-void CollisionSystem::Update(float)
+void CollisionSystem::Update(float dt)
 {
+	
+	m_TotalTime+=dt;
+	if(m_TotalTime < m_TimeDelay)
+		return;
+
 	for (Entity entity : m_Entities)
 	{
 		ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();

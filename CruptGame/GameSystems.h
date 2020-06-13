@@ -8,3 +8,4 @@
 #include "CollisionCallbackSystem.h"
 #include "ZenchanMovementSystem.h"
 #include "SpawnEnemySystem.h"
+#include "HealthDisplaySystem.h"

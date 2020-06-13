@@ -23,7 +23,7 @@ void RenderSystem::Init(SDL_Window * window)
 	}
 
 	ImGui::CreateContext();
-	ImGuiSDL::Initialize(m_Renderer, Settings::m_WindowWidth, Settings::m_WindowHeight);
+	ImGuiSDL::Initialize(m_Renderer, Settings::windowWidth, Settings::windowHeight);
 	m_Coordinator = &ECSCoordinator::GetInstance();
 }
 

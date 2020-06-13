@@ -45,6 +45,7 @@ void crupt::BubbleBobbleScene::InitSystems()
 	m_pBubbleMovementSystem = pCoordinator.GetSystem<BubbleMovementSystem>();
 	m_pZenchanMovementSystem = pCoordinator.GetSystem<ZenchanMovementSystem>();
 	m_pSpawnEnemySystem = pCoordinator.GetSystem<SpawnEnemySystem>();
+	m_pHealthDisplaySystem = pCoordinator.GetSystem<HealthDisplaySystem>();
 }
 
 void crupt::BubbleBobbleScene::InitEntities()
@@ -81,49 +82,102 @@ void crupt::BubbleBobbleScene::InitPlayers()
 	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
 	SDL_Renderer* renderer{m_pRenderSystem->GetSDLRenderer()};
 
-	//Player 1 
-	SpriteComponent spriteComp{};
-	spriteComp.animationRate = 12; 
-	spriteComp.scaleFactor = 2; 
-	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Player/Bob_Idle.png",renderer);
+	{
+		//Player 1 
+		SpriteComponent spriteComp{};
+		spriteComp.animationRate = 12; 
+		spriteComp.scaleFactor = 2; 
+		Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Player/Bob_Idle.png",renderer);
 
-	m_Player1 = pCoordinator.CreateEntity();
-	pCoordinator.AddComponent<SpriteComponent>(m_Player1, spriteComp);
-	pCoordinator.AddComponent<RenderableComponent>(m_Player1, RenderableComponent{defaultAnim});
-	pCoordinator.AddComponent<TransformComponent>(m_Player1, TransformComponent{glm::vec2(75.f,100.f)});
-	pCoordinator.AddComponent<MovePhysicsComponent>(m_Player1, MovePhysicsComponent{});
-	pCoordinator.AddComponent<GravityComponent>(m_Player1, GravityComponent{});
-	pCoordinator.AddComponent<BoxCollisionComponent>(m_Player1, BoxCollisionComponent{0,0,32,32});
-	pCoordinator.AddComponent<CollisionCallbackComponent>(m_Player1, CollisionCallbackComponent{});
-	PlayerStateComponent playerStateComp{};
-	playerStateComp.animationState = PlayerAnimState::IDLE;
+		m_Player1 = pCoordinator.CreateEntity();
+		pCoordinator.AddComponent<SpriteComponent>(m_Player1, spriteComp);
+		pCoordinator.AddComponent<HealthComponent>(m_Player1, HealthComponent{});
+		pCoordinator.AddComponent<RenderableComponent>(m_Player1, RenderableComponent{defaultAnim});
+		pCoordinator.AddComponent<TransformComponent>(m_Player1, TransformComponent{glm::vec2(75.f,100.f)});
+		pCoordinator.AddComponent<MovePhysicsComponent>(m_Player1, MovePhysicsComponent{});
+		pCoordinator.AddComponent<GravityComponent>(m_Player1, GravityComponent{});
+		pCoordinator.AddComponent<BoxCollisionComponent>(m_Player1, BoxCollisionComponent{0,0,32,32});
+		pCoordinator.AddComponent<CollisionCallbackComponent>(m_Player1, CollisionCallbackComponent{});
+		PlayerStateComponent playerStateComp{};
+		playerStateComp.animationState = PlayerAnimState::IDLE;
 
-	spriteComp.frameCount = 1;
-	playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,defaultAnim});
+		spriteComp.frameCount = 1;
+		playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,defaultAnim});
 	
-	spriteComp.frameCount = 8;
-	playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bob_Walking.png",renderer)});
+		spriteComp.frameCount = 8;
+		playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bob_Walking.png",renderer)});
 
-	spriteComp.frameCount = 1;
-	playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bob_Spit.png",renderer)});
+		spriteComp.frameCount = 1;
+		playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bob_Spit.png",renderer)});
 
-	pCoordinator.AddComponent<PlayerStateComponent>(m_Player1, playerStateComp);
+		pCoordinator.AddComponent<PlayerStateComponent>(m_Player1, playerStateComp);
 
-	InputManager& inputManager = InputManager::GetInstance();
+		InputManager& inputManager = InputManager::GetInstance();
 
-	inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, 'C', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("JumpP1", new JumpCommand(m_Player1));
+		inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, 'C', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+		inputManager.AddCommand("JumpP1", new JumpCommand(m_Player1));
 
-	inputManager.AddBinding("SpawnBubble", Binding{ControllerButton::ButtonX, 'X', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("SpawnBubble", new SpawnBubbleCommand(m_Player1));
+		inputManager.AddBinding("SpawnBubbleP1", Binding{ControllerButton::ButtonX, 'X', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+		inputManager.AddCommand("SpawnBubbleP1", new SpawnBubbleCommand(m_Player1, PlayerType::PLAYER1));
 
-	//Pressed
-	inputManager.AddBinding("LeftP1", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Down, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("LeftP1", new MoveLeftCommand(m_Player1));
-	inputManager.AddBinding("RightP1", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Down, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("RightP1", new MoveRightCommand(m_Player1));
+		//Pressed
+		inputManager.AddBinding("LeftP1", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Down, GamepadIndex::PlayerOne});
+		inputManager.AddCommand("LeftP1", new MoveLeftCommand(m_Player1));
+		inputManager.AddBinding("RightP1", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Down, GamepadIndex::PlayerOne});
+		inputManager.AddCommand("RightP1", new MoveRightCommand(m_Player1));
 
-	m_pSpawnEnemySystem->SetPlayer1(m_Player1);
+		m_pSpawnEnemySystem->SetPlayer1(m_Player1);
+		m_pHealthDisplaySystem->SetPlayer1(m_Player1);
+	}
+
+	//{
+	//	//Player 2 
+	//	SpriteComponent spriteComp{};
+	//	spriteComp.animationRate = 12; 
+	//	spriteComp.scaleFactor = 2; 
+	//	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Player/Bub_Idle.png",renderer);
+
+	//	m_Player2 = pCoordinator.CreateEntity();
+	//	pCoordinator.AddComponent<SpriteComponent>(m_Player2, spriteComp);
+	//	pCoordinator.AddComponent<HealthComponent>(m_Player2, HealthComponent{});
+	//	pCoordinator.AddComponent<RenderableComponent>(m_Player2, RenderableComponent{defaultAnim});
+	//	pCoordinator.AddComponent<TransformComponent>(m_Player2, TransformComponent{glm::vec2(100.f,100.f)});
+	//	pCoordinator.AddComponent<MovePhysicsComponent>(m_Player2, MovePhysicsComponent{});
+	//	pCoordinator.AddComponent<GravityComponent>(m_Player2, GravityComponent{});
+	//	pCoordinator.AddComponent<BoxCollisionComponent>(m_Player2, BoxCollisionComponent{0,0,32,32});
+	//	pCoordinator.AddComponent<CollisionCallbackComponent>(m_Player2, CollisionCallbackComponent{});
+	//	PlayerStateComponent playerStateComp{};
+	//	playerStateComp.animationState = PlayerAnimState::IDLE;
+
+	//	spriteComp.frameCount = 1;
+	//	playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,defaultAnim});
+	//
+	//	spriteComp.frameCount = 8;
+	//	playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bub_Walking.png",renderer)});
+
+	//	spriteComp.frameCount = 1;
+	//	playerStateComp.pStateSprites.push_back(StateSprite{spriteComp,ResourceManager::GetInstance().LoadTexture("Player/Bub_Spit.png",renderer)});
+
+	//	pCoordinator.AddComponent<PlayerStateComponent>(m_Player2, playerStateComp);
+
+	//	InputManager& inputManager = InputManager::GetInstance();
+
+	//	inputManager.AddBinding("JumpP2", Binding{ControllerButton::ButtonA, 'C', InputTriggerState::Pressed, GamepadIndex::PlayerTwo});
+	//	inputManager.AddCommand("JumpP2", new JumpCommand(m_Player2));
+
+	//	inputManager.AddBinding("SpawnBubbleP2", Binding{ControllerButton::ButtonX, 'X', InputTriggerState::Pressed, GamepadIndex::PlayerTwo});
+	//	inputManager.AddCommand("SpawnBubbleP2", new SpawnBubbleCommand(m_Player2, PlayerType::PLAYER2));
+
+	//	//Pressed
+	//	inputManager.AddBinding("LeftP2", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Down, GamepadIndex::PlayerTwo});
+	//	inputManager.AddCommand("LeftP2", new MoveLeftCommand(m_Player2));
+	//	inputManager.AddBinding("RightP2", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Down, GamepadIndex::PlayerTwo});
+	//	inputManager.AddCommand("RightP2", new MoveRightCommand(m_Player2));
+
+	//	//m_pSpawnEnemySystem->SetPlayer1(m_Player1);
+	//	m_pHealthDisplaySystem->SetPlayer2(m_Player2);
+	//}
+
 }
 
 void crupt::BubbleBobbleScene::InitEnemies()
@@ -140,8 +194,9 @@ void crupt::BubbleBobbleScene::InitEnemies()
 
 	Entity zenchanEnemy1 = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<SpriteComponent>(zenchanEnemy1, spriteComp);
+	pCoordinator.AddComponent<EnemyComponent>(zenchanEnemy1, EnemyComponent{});
 	pCoordinator.AddComponent<RenderableComponent>(zenchanEnemy1, RenderableComponent{defaultAnim});
-	pCoordinator.AddComponent<TransformComponent>(zenchanEnemy1, TransformComponent{glm::vec2(Settings::m_WindowWidth/2.f,100.f)});
+	pCoordinator.AddComponent<TransformComponent>(zenchanEnemy1, TransformComponent{glm::vec2(Settings::windowWidth/2.f,100.f)});
 	pCoordinator.AddComponent<MovePhysicsComponent>(zenchanEnemy1, MovePhysicsComponent{});
 	pCoordinator.AddComponent<GravityComponent>(zenchanEnemy1, GravityComponent{});
 	pCoordinator.AddComponent<BoxCollisionComponent>(zenchanEnemy1, BoxCollisionComponent{0,0,32,32});
@@ -179,5 +234,6 @@ void crupt::BubbleBobbleScene::Render()
 {	
 	m_pTileMapSystem->Render();
 	m_pRenderSystem->Render();
+	m_pHealthDisplaySystem->Render();
 }
 

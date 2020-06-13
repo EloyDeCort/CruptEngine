@@ -32,6 +32,8 @@ void crupt::MainGame::RegisterAdditionalComponents()
 	pCoordinator.RegisterComponent<ZenchanComponent>();
 	pCoordinator.RegisterComponent<BubbleStateComponent>();
 	pCoordinator.RegisterComponent<SpawnEnemyComponent>();
+	pCoordinator.RegisterComponent<HealthComponent>();
+	pCoordinator.RegisterComponent<EnemyComponent>();
 }
 
 void crupt::MainGame::RegisterAdditionalSystems()
@@ -115,4 +117,12 @@ void crupt::MainGame::RegisterAdditionalSystems()
 		pCoordinator.SetSystemSignature<SpawnEnemySystem>(signature);
 	}
 	pSpawnEnemySystem->Init(m_pRenderSystem->GetSDLRenderer(), colCallbackSystem);
+
+	HealthDisplaySystem* pHealthDisplaySystem = pCoordinator.RegisterSystem<HealthDisplaySystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<HealthComponent>());
+		pCoordinator.SetSystemSignature<HealthDisplaySystem>(signature);
+	}
+	pHealthDisplaySystem->Init(m_pRenderSystem->GetSDLRenderer());
 }

@@ -64,10 +64,11 @@ void crupt::MoveRightCommand::Execute()
 	SignalHandler<MoveComponent>::GetInstance().Publish(moveComp);
 }
 
-crupt::SpawnBubbleCommand::SpawnBubbleCommand(Entity pPlayer)
+crupt::SpawnBubbleCommand::SpawnBubbleCommand(Entity pPlayer, PlayerType type)
 	: ICommand{"SpawnBubbleCommand"}
 	, m_pPlayer{pPlayer}
 	, m_Offset{40.f}
+	, m_PlayerType{type}
 {
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	m_pState = &coordinator->GetComponent<PlayerStateComponent>(m_pPlayer);
@@ -85,6 +86,7 @@ void crupt::SpawnBubbleCommand::Execute()
 	
 	BubbleComponent bubbleComp;
 	bubbleComp.position = playerTransComp.position;
+	bubbleComp.type = m_PlayerType;
 
 	if(renderable.flip)
 	{

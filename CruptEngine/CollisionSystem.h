@@ -30,6 +30,8 @@ namespace crupt
 		Entity m_MapEntity;
 		TileMapComponent* m_TileComp;
 		SDL_Renderer* m_pRenderer;
+		float m_TotalTime;
+		float m_TimeDelay;
 	};
 }
 

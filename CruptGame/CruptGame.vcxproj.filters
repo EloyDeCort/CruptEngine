@@ -69,6 +69,9 @@
     <ClCompile Include="ZenchanMovementSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="HealthDisplaySystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DemoScene.h">
@@ -141,6 +144,12 @@
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="HealthComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthDisplaySystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

@@ -30,7 +30,7 @@ void crupt::CollisionCallbackSystem::Init()
 		}
 		else if(m_pCoordinator->HasComponent<ZenchanComponent>(entity))
 		{
-			callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnMaitaCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
+			callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnZenchanCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
 		}
 	}
 }
@@ -45,7 +45,7 @@ void crupt::CollisionCallbackSystem::AddEntityCallback(Entity entity)
 	}
 	else if(m_pCoordinator->HasComponent<ZenchanComponent>(entity))
 	{
-		callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnMaitaCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
+		callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnZenchanCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
 	}
 }
 
@@ -65,6 +65,19 @@ void crupt::CollisionCallbackSystem::OnPlayerCallback(Entity self, Entity collid
 		}
 	
 	}
+	else if(m_pCoordinator->HasComponent<EnemyComponent>(collider))
+	{
+		HealthComponent& healthComp = m_pCoordinator->GetComponent<HealthComponent>(self);
+		if(healthComp.gotHit)
+			return;
+
+		healthComp.currentHealth--;
+		healthComp.gotHit = true;
+		if(healthComp.currentHealth <= 0)
+		{
+			healthComp.dead = true;
+		}
+	}
 }
 
 void crupt::CollisionCallbackSystem::OnBubbleCallback(Entity , Entity , eDirection )
@@ -76,7 +89,7 @@ void crupt::CollisionCallbackSystem::OnBubbleCallback(Entity , Entity , eDirecti
 	}*/
 }
 
-void crupt::CollisionCallbackSystem::OnMaitaCallback(Entity self, Entity collider, eDirection)
+void crupt::CollisionCallbackSystem::OnZenchanCallback(Entity self, Entity collider, eDirection)
 {
 	if(m_pCoordinator->HasComponent<BubbleComponent>(collider))
 	{

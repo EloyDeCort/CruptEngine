@@ -40,6 +40,7 @@ void crupt::SpawnEnemySystem::SpawnZenchan(const glm::vec2& pos)
 
 	Entity zenchanEnemy = coordinator->CreateEntity();
 	coordinator->AddComponent<SpriteComponent>(zenchanEnemy, spriteComp);
+	coordinator->AddComponent<EnemyComponent>(zenchanEnemy, EnemyComponent{});
 	coordinator->AddComponent<RenderableComponent>(zenchanEnemy, RenderableComponent{defaultAnim});
 	coordinator->AddComponent<TransformComponent>(zenchanEnemy, TransformComponent{pos});
 	coordinator->AddComponent<MovePhysicsComponent>(zenchanEnemy, MovePhysicsComponent{});

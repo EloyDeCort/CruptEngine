@@ -41,12 +41,13 @@ namespace crupt
 	class SpawnBubbleCommand : public ICommand
 	{
 	public:
-		SpawnBubbleCommand(Entity pPlayer);	
+		SpawnBubbleCommand(Entity pPlayer, PlayerType type);	
 		virtual ~SpawnBubbleCommand();
 
 		virtual void Execute() override;
 	private:
 		Entity m_pPlayer;
+		PlayerType m_PlayerType;
 		float m_Offset;
 		PlayerStateComponent* m_pState;
 	};

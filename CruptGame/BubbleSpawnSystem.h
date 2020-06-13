@@ -16,7 +16,8 @@ namespace crupt
 
 	private:
 		SDL_Renderer* m_pRenderer;
-		BubbleStateComponent m_BubbleStateComp;
+		BubbleStateComponent m_BubbleStateCompP1;
+		BubbleStateComponent m_BubbleStateCompP2;
 		BoxCollisionComponent m_BoxCollisionComp;
 	};
 }

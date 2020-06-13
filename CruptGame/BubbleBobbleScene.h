@@ -5,11 +5,14 @@
 
 namespace crupt
 {
+	//Predefines
 	class JumpSystem;
 	class PlayerStateSystem;
 	class BubbleMovementSystem;
 	class ZenchanMovementSystem;
 	class SpawnEnemySystem;
+	class HealthDisplaySystem;
+
 	class BubbleBobbleScene : public GameScene
 	{
 	public:
@@ -40,6 +43,7 @@ namespace crupt
 		BubbleMovementSystem* m_pBubbleMovementSystem;
 		ZenchanMovementSystem* m_pZenchanMovementSystem;
 		SpawnEnemySystem* m_pSpawnEnemySystem;
+		HealthDisplaySystem* m_pHealthDisplaySystem;
 
 		Entity m_Player1;
 		Entity m_Player2;

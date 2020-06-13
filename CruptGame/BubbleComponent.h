@@ -7,6 +7,12 @@
 
 namespace crupt
 {
+	enum class PlayerType
+	{
+		PLAYER1,
+		PLAYER2
+	};
+
 	//SIGNAL COMPONENT
 	//Later used as normal component (after spawn)
 	struct BubbleComponent
@@ -17,6 +23,8 @@ namespace crupt
 		float xSpeed = 200.f;
 		float xSpeedTime = 0.5f;
 		bool flipped = false;
+
+		PlayerType type = PlayerType::PLAYER1;
 
 		bool shouldPop = false;
 	};

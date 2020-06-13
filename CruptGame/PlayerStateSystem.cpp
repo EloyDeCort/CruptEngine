@@ -18,17 +18,34 @@ void PlayerStateSystem::Init()
 
 void PlayerStateSystem::Update(float dt)
 {
-	dt;
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	for (Entity entity : m_Entities)
 	{
 		
 		PlayerStateComponent& stateComp = coordinator->GetComponent<PlayerStateComponent>(entity);
+		HealthComponent& healthComp = coordinator->GetComponent<HealthComponent>(entity);
 		SpriteComponent& spriteComp = coordinator->GetComponent<SpriteComponent>(entity);
 		MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(entity);
 		BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
 		RenderableComponent& renderable = coordinator->GetComponent<RenderableComponent>(entity);
 		
+		if(healthComp.dead)
+		{
+			//stateComp.animationState = PlayerAnimState::IDLE;
+			return;
+		}
+
+		if(healthComp.gotHit)
+		{
+			healthComp.totalTime += dt;
+			if(healthComp.totalTime >= healthComp.hitDelay)
+			{
+				healthComp.gotHit = false;
+				healthComp.totalTime = 0.f;
+			}
+		}
+
+
 		if(stateComp.animationState == PlayerAnimState::SPITBUBBLE)
 		{
 			m_SpitTime += dt;

@@ -178,6 +178,7 @@
     <ClCompile Include="CollisionCallbackSystem.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="GameCommands.cpp" />
+    <ClCompile Include="HealthDisplaySystem.cpp" />
     <ClCompile Include="JumpSystem.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainGame.cpp" />
@@ -201,10 +202,12 @@
     <ClInclude Include="BubbleStateSystem.h" />
     <ClInclude Include="CollisionCallbackSystem.h" />
     <ClInclude Include="DemoScene.h" />
+    <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="GameCommands.h" />
     <ClInclude Include="GameComponents.h" />
     <ClInclude Include="GameSystems.h" />
     <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="HealthDisplaySystem.h" />
     <ClInclude Include="JumpComponent.h" />
     <ClInclude Include="JumpSystem.h" />
     <ClInclude Include="MainGame.h" />

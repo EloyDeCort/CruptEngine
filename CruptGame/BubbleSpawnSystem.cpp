@@ -19,13 +19,15 @@ void crupt::BubbleSpawnSystem::Init(SDL_Renderer* renderer)
 	sprite.frameCount = 1;
 	sprite.scaleFactor = 2;
 	sprite.frameCount = 1;
-	m_BubbleStateComp.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Green_Bubble.png",m_pRenderer)});
+	m_BubbleStateCompP1.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Green_Bubble.png",m_pRenderer)});
+	m_BubbleStateCompP2.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Blue_Bubble.png",m_pRenderer)});
 	
 	sprite.frameCount = 8;
-	m_BubbleStateComp.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Bubble_Maita.png",m_pRenderer)});
+	m_BubbleStateCompP1.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Green_Bubble_Maita.png",m_pRenderer)});
+	m_BubbleStateCompP2.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Blue_Bubble_Maita.png",m_pRenderer)});
 
-	m_BubbleStateComp.animationState = BubbleAnimState::NORMAL;
-
+	m_BubbleStateCompP1.animationState = BubbleAnimState::NORMAL;
+	m_BubbleStateCompP2.animationState = BubbleAnimState::NORMAL;
 
 	m_BoxCollisionComp.collisionRect = SDL_Rect{0,0,32,32};
 	m_BoxCollisionComp.ignorePlatforms = true;
@@ -38,11 +40,26 @@ void crupt::BubbleSpawnSystem::OnDispatch(BubbleComponent component)
 
 	Entity bubble = coordinator.CreateEntity();
 
-	coordinator.AddComponent<RenderableComponent>(bubble,RenderableComponent{m_BubbleStateComp.stateSprites[0].pTexture});
+	switch(component.type)
+	{
+	case PlayerType::PLAYER1:
+			coordinator.AddComponent<RenderableComponent>(bubble,RenderableComponent{m_BubbleStateCompP1.stateSprites[0].pTexture});
+	
+			coordinator.AddComponent<SpriteComponent>(bubble, m_BubbleStateCompP1.stateSprites[0].spriteData);
 
-	coordinator.AddComponent<SpriteComponent>(bubble, m_BubbleStateComp.stateSprites[0].spriteData);
+			coordinator.AddComponent<BubbleStateComponent>(bubble, m_BubbleStateCompP1);
+		break;
 
-	coordinator.AddComponent<BubbleStateComponent>(bubble, m_BubbleStateComp);
+	case PlayerType::PLAYER2:
+			coordinator.AddComponent<RenderableComponent>(bubble,RenderableComponent{m_BubbleStateCompP2.stateSprites[0].pTexture});
+	
+			coordinator.AddComponent<SpriteComponent>(bubble, m_BubbleStateCompP2.stateSprites[0].spriteData);
+
+			coordinator.AddComponent<BubbleStateComponent>(bubble, m_BubbleStateCompP2);
+		break;
+	}
+
+
 
 	coordinator.AddComponent<MovePhysicsComponent>(bubble, MovePhysicsComponent{});
 	

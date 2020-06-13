@@ -7,11 +7,6 @@ struct SDL_Window;
 //Systems classes
 namespace crupt
 {
-	struct Settings
-	{
-		static const int m_WindowWidth = 640;
-		static const int m_WindowHeight = 530;
-	};
 
 	class CruptEngine
 	{
