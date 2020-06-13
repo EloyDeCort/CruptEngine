@@ -14,3 +14,7 @@
 #include "EnemyComponent.h"
 #include "ZenchanComponent.h"
 #include "SpawnEnemyComponent.h"
+
+//Drop components
+#include "DropComponent.h"
+#include "ScoreComponent.h"

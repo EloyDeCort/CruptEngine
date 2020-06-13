@@ -7,6 +7,7 @@
 #include "GameSystems.h"
 #include "GameComponents.h"
 #include "GameCommands.h"
+#include "SignalHandler.h"
 #include <SDL.h>
 
 
@@ -46,6 +47,7 @@ void crupt::BubbleBobbleScene::InitSystems()
 	m_pZenchanMovementSystem = pCoordinator.GetSystem<ZenchanMovementSystem>();
 	m_pSpawnEnemySystem = pCoordinator.GetSystem<SpawnEnemySystem>();
 	m_pHealthDisplaySystem = pCoordinator.GetSystem<HealthDisplaySystem>();
+	m_pScoreDisplaySystem = pCoordinator.GetSystem<ScoreDisplaySystem>();
 }
 
 void crupt::BubbleBobbleScene::InitEntities()
@@ -53,12 +55,12 @@ void crupt::BubbleBobbleScene::InitEntities()
 	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
 	SDL_Renderer* renderer{m_pRenderSystem->GetSDLRenderer()};
 	//Simple FPS component
-	crupt::Font* fontFps = ResourceManager::GetInstance().LoadFont("Bobble.ttf", 16);
-	m_FpsCounter = pCoordinator.CreateEntity();
+	m_pFont = ResourceManager::GetInstance().LoadFont("Bobble.ttf", 16);
+	/*m_FpsCounter = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<RenderableComponent>(m_FpsCounter, RenderableComponent{});
 	pCoordinator.AddComponent<TransformComponent>(m_FpsCounter, TransformComponent{glm::vec2(90.f,25.f)});
-	pCoordinator.AddComponent<TextComponent>(m_FpsCounter, TextComponent{bool{true}, std::string("FPS:"), fontFps, glm::vec3(255.f, 255.f, 255.f)});
-	pCoordinator.AddComponent<FPSComponent>(m_FpsCounter, FPSComponent{});
+	pCoordinator.AddComponent<TextComponent>(m_FpsCounter, TextComponent{bool{true}, std::string("FPS:"), m_pFont, glm::vec3(255.f, 255.f, 255.f)});
+	pCoordinator.AddComponent<FPSComponent>(m_FpsCounter, FPSComponent{});*/
 
 	//Init the map entity
 	Entity map = pCoordinator.CreateEntity();
@@ -92,6 +94,7 @@ void crupt::BubbleBobbleScene::InitPlayers()
 		m_Player1 = pCoordinator.CreateEntity();
 		pCoordinator.AddComponent<SpriteComponent>(m_Player1, spriteComp);
 		pCoordinator.AddComponent<HealthComponent>(m_Player1, HealthComponent{});
+		pCoordinator.AddComponent<ScoreComponent>(m_Player1, ScoreComponent{0});
 		pCoordinator.AddComponent<RenderableComponent>(m_Player1, RenderableComponent{defaultAnim});
 		pCoordinator.AddComponent<TransformComponent>(m_Player1, TransformComponent{glm::vec2(75.f,100.f)});
 		pCoordinator.AddComponent<MovePhysicsComponent>(m_Player1, MovePhysicsComponent{});
@@ -128,6 +131,15 @@ void crupt::BubbleBobbleScene::InitPlayers()
 
 		m_pSpawnEnemySystem->SetPlayer1(m_Player1);
 		m_pHealthDisplaySystem->SetPlayer1(m_Player1);
+
+
+		Entity scoreP1 = pCoordinator.CreateEntity();
+		pCoordinator.AddComponent<RenderableComponent>(scoreP1, RenderableComponent{});
+		pCoordinator.AddComponent<ScoreComponent>(scoreP1, ScoreComponent{});
+		pCoordinator.AddComponent<TransformComponent>(scoreP1, TransformComponent{glm::vec2(90.f,25.f)});
+		pCoordinator.AddComponent<TextComponent>(scoreP1, TextComponent{bool{true}, std::string("0"), m_pFont, glm::vec3(255.f, 255.f, 255.f)});
+
+		m_pScoreDisplaySystem->SetPlayer1(m_Player1, scoreP1);
 	}
 
 	//{
@@ -223,8 +235,8 @@ void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 void crupt::BubbleBobbleScene::Update(float dt)
 {	
 	m_pPlayerStateSystem->Update(dt);
-	m_pFPSSystem->Update(m_FpsCounter, dt);
-	m_pFPSSystem->SetText(m_FpsCounter, "FPS:" + std::to_string(m_pFPSSystem->GetFPS(m_FpsCounter)));
+	//m_pFPSSystem->Update(m_FpsCounter, dt);
+	//m_pFPSSystem->SetText(m_FpsCounter, "FPS:" + std::to_string(m_pFPSSystem->GetFPS(m_FpsCounter)));
 	m_pTextSystem->Update(dt);
 	m_pSpriteSystem->Update(dt);
 }

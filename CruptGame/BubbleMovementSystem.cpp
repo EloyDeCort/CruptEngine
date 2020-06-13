@@ -28,6 +28,7 @@ void BubbleMovementSystem::Update(float dt)
 
 		if(bubbleComp.shouldPop)
 		{
+			SpawnDrop(bubbleStateComp.animationState, transComp.position);
 			toDelete.push_back(entity);
 			continue;
 		}
@@ -106,4 +107,17 @@ void crupt::BubbleMovementSystem::SpawnEnemy(BubbleAnimState state, const glm::v
 	}
 	enemyComp.spawnPos = pos;
 	SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
+}
+
+void crupt::BubbleMovementSystem::SpawnDrop(BubbleAnimState state, const glm::vec2& pos)
+{
+	DropComponent dropComp;
+	switch(state)
+	{
+	case BubbleAnimState::ZENCHAN:
+		dropComp.type = DropType::MELON;
+		break;
+	}
+	dropComp.pos = pos;
+	SignalHandler<DropComponent>::GetInstance().Publish(dropComp);
 }

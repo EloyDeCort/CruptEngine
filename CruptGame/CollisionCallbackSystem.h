@@ -16,6 +16,8 @@ namespace crupt
 		void OnBubbleCallback(Entity self, Entity collider, eDirection direction);
 		void OnZenchanCallback(Entity self, Entity collider, eDirection direction);
 
+		void OnDropCallback(Entity self, Entity collider, eDirection direction);
+
 	private:
 		ECSCoordinator* m_pCoordinator;
 	};

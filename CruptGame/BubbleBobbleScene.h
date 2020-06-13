@@ -12,6 +12,7 @@ namespace crupt
 	class ZenchanMovementSystem;
 	class SpawnEnemySystem;
 	class HealthDisplaySystem;
+	class ScoreDisplaySystem;
 
 	class BubbleBobbleScene : public GameScene
 	{
@@ -44,6 +45,10 @@ namespace crupt
 		ZenchanMovementSystem* m_pZenchanMovementSystem;
 		SpawnEnemySystem* m_pSpawnEnemySystem;
 		HealthDisplaySystem* m_pHealthDisplaySystem;
+		ScoreDisplaySystem* m_pScoreDisplaySystem;
+
+		//Font
+		crupt::Font* m_pFont;
 
 		Entity m_Player1;
 		Entity m_Player2;

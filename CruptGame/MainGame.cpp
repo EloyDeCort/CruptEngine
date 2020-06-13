@@ -34,6 +34,8 @@ void crupt::MainGame::RegisterAdditionalComponents()
 	pCoordinator.RegisterComponent<SpawnEnemyComponent>();
 	pCoordinator.RegisterComponent<HealthComponent>();
 	pCoordinator.RegisterComponent<EnemyComponent>();
+	pCoordinator.RegisterComponent<DropComponent>();
+	pCoordinator.RegisterComponent<ScoreComponent>();
 }
 
 void crupt::MainGame::RegisterAdditionalSystems()
@@ -125,4 +127,22 @@ void crupt::MainGame::RegisterAdditionalSystems()
 		pCoordinator.SetSystemSignature<HealthDisplaySystem>(signature);
 	}
 	pHealthDisplaySystem->Init(m_pRenderSystem->GetSDLRenderer());
+
+	SpawnDropSystem* pSpawnDropSystem = pCoordinator.RegisterSystem<SpawnDropSystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<DropComponent>());
+		pCoordinator.SetSystemSignature<SpawnDropSystem>(signature);
+	}
+
+	pSpawnDropSystem->Init(m_pRenderSystem->GetSDLRenderer(), colCallbackSystem);
+
+
+	ScoreDisplaySystem* pScoreDisplaySystem = pCoordinator.RegisterSystem<ScoreDisplaySystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<ScoreComponent>());
+		pCoordinator.SetSystemSignature<ScoreDisplaySystem>(signature);
+	}
+	pScoreDisplaySystem->Init(m_pRenderSystem->GetSDLRenderer());
 }

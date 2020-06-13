@@ -32,6 +32,10 @@ void crupt::CollisionCallbackSystem::Init()
 		{
 			callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnZenchanCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
 		}
+		else if(m_pCoordinator->HasComponent<DropComponent>(entity))
+		{
+			callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnDropCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
+		}
 	}
 }
 
@@ -43,9 +47,18 @@ void crupt::CollisionCallbackSystem::AddEntityCallback(Entity entity)
 	{
 		callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnPlayerCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
 	}
+	//Check if its a bubble
+	else if(m_pCoordinator->HasComponent<BubbleComponent>(entity))
+	{
+		callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnBubbleCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
+	}
 	else if(m_pCoordinator->HasComponent<ZenchanComponent>(entity))
 	{
 		callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnZenchanCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
+	}
+	else if(m_pCoordinator->HasComponent<DropComponent>(entity))
+	{
+		callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnDropCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
 	}
 }
 
@@ -78,6 +91,15 @@ void crupt::CollisionCallbackSystem::OnPlayerCallback(Entity self, Entity collid
 			healthComp.dead = true;
 		}
 	}
+	else if(m_pCoordinator->HasComponent<DropComponent>(collider))
+	{
+		DropComponent& dropComp = m_pCoordinator->GetComponent<DropComponent>(collider);
+		ScoreComponent& playerScore = m_pCoordinator->GetComponent<ScoreComponent>(self);
+
+		playerScore.score += dropComp.score;
+
+		SignalHandler<ScoreComponent>::GetInstance().Publish(playerScore);
+	}
 }
 
 void crupt::CollisionCallbackSystem::OnBubbleCallback(Entity , Entity , eDirection )
@@ -101,4 +123,9 @@ void crupt::CollisionCallbackSystem::OnZenchanCallback(Entity self, Entity colli
 
 		SignalHandler<BubbleStateComponent>::GetInstance().Publish(stateComp);
 	}
+}
+
+void crupt::CollisionCallbackSystem::OnDropCallback(Entity, Entity , eDirection )
+{
+	
 }

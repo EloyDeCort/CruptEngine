@@ -72,6 +72,12 @@
     <ClCompile Include="HealthDisplaySystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="SpawnDropSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreDisplaySystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DemoScene.h">
@@ -150,6 +156,18 @@
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="EnemyComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DropComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnDropSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreDisplaySystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

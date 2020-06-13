@@ -17,6 +17,7 @@ namespace crupt
 
 	private:
 		void SpawnEnemy(BubbleAnimState state, const glm::vec2& pos);
+		void SpawnDrop(BubbleAnimState state, const glm::vec2& pos);
 		SDL_Renderer* m_pRenderer;
 	};
 }
