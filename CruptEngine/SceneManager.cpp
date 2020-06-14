@@ -77,6 +77,27 @@ crupt::GameScene* crupt::SceneManager::GetActiveScene()
 	return m_ActiveScene;
 }
 
+crupt::GameScene* crupt::SceneManager::GetScene(const std::wstring& sceneName)
+{
+	const std::vector<GameScene*>::iterator it{find_if(m_pScenes.begin(), m_pScenes.end(), [sceneName](GameScene* scene)
+		{
+			return wcscmp(scene->GetSceneName().c_str(), sceneName.c_str()) == 0;
+		})};
+
+	if(it != m_pScenes.end())
+	{
+		//Found the scene, return it.
+		return *it;
+	}
+	else
+	{
+		//Scene Not found
+		throw std::exception("SceneManager::SetActiveScene - [ERROR] trying to set active scene to a scene that does not exist.");
+		//Return for safety
+		return nullptr;
+	}
+}
+
 const std::wstring& crupt::SceneManager::GetActiveSceneName() const
 {
 	return m_ActiveScene->GetSceneName();

@@ -9,6 +9,7 @@
 #include "GameCommands.h"
 #include "SignalHandler.h"
 #include "SceneManager.h"
+#include "SoundManager.h"
 #include <SDL.h>
 
 
@@ -18,14 +19,13 @@ crupt::BubbleBobbleScene::BubbleBobbleScene()
 	: GameScene(L"BubbleBobbleScene")
 	, m_FpsCounter{}
 {
-
+	InitAudio();
 }
 
 void crupt::BubbleBobbleScene::Init()
 {
 	m_GameMode = GameMode::SINGLE;
 
-	InitTextures();
 	InitSystems();
 	InitEntities();
 
@@ -230,9 +230,18 @@ void crupt::BubbleBobbleScene::InitEnemies()
 	SignalHandler<LevelStateComponent>::GetInstance().Publish(stateComp);
 }
 
-void crupt::BubbleBobbleScene::InitTextures()
+void crupt::BubbleBobbleScene::InitAudio()
 {
+	//INIT Audio
+	FMOD_RESULT fmodResult;
+	auto pFmodSystem = SoundManager::GetInstance().GetSystem();
+	fmodResult = pFmodSystem->createStream("../Data/Sound/BG/MainGame.mp3", FMOD_DEFAULT, 0, &m_pBGMusic);
+	SoundManager::GetInstance().ErrorCheck(fmodResult);
+	m_pBGMusic->setMode(FMOD_LOOP_NORMAL);
+
+	pFmodSystem->createChannelGroup("BG",&m_pChannelGroup);
 }
+
 
 void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 {
@@ -268,11 +277,19 @@ void crupt::BubbleBobbleScene::Render()
 
 void crupt::BubbleBobbleScene::SceneLoaded()
 {
-	
+	//Play Sound
+	auto pFmodSystem = SoundManager::GetInstance().GetSystem();
+	FMOD_RESULT fmodResult;
+	fmodResult = pFmodSystem->playSound(m_pBGMusic, m_pChannelGroup, false , &m_pChannel);
+	SoundManager::GetInstance().ErrorCheck(fmodResult);
 }
 
 void crupt::BubbleBobbleScene::SceneUnloaded()
 {
+	FMOD_RESULT fmodResult;
+	fmodResult = m_pChannelGroup->stop();
+	SoundManager::GetInstance().ErrorCheck(fmodResult);
+
 	m_pLevelSpawnSystem->Reset();
 	m_pHealthDisplaySystem->Reset();
 	m_pScoreDisplaySystem->Reset();

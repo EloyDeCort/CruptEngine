@@ -17,10 +17,16 @@ namespace crupt
 		virtual void SceneLoaded() override;
 		virtual void SceneUnloaded() override;
 	private:
+		void InitAudio();
+
 		//Systems
 		GameScene* m_GameScene;
 		RenderSystem* m_pRenderSystem;
 		float m_TotalTime;
+
+		FMOD::Channel* m_pChannel;
+		FMOD::Sound* m_pBGMusic;
+		FMOD::ChannelGroup* m_pChannelGroup;
 	};
 }
 

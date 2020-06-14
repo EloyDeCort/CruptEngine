@@ -5,6 +5,7 @@
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "ResourceManager.h"
+#include "SoundManager.h"
 
 //SDL Initialization
 #include <SDL.h>
@@ -58,9 +59,12 @@ void crupt::CruptEngine::Run()
 	//Initialize the scenemanger with singleton instance 
 	crupt::SceneManager& sceneManager = SceneManager::GetInstance();
 	
+	
 	//Setting up coordinator
 	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
 	pCoordinator.Initialize();
+
+	SoundManager::GetInstance();
 
 	//Register Basic Engine Components
 	RegisterComponents();

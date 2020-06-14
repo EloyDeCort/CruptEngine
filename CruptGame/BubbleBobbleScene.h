@@ -43,7 +43,7 @@ namespace crupt
 		void InitPlayer1();
 		void InitPlayer2();
 		void InitEnemies();
-		void InitTextures();
+		void InitAudio();
 
 		Entity m_FpsCounter;
 
@@ -79,6 +79,8 @@ namespace crupt
 
 		FMOD::Channel* m_pChannel;
 		FMOD::Sound* m_pBGMusic;
+		FMOD::ChannelGroup* m_pChannelGroup;
+
 	};
 }
 
