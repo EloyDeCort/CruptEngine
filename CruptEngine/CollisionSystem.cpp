@@ -182,6 +182,11 @@ void CollisionSystem::Update(float dt)
 	}
 }
 
+void crupt::CollisionSystem::Reset()
+{
+	m_TotalTime = 0.f;
+}
+
 bool crupt::CollisionSystem::IsColliding(const Box& obj, const Box& other)
 {
 	float left = float(other.rect.x - (obj.rect.x + obj.rect.w));

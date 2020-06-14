@@ -66,3 +66,15 @@ void TextSystem::SetText(Entity& entity, const std::string& text)
 	textComp.text = text;
 	textComp.needsUpdate = true;
 }
+
+void crupt::TextSystem::Reset()
+{
+	ECSCoordinator& coordinator = ECSCoordinator::GetInstance();
+	for (const Entity& entity : m_Entities)
+	{
+		RenderableComponent& textureComp = coordinator.GetComponent<RenderableComponent>(entity);
+
+		delete textureComp.pTexture;
+		textureComp.pTexture = nullptr;
+	}
+}

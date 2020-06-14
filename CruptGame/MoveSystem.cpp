@@ -2,6 +2,7 @@
 #include "MoveSystem.h"
 #include "ECSCoordinator.h"
 #include "SignalHandler.h"
+#include "SceneManager.h"
 
 crupt::MoveSystem::~MoveSystem()
 {
@@ -14,6 +15,11 @@ void crupt::MoveSystem::Init()
 
 void crupt::MoveSystem::OnDispatch(const MoveComponent& component)
 {
+	/*if(SceneManager::GetInstance().GetActiveSceneName() == L"BBMainMenuScene")
+	{
+		return;
+	}*/
+
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(component.target);
 	RenderableComponent& render = coordinator->GetComponent<RenderableComponent>(component.target);

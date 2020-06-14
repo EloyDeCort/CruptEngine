@@ -10,6 +10,7 @@ namespace crupt
 		void Init(SDL_Renderer* renderer);
 		void Update(float dt);
 		void SetText(Entity& entity, const std::string& text);
+		void Reset();
 	private:
 		SDL_Renderer* m_Renderer;
 	};

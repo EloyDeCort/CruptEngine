@@ -77,6 +77,11 @@ crupt::GameScene* crupt::SceneManager::GetActiveScene()
 	return m_ActiveScene;
 }
 
+const std::wstring& crupt::SceneManager::GetActiveSceneName() const
+{
+	return m_ActiveScene->GetSceneName();
+}
+
 void crupt::SceneManager::Init()
 {
 	if(m_ActiveScene)
@@ -97,6 +102,7 @@ void crupt::SceneManager::Update(float dt)
 
 		m_NewActiveScene = nullptr;
 		m_ActiveScene->Init();
+		
 	}
 
 	if(m_ActiveScene)

@@ -10,6 +10,7 @@ crupt::SpawnEnemySystem::~SpawnEnemySystem()
 
 void crupt::SpawnEnemySystem::Init(SDL_Renderer* renderer, CollisionCallbackSystem* colCallbackSystem)
 {
+	m_NrOfPlayers = 0;
 	m_pRenderer = renderer;
 	m_pCollisionCallbackSystem = colCallbackSystem;
 	SignalHandler<SpawnEnemyComponent>::GetInstance().AddListener(std::bind(&crupt::SpawnEnemySystem::OnDispatch, this, std::placeholders::_1));
@@ -26,6 +27,16 @@ void crupt::SpawnEnemySystem::OnDispatch(const SpawnEnemyComponent& component)
 void crupt::SpawnEnemySystem::SetPlayer1(Entity player)
 {
 	m_Player1 = player;
+}
+
+void crupt::SpawnEnemySystem::SetPlayer2(Entity player)
+{
+	m_Player2 = player;
+}
+
+void crupt::SpawnEnemySystem::Reset()
+{
+	m_NrOfPlayers = 0;
 }
 
 void crupt::SpawnEnemySystem::SpawnZenchan(const glm::vec2& pos)
@@ -50,6 +61,11 @@ void crupt::SpawnEnemySystem::SpawnZenchan(const glm::vec2& pos)
 	coordinator->AddComponent<CollisionCallbackComponent>(zenchanEnemy, CollisionCallbackComponent{});
 	ZenchanComponent zenchanComp = ZenchanComponent{};
 	zenchanComp.player1 = m_Player1;
+	if(m_NrOfPlayers >= 2)
+	{
+		zenchanComp.player2 = m_Player2;
+		zenchanComp.coOp = true;
+	}
 	coordinator->AddComponent<ZenchanComponent>(zenchanEnemy, zenchanComp);
 	m_pCollisionCallbackSystem->AddEntityCallback(zenchanEnemy);
 }

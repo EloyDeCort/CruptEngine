@@ -14,3 +14,4 @@
 #include "ScoreDisplaySystem.h"
 #include "LevelStateSystem.h"
 #include "LevelSpawnSystem.h"
+#include "WorldBorderSystem.h"

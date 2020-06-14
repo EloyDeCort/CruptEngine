@@ -15,6 +15,8 @@ namespace crupt
 
 	private:
 		Entity m_MapEntity;
+		float m_TotalTime;
+		float m_TransitionTime;
 	};
 }
 

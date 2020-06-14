@@ -12,7 +12,7 @@ PhysicsSystem::~PhysicsSystem()
 void PhysicsSystem::Init()
 {
 	m_pCoordinator = &ECSCoordinator::GetInstance();
-
+	m_TerminalVelocity = 350.f;
 }
 
 void EntityUpdate(Entity entity)
@@ -71,6 +71,10 @@ void crupt::PhysicsSystem::PreUpdate(float dt)
 		movPhysicsComp.force -= gravity.gravity * dt;
 
 		movPhysicsComp.velocity = movPhysicsComp.force * dt;
+		if(movPhysicsComp.velocity.y > m_TerminalVelocity)
+		{
+			movPhysicsComp.velocity.y = m_TerminalVelocity;
+		}
 	}
 }
 

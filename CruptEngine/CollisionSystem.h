@@ -22,6 +22,7 @@ namespace crupt
 		void Init(SDL_Renderer* renderer);
 		void InitMap(Entity mapEntity);
 		void Update(float dt);
+		void Reset();
 		 bool IsColliding(const Box& obj, const Box& other);
 		float SweptImproved(const Box& obj, const Box& other, eDirection& colDirection, bool platform = false);
 

@@ -19,8 +19,8 @@ namespace crupt
 	private:
 
 		//Systems
+		GameScene* m_GameScene;
 		RenderSystem* m_pRenderSystem;
-
 		float m_TotalTime;
 	};
 }

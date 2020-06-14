@@ -178,4 +178,14 @@ void crupt::MainGame::RegisterAdditionalSystems()
 	}
 
 	pLevelSpawnSystem->Init();
+
+	WorldBorderSystem* pWorldBorderSystem = pCoordinator.RegisterSystem<WorldBorderSystem>();
+	{
+		Signature signature;
+		//Using enemies to check how many are left.
+		signature.set(pCoordinator.GetComponentType<GravityComponent>());
+		pCoordinator.SetSystemSignature<WorldBorderSystem>(signature);
+	}
+
+	pWorldBorderSystem->Init();
 }

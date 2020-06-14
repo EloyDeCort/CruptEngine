@@ -25,6 +25,7 @@ namespace crupt
 		void SetPlayer1(Entity player);
 		void SetPlayer2(Entity player);
 		void Render();
+		void Reset();
 	
 	private:
 		void RenderTexture(const Texture2D& texture, float x, float y) const;

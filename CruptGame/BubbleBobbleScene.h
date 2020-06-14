@@ -15,6 +15,8 @@ namespace crupt
 	class ScoreDisplaySystem;
 	class DropMovementSystem;
 	class LevelStateSystem;
+	class WorldBorderSystem;
+	class LevelSpawnSystem;
 
 	enum class GameMode
 	{
@@ -60,6 +62,8 @@ namespace crupt
 		DropMovementSystem* m_pDropMovementSystem;
 		ScoreDisplaySystem* m_pScoreDisplaySystem;
 		LevelStateSystem* m_pLevelStateSystem;
+		WorldBorderSystem* m_pWorldBorderSystem;
+		LevelSpawnSystem* m_pLevelSpawnSystem;
 
 		GameMode m_GameMode;
 

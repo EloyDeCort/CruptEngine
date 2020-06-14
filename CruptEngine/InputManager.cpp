@@ -138,6 +138,17 @@ bool crupt::InputManager::FindCommand(const std::string& key) const
 	return false;
 }
 
+void crupt::InputManager::Reset()
+{
+	for(std::pair<std::string, ICommand*> command : m_CommandMap)
+	{
+		delete command.second;
+	}
+
+	m_BindingMap.clear();
+	m_CommandMap.clear();
+}
+
 
 bool crupt::InputManager::ProcessInput()
 {

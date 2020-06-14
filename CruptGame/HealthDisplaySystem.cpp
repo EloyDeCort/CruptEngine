@@ -67,6 +67,11 @@ void crupt::HealthDisplaySystem::Render()
 	}
 }
 
+void crupt::HealthDisplaySystem::Reset()
+{
+	m_NrOfPlayers = 0;
+}
+
 void crupt::HealthDisplaySystem::RenderTexture(const Texture2D& texture, float x, float y) const
 {
 	SDL_Rect dst;

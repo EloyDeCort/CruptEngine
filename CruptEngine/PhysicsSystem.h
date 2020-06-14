@@ -15,6 +15,7 @@ namespace crupt
 
 	private:
 		ECSCoordinator* m_pCoordinator;
+		float m_TerminalVelocity;
 	};
 }
 

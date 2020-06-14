@@ -23,7 +23,7 @@ crupt::BubbleBobbleScene::BubbleBobbleScene()
 
 void crupt::BubbleBobbleScene::Init()
 {
-	m_GameMode = GameMode::SINGLE;
+	m_GameMode = GameMode::COOP;
 
 	InitTextures();
 	InitSystems();
@@ -53,6 +53,8 @@ void crupt::BubbleBobbleScene::InitSystems()
 	m_pScoreDisplaySystem = pCoordinator.GetSystem<ScoreDisplaySystem>();
 	m_pDropMovementSystem = pCoordinator.GetSystem<DropMovementSystem>();
 	m_pLevelStateSystem = pCoordinator.GetSystem<LevelStateSystem>();
+	m_pWorldBorderSystem = pCoordinator.GetSystem<WorldBorderSystem>();
+	m_pLevelSpawnSystem = pCoordinator.GetSystem<LevelSpawnSystem>();
 }
 
 void crupt::BubbleBobbleScene::InitEntities()
@@ -87,6 +89,8 @@ void crupt::BubbleBobbleScene::InitEntities()
 		InitPlayer2();
 	}
 	InitEnemies();
+	
+
 }
 
 void crupt::BubbleBobbleScene::InitPlayer1()
@@ -124,22 +128,25 @@ void crupt::BubbleBobbleScene::InitPlayer1()
 
 	pCoordinator.AddComponent<PlayerStateComponent>(m_Player1, playerStateComp);
 
+
+
 	InputManager& inputManager = InputManager::GetInstance();
 
-	inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, VK_SPACE, InputTriggerState::Pressed, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("JumpP1", new JumpCommand(m_Player1));
+		inputManager.AddBinding("JumpP1", Binding{ControllerButton::ButtonA, VK_SPACE, InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+		inputManager.AddCommand("JumpP1", new JumpCommand(m_Player1));
 
-	inputManager.AddBinding("SpawnBubbleP1", Binding{ControllerButton::ButtonX, VK_SHIFT, InputTriggerState::Pressed, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("SpawnBubbleP1", new SpawnBubbleCommand(m_Player1, PlayerType::PLAYER1));
+		inputManager.AddBinding("SpawnBubbleP1", Binding{ControllerButton::ButtonX, VK_SHIFT, InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+		inputManager.AddCommand("SpawnBubbleP1", new SpawnBubbleCommand(m_Player1, PlayerType::PLAYER1));
 
-	//Pressed
-	inputManager.AddBinding("LeftP1", Binding{ControllerButton::ButtonDPADLeft, 'A', InputTriggerState::Down, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("LeftP1", new MoveLeftCommand(m_Player1));
-	inputManager.AddBinding("RightP1", Binding{ControllerButton::ButtonDPADRight, 'D', InputTriggerState::Down, GamepadIndex::PlayerOne});
-	inputManager.AddCommand("RightP1", new MoveRightCommand(m_Player1));
+		//Pressed
+		inputManager.AddBinding("LeftP1", Binding{ControllerButton::ButtonDPADLeft, 'A', InputTriggerState::Down, GamepadIndex::PlayerOne});
+		inputManager.AddCommand("LeftP1", new MoveLeftCommand(m_Player1));
+		inputManager.AddBinding("RightP1", Binding{ControllerButton::ButtonDPADRight, 'D', InputTriggerState::Down, GamepadIndex::PlayerOne});
+		inputManager.AddCommand("RightP1", new MoveRightCommand(m_Player1));
 
 	m_pSpawnEnemySystem->SetPlayer1(m_Player1);
 	m_pHealthDisplaySystem->SetPlayer1(m_Player1);
+	m_pLevelSpawnSystem->SetPlayer1(m_Player1);
 
 
 	Entity scoreP1 = pCoordinator.CreateEntity();
@@ -161,11 +168,14 @@ void crupt::BubbleBobbleScene::InitPlayer2()
 	spriteComp2.scaleFactor = 2; 
 	Texture2D* defaultAnim2 = ResourceManager::GetInstance().LoadTexture("Player/Bub_Idle.png",renderer);
 
+	RenderableComponent renderComp = RenderableComponent{defaultAnim2};
+	renderComp.flip = true;
+
 	m_Player2 = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<SpriteComponent>(m_Player2, spriteComp2);
 	pCoordinator.AddComponent<HealthComponent>(m_Player2, HealthComponent{});
 	pCoordinator.AddComponent<ScoreComponent>(m_Player2, ScoreComponent{0});
-	pCoordinator.AddComponent<RenderableComponent>(m_Player2, RenderableComponent{defaultAnim2});
+	pCoordinator.AddComponent<RenderableComponent>(m_Player2, renderComp);
 	pCoordinator.AddComponent<TransformComponent>(m_Player2, TransformComponent{glm::vec2(100.f,100.f)});
 	pCoordinator.AddComponent<MovePhysicsComponent>(m_Player2, MovePhysicsComponent{});
 	pCoordinator.AddComponent<GravityComponent>(m_Player2, GravityComponent{});
@@ -187,20 +197,21 @@ void crupt::BubbleBobbleScene::InitPlayer2()
 
 	InputManager& inputManager = InputManager::GetInstance();
 
-	inputManager.AddBinding("JumpP2", Binding{ControllerButton::ButtonA, VK_UP, InputTriggerState::Pressed, GamepadIndex::PlayerTwo});
-	inputManager.AddCommand("JumpP2", new JumpCommand(m_Player2));
+		inputManager.AddBinding("JumpP2", Binding{ControllerButton::ButtonA, VK_UP, InputTriggerState::Pressed, GamepadIndex::PlayerTwo});
+		inputManager.AddCommand("JumpP2", new JumpCommand(m_Player2));
 
-	inputManager.AddBinding("SpawnBubbleP2", Binding{ControllerButton::ButtonX, VK_RCONTROL, InputTriggerState::Pressed, GamepadIndex::PlayerTwo});
-	inputManager.AddCommand("SpawnBubbleP2", new SpawnBubbleCommand(m_Player2, PlayerType::PLAYER2));
+		inputManager.AddBinding("SpawnBubbleP2", Binding{ControllerButton::ButtonX, VK_RCONTROL, InputTriggerState::Pressed, GamepadIndex::PlayerTwo});
+		inputManager.AddCommand("SpawnBubbleP2", new SpawnBubbleCommand(m_Player2, PlayerType::PLAYER2));
 
-	//Pressed
-	inputManager.AddBinding("LeftP2", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Down, GamepadIndex::PlayerTwo});
-	inputManager.AddCommand("LeftP2", new MoveLeftCommand(m_Player2));
-	inputManager.AddBinding("RightP2", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Down, GamepadIndex::PlayerTwo});
-	inputManager.AddCommand("RightP2", new MoveRightCommand(m_Player2));
-
-	//m_pSpawnEnemySystem->SetPlayer2(m_Player2);
+		//Pressed
+		inputManager.AddBinding("LeftP2", Binding{ControllerButton::ButtonDPADLeft, VK_LEFT, InputTriggerState::Down, GamepadIndex::PlayerTwo});
+		inputManager.AddCommand("LeftP2", new MoveLeftCommand(m_Player2));
+		inputManager.AddBinding("RightP2", Binding{ControllerButton::ButtonDPADRight, VK_RIGHT, InputTriggerState::Down, GamepadIndex::PlayerTwo});
+		inputManager.AddCommand("RightP2", new MoveRightCommand(m_Player2));
+	
+	m_pSpawnEnemySystem->SetPlayer2(m_Player2);
 	m_pHealthDisplaySystem->SetPlayer2(m_Player2);
+	m_pLevelSpawnSystem->SetPlayer2(m_Player2);
 
 
 	Entity scoreP2 = pCoordinator.CreateEntity();
@@ -225,6 +236,7 @@ void crupt::BubbleBobbleScene::InitTextures()
 
 void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 {
+	m_pWorldBorderSystem->PreUpdate(dt);
 	m_pZenchanMovementSystem->PreUpdate(dt);
 	m_pBubbleMovementSystem->PreUpdate(dt);
 	m_pDropMovementSystem->PreUpdate(dt);
@@ -254,10 +266,21 @@ void crupt::BubbleBobbleScene::Render()
 
 void crupt::BubbleBobbleScene::SceneLoaded()
 {
+	
 }
 
 void crupt::BubbleBobbleScene::SceneUnloaded()
 {
+	m_pLevelSpawnSystem->Reset();
+	m_pHealthDisplaySystem->Reset();
+	m_pScoreDisplaySystem->Reset();
+	m_pTextSystem->Reset();
+	m_pCollisionSystem->Reset();
+
+	InputManager& inputManager = InputManager::GetInstance();
+	inputManager.Reset();
+
+
 	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
 	pCoordinator.DestroyAllEntities();
 }

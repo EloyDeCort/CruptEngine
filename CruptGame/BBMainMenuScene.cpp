@@ -6,6 +6,7 @@
 #include "GameSystems.h"
 #include "GameComponents.h"
 #include "SceneManager.h"
+#include "BubbleBobbleScene.h"
 #include <SDL.h>
 
 
@@ -13,6 +14,7 @@
 
 crupt::BBMainMenuScene::BBMainMenuScene()
 	: GameScene(L"BBMainMenuScene")
+	,m_GameScene{nullptr}
 {
 }
 
@@ -51,6 +53,7 @@ void crupt::BBMainMenuScene::Render()
 
 void crupt::BBMainMenuScene::SceneLoaded()
 {
+
 }
 
 void crupt::BBMainMenuScene::SceneUnloaded()

@@ -5,6 +5,9 @@ namespace crupt
 	struct ZenchanComponent
 	{
 		Entity player1;
+		Entity player2;
+		bool coOp = false;
+
 		float movSpeed = 200.f;
 
 		float jumpOffset = 50.f;

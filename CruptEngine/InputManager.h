@@ -71,6 +71,7 @@ namespace crupt
 		bool IsDown(Binding button) const;
 		bool IsReleased(Binding button) const;
 		bool FindBinding(const std::string& key) const;
+		void Reset();
 		bool FindCommand(const std::string& key) const;
 
 		void AddBinding(const std::string& eventName, Binding newBinding);
@@ -81,6 +82,7 @@ namespace crupt
 	private:
 		Invoker* m_pInvoker;
 		Entity m_pPlayer;
+
 
 		static bool UpdateKeyboardStates();
 		static void UpdateGamepadStates();

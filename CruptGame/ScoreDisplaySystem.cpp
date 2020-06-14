@@ -42,6 +42,11 @@ void crupt::ScoreDisplaySystem::Render()
 	
 }
 
+void crupt::ScoreDisplaySystem::Reset()
+{
+	m_NrOfPlayers = 0;
+}
+
 void crupt::ScoreDisplaySystem::OnDispatch(const ScoreComponent&)
 {
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();

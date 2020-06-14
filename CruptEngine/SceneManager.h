@@ -19,6 +19,7 @@ namespace crupt
 		void RemoveScene(GameScene* pScene);
 		void SetActiveScene(const std::wstring& sceneName);
 		GameScene* GetActiveScene();
+		const std::wstring& GetActiveSceneName() const;
 
 		void Init();
 		void Update(float dt);
