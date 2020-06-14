@@ -34,7 +34,7 @@ void EntityUpdate(Entity entity)
 	boxComp.collisionRect.y = int(transform.position.y);
 }
 
-void PhysicsSystem::Update(float dt)
+void PhysicsSystem::Update(float)
 {
 	//Multithreading the physics system.
 	std::vector<std::future<void>> futures;
