@@ -1,3 +1,4 @@
+//SYSTEM for handling all callbacks of the collision system. Specific to bubble bobble
 #include "CruptEnginePCH.h"
 #include "CollisionCallbackSystem.h"
 #include "PlayerStateSystem.h"

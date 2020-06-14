@@ -2,6 +2,7 @@
 #include "Texture2D.h"
 #include <SDL.h>
 
+//Simple texture wrapper for SDL
 crupt::Texture2D::~Texture2D()
 {
 	SDL_DestroyTexture(m_Texture);

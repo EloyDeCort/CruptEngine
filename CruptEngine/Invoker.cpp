@@ -18,6 +18,7 @@ void Invoker::AddCommand(ICommand* command)
 	m_CommandBuffer.push(command);
 }
 
+//We are using a command buffer, this works with a queue that will pop a command per frame. Thus allowing for per frame execution.
 void crupt::Invoker::Update()
 {
 	if(m_CommandBuffer.size() > 0)

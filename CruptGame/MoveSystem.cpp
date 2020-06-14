@@ -15,10 +15,7 @@ void crupt::MoveSystem::Init()
 
 void crupt::MoveSystem::OnDispatch(const MoveComponent& component)
 {
-	/*if(SceneManager::GetInstance().GetActiveSceneName() == L"BBMainMenuScene")
-	{
-		return;
-	}*/
+	//Moving based on the dispatched component
 
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(component.target);

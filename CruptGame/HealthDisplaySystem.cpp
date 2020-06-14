@@ -44,6 +44,7 @@ void crupt::HealthDisplaySystem::SetPlayer2(Entity player)
 
 void crupt::HealthDisplaySystem::Render()
 {
+	//Displaying the current health of each player based on the mode.
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 
 	if(m_NrOfPlayers >= 1)

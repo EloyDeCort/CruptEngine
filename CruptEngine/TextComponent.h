@@ -8,6 +8,7 @@
 
 namespace crupt
 {
+	//Used for displaying text
 	struct TextComponent
 	{
 		bool needsUpdate;

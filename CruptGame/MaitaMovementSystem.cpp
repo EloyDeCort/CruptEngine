@@ -14,6 +14,7 @@ void crupt::MaitaMovementSystem::Init()
 
 void crupt::MaitaMovementSystem::PreUpdate(float dt)
 {
+	//Update the movement of the maita and deleting all maitas marked for delete.
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	std::vector<Entity> toDelete;
 	for (Entity entity : m_Entities)

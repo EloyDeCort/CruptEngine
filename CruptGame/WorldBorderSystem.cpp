@@ -16,6 +16,7 @@ void crupt::WorldBorderSystem::Init()
 
 void crupt::WorldBorderSystem::PreUpdate(float )
 {
+	//Making sure objects cant fall out of the world.
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	for (Entity entity : m_Entities)
 	{

@@ -10,7 +10,7 @@
 #include <SDL.h>
 
 //VLD
-#include "vld.h"
+//#include "vld.h"
 
 //ECS
 #include "Components.h"
@@ -68,6 +68,7 @@ void crupt::CruptEngine::Run()
 	//Register Basic Engine Systems
 	RegisterSystems();
 
+	//Initialize the game-dependent systems , components,....
 	InitGame();
 
 	{
@@ -81,23 +82,27 @@ void crupt::CruptEngine::Run()
 		std::chrono::steady_clock::time_point lastTime = high_resolution_clock::now();
 		while (doContinue)
 		{
+			//CLEAR our renderer.
 			SDL_RenderClear(m_pRenderSystem->GetSDLRenderer());
 
 			const std::chrono::steady_clock::time_point currentTime = high_resolution_clock::now();
 			dt = std::chrono::duration<float>(currentTime - lastTime).count();
 			lastTime = currentTime;
 			
+			//Make sure our deltatime is capped
 			if(dt > 0.25f)
 			{
 				dt = 0.25f;
 			}
 
+			//Accumulate deltatime
 			accumulator += dt;
 
 			doContinue = input.ProcessInput();
 
 			while(accumulator >= physicsTimeStepMS)
 			{
+				//This fixedupdate will be called multiple times per render loop to ensure solid physics
 				sceneManager.FixedUpdate(physicsTimeStepMS);
 				accumulator -= physicsTimeStepMS;
 			}
@@ -105,7 +110,10 @@ void crupt::CruptEngine::Run()
 			//Update the currently active scene
 			sceneManager.Update(dt);
 
+			//Render out the current scene
 			sceneManager.Render();
+			
+			//display with SDL
 			SDL_RenderPresent(m_pRenderSystem->GetSDLRenderer());
 		}
 	}
@@ -116,6 +124,7 @@ void crupt::CruptEngine::Run()
 
 void crupt::CruptEngine::RegisterComponents()
 {
+	//Registering all Engine-Based components
 	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
 	pCoordinator.RegisterComponent<RenderableComponent>();
 	pCoordinator.RegisterComponent<TransformComponent>();
@@ -133,7 +142,7 @@ void crupt::CruptEngine::RegisterSystems()
 {
 	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
 
-	//Register the systems
+	//Register the Engine-Based Systems
 	m_pRenderSystem = pCoordinator.RegisterSystem<RenderSystem>();
 	{
 		Signature signature;

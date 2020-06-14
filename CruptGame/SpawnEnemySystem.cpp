@@ -47,6 +47,7 @@ void crupt::SpawnEnemySystem::Reset()
 
 void crupt::SpawnEnemySystem::SpawnZenchan(const SpawnEnemyComponent& component)
 {
+	//Spawning a new zen chan
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	//ZenChan
 	SpriteComponent spriteComp{};
@@ -81,6 +82,7 @@ void crupt::SpawnEnemySystem::SpawnZenchan(const SpawnEnemyComponent& component)
 
 void crupt::SpawnEnemySystem::SpawnMaita(const SpawnEnemyComponent& component)
 {
+	//Spawning a new maita
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	//Maita
 	MaitaComponent maitaComp = MaitaComponent{};

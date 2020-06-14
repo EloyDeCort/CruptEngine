@@ -18,6 +18,7 @@ void crupt::SpawnBoulderSystem::Init(SDL_Renderer* renderer, CollisionCallbackSy
 
 void crupt::SpawnBoulderSystem::PreUpdate(float dt)
 {
+	//Rolling of the boulder
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	std::vector<Entity> toDelete;
 	for (Entity entity : m_Entities)
@@ -61,6 +62,7 @@ void crupt::SpawnBoulderSystem::PreUpdate(float dt)
 
 void crupt::SpawnBoulderSystem::OnDispatch(const BoulderComponent& component)
 {
+	//Spawning the boulder and initializing the sprite.
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 
 	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Enemies/Boulder_Roll.png",m_pRenderer);

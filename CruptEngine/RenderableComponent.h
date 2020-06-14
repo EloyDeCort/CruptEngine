@@ -4,6 +4,7 @@
 
 namespace crupt
 {
+	//used for rendering components to the SDL render pipeline (handled by the render system)
 	struct RenderableComponent
 	{
 		Texture2D* pTexture{nullptr};

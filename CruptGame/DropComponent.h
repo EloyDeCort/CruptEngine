@@ -12,7 +12,7 @@ namespace crupt
 		FRIES
 	};
 
-	//Used as simple tag
+	//Used as simple tag component and transfered as a entity component
 	struct DropComponent
 	{
 		DropType type;

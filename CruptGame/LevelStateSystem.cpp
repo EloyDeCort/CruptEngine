@@ -29,6 +29,7 @@ void crupt::LevelStateSystem::Reset()
 
 void crupt::LevelStateSystem::Update(float dt)
 {
+	//We check per frame the state of the game, ensuring that the game progress flawlessly
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 
 	if(m_Versus)

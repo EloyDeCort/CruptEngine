@@ -4,12 +4,14 @@
 
 namespace crupt
 {
+	//Maita States
 	enum class MaitaAnimState
 	{
 		WALKING,
 		CHARGING
 	};
 
+	//Maita abilities and their cooldowns, walking speed,...
 	struct MaitaComponent
 	{
 		Entity player1;

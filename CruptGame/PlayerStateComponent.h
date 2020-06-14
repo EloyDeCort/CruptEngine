@@ -5,6 +5,7 @@
 
 namespace crupt
 {
+	//Player state 
 	enum class PlayerAnimState
 	{
 		IDLE,
@@ -18,6 +19,7 @@ namespace crupt
 		Texture2D* pTexture;
 	};
 
+	//Playerstate component to handle the player state easily
 	struct PlayerStateComponent
 	{
 		PlayerAnimState animationState;

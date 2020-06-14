@@ -9,6 +9,7 @@
 
 crupt::ResourceManager::~ResourceManager()
 {
+	//Delete all textures and fonts that are gathered.
 	std::unordered_map<std::string, Texture2D*>::iterator it;
 	for(it = m_pTextures.begin(); it != m_pTextures.end(); ++it)
 	{
@@ -48,6 +49,8 @@ void crupt::ResourceManager::Init(const std::string& dataPath)
 
 crupt::Texture2D* crupt::ResourceManager::LoadTexture(const std::string& file, SDL_Renderer* pRenderer)
 {
+
+	//We ensure that we have no duplicate textures, Resourcemanager takes all ownership of textures to ensure no memory leaks.
 	std::unordered_map<std::string, Texture2D*>::iterator it = m_pTextures.find(file);
 	if(it != m_pTextures.end())
 	{
@@ -69,6 +72,7 @@ crupt::Texture2D* crupt::ResourceManager::LoadTexture(const std::string& file, S
 
 crupt::Font* crupt::ResourceManager::LoadFont(const std::string& file, unsigned int size)
 {
+	//We ensure that we have no duplicate fonts, Resourcemanager takes all ownership of fonts to ensure no memory leaks.
 	std::unordered_map<std::string, Font*>::iterator it = m_pFonts.find(file + std::to_string(size));
 	if(it != m_pFonts.end())
 	{

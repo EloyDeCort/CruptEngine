@@ -14,6 +14,7 @@ void crupt::ZenchanMovementSystem::Init()
 
 void crupt::ZenchanMovementSystem::PreUpdate(float)
 {
+	//Handling the movement for all entities with a zenchan component.
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	std::vector<Entity> toDelete;
 	for (Entity entity : m_Entities)

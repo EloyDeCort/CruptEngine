@@ -6,13 +6,14 @@
 
 namespace crupt
 {
+	//State of enemy
 	enum class EnemyType
 	{
 		ZENCHAN,
 		MAITA
 	};
 
-	//SIGNAL COMPONENT
+	//SIGNAL COMPONENT to spawn an enemy
 	struct SpawnEnemyComponent
 	{
 		EnemyType type = EnemyType::ZENCHAN;

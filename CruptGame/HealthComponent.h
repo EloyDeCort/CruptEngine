@@ -3,6 +3,7 @@
 
 namespace crupt
 {
+	//Health component used for initiating player health and handling damage.
 	struct HealthComponent
 	{
 		int maxHealth = 4;

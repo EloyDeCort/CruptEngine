@@ -23,6 +23,7 @@ void EntityUpdate(Entity entity)
 	MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(entity);
 	BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
 	
+	//Apply the velocity and reset the force
 	transform.position.x += movPhysicsComp.velocity.x * boxComp.entryTimeX;
 	
 	movPhysicsComp.force.x = 0;
@@ -35,7 +36,7 @@ void EntityUpdate(Entity entity)
 
 void PhysicsSystem::Update(float dt)
 {
-	dt;
+	//Multithreading the physics system.
 	std::vector<std::future<void>> futures;
 
 	for (const Entity& entity : m_Entities)
@@ -67,12 +68,14 @@ void crupt::PhysicsSystem::PreUpdate(float dt)
 			break;
 		}
 
-		//Gravity
+		//Gravity appliance
 		movPhysicsComp.force -= gravity.gravity * dt;
 
+		//Aplying the force.
 		movPhysicsComp.velocity = movPhysicsComp.force * dt;
 		if(movPhysicsComp.velocity.y > m_TerminalVelocity)
 		{
+			//Making sure the velocity does not overwrite the terminal velocity.
 			movPhysicsComp.velocity.y = m_TerminalVelocity;
 		}
 	}

@@ -23,6 +23,7 @@ int FPSSystem::GetFPS(Entity& entity) const
 
 void FPSSystem::Update(Entity entity, float deltaTime)
 {
+	//Increase FPS and display with text component
 	m_Time += deltaTime;
 	m_FpsCounter++;
 

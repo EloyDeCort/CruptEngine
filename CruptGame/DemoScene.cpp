@@ -1,3 +1,4 @@
+// very simple demo scene (not used)
 #include "CruptEnginePCH.h"
 #include "DemoScene.h"
 #include "Components.h"

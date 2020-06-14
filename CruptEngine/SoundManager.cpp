@@ -19,6 +19,7 @@ SoundManager::~SoundManager()
 #pragma warning(disable: 26812)
 bool SoundManager::ErrorCheck(FMOD_RESULT res)
 {
+	//Check for FMOD errors
 	if (res != FMOD_OK)
 	{
 		std::wstringstream strstr;

@@ -6,6 +6,7 @@
 
 namespace crupt
 {
+	//State of the bubble
 	enum class BubbleAnimState
 	{
 		NORMAL,
@@ -13,6 +14,7 @@ namespace crupt
 		MAITA
 	};
 
+	//Used for updating bubble sprite
 	struct BubbleStateComponent
 	{
 		Entity target;

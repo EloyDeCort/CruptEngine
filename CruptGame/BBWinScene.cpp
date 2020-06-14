@@ -57,6 +57,7 @@ void crupt::BBWinScene::SceneLoaded()
 	pCoordinator.AddComponent<RenderableComponent>(menu, RenderableComponent{ResourceManager::GetInstance().LoadTexture("WinScreen.png",renderer)});
 	pCoordinator.AddComponent<TransformComponent>(menu, TransformComponent{glm::vec3(0.f,0.f,0.f)});
 
+	//Initiializing score entities
 	Entity scoreP1 = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<RenderableComponent>(scoreP1, RenderableComponent{});
 	pCoordinator.AddComponent<ScoreComponent>(scoreP1, ScoreComponent{});

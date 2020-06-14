@@ -19,12 +19,13 @@ const std::wstring& crupt::GameScene::GetSceneName() const
 
 bool crupt::GameScene::OwnsEntity(Entity entity) const
 {
-	//Return true if the entity is found
+	//Return true if the entity is found Unused)
 	std::set<crupt::Entity>::iterator find = m_Entities.find(entity);
 	return find != m_Entities.end();
 }
 
 void crupt::GameScene::AddEntity(Entity entity)
 {
+	//These gamescene commands are not used anymore
 	m_Entities.insert(entity);
 }

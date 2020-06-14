@@ -9,6 +9,7 @@ crupt::ICommand::~ICommand()
 {
 }
 
+//Return name of command
 const std::string& crupt::ICommand::GetName()
 {
 	return m_Name;

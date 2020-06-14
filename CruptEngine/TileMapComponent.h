@@ -4,6 +4,7 @@
 struct SDL_Rect;
 namespace crupt
 {
+	//Each tile has an ID, position and a width and height
 	struct Tile
 	{
 		unsigned int id;
@@ -15,6 +16,7 @@ namespace crupt
 		unsigned int height = 16;
 	};
 
+	//Used for loading in with TMXLite
 	struct TileMapComponent
 	{
 		using TileVector = std::vector<Tile>;

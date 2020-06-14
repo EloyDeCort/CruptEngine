@@ -84,6 +84,7 @@ void crupt::BubbleBobbleScene::InitEntities()
 	pCoordinator.AddComponent<RenderableComponent>(ui, RenderableComponent{ResourceManager::GetInstance().LoadTexture("UI.png",renderer)});
 	pCoordinator.AddComponent<TransformComponent>(ui, TransformComponent{glm::vec2(0.f,0.f)});
 
+	//Initiailizing enemies & players based on gamemode
 	
 	InitPlayer1();
 	if(m_GameMode == GameMode::COOP)
@@ -321,6 +322,7 @@ void crupt::BubbleBobbleScene::InitAudio()
 
 void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 {
+	//Fixed update 
 	m_pWorldBorderSystem->PreUpdate(dt);
 
 	m_pZenchanMovementSystem->PreUpdate(dt);
@@ -338,6 +340,7 @@ void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 
 void crupt::BubbleBobbleScene::Update(float dt)
 {	
+	//Update loop
 	m_pLevelStateSystem->Update(dt);
 	m_pPlayerStateSystem->Update(dt);
 	m_pFPSSystem->Update(m_FpsCounter, dt);
@@ -349,6 +352,7 @@ void crupt::BubbleBobbleScene::Update(float dt)
 
 void crupt::BubbleBobbleScene::Render()
 {	
+	//Render loop
 	m_pTileMapSystem->Render();
 	m_pRenderSystem->Render();
 	m_pHealthDisplaySystem->Render();

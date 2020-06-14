@@ -17,6 +17,7 @@ void crupt::DropMovementSystem::PreUpdate(float dt)
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	std::vector<Entity> toDelete;
 
+	//Add a certain force to each spawned drop for a certain duration
 	for (Entity entity : m_Entities)
 	{
 		DropComponent& dropComp = coordinator->GetComponent<DropComponent>(entity);

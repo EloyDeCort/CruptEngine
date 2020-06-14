@@ -49,6 +49,7 @@ void crupt::ScoreDisplaySystem::Reset()
 
 void crupt::ScoreDisplaySystem::OnDispatch(const ScoreComponent&)
 {
+	//Changing the score for the player
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 
 	if(m_NrOfPlayers >= 1)

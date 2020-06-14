@@ -2,6 +2,7 @@
 
 namespace crupt
 {
+	//Used for zenchan, abilities, walking speed, ...
 	struct ZenchanComponent
 	{
 		Entity player1;

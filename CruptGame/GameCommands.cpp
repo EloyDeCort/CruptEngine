@@ -96,6 +96,7 @@ void crupt::SpawnBubbleCommand::Execute()
 	
 	if(m_IsMaita)
 	{
+		//Check if the player is a maita (VERSUS)
 		MaitaComponent& maitaComp = coordinator->GetComponent<MaitaComponent>(m_pPlayer);
 		/*if(maitaComp.totalTime < maitaComp.chargeCoolDown)
 		{
@@ -124,6 +125,7 @@ void crupt::SpawnBubbleCommand::Execute()
 		return;
 	}
 
+	//If not in versus mode, spawn a bubble.
 	BubbleComponent bubbleComp;
 	bubbleComp.position = playerTransComp.position;
 	bubbleComp.type = m_PlayerType;

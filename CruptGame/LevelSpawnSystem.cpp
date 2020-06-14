@@ -34,6 +34,7 @@ void crupt::LevelSpawnSystem::SetPlayer2(Entity player)
 
 void crupt::LevelSpawnSystem::OnDispatch(const LevelStateComponent& component )
 {
+	//Spawn locations for enemies per level + resetting the players
 	SpawnEnemyComponent enemyComp;
 	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
 

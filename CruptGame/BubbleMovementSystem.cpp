@@ -22,6 +22,7 @@ void BubbleMovementSystem::Update(float dt)
 
 	for (Entity entity : m_Entities)
 	{
+		//Handle Bubbles based on their current state.
 		TransformComponent& transComp = coordinator->GetComponent<TransformComponent>(entity);
 		BubbleStateComponent& bubbleStateComp = coordinator->GetComponent<BubbleStateComponent>(entity);
 		BubbleComponent& bubbleComp = coordinator->GetComponent<BubbleComponent>(entity);
@@ -81,6 +82,7 @@ void BubbleMovementSystem::Update(float dt)
 
 void crupt::BubbleMovementSystem::PreUpdate(float dt)
 {
+	//Updating the bubbles their movement
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 
 	for (Entity entity : m_Entities)
@@ -111,6 +113,7 @@ void crupt::BubbleMovementSystem::PreUpdate(float dt)
 
 void crupt::BubbleMovementSystem::SpawnEnemy(BubbleAnimState state, const glm::vec2& pos)
 {
+	//Spawning an enemy
 	SpawnEnemyComponent enemyComp;
 	switch(state)
 	{
@@ -127,6 +130,7 @@ void crupt::BubbleMovementSystem::SpawnEnemy(BubbleAnimState state, const glm::v
 
 void crupt::BubbleMovementSystem::SpawnDrop(BubbleAnimState state, const glm::vec2& pos)
 {
+	//Spawning a drop
 	DropComponent dropComp;
 	switch(state)
 	{

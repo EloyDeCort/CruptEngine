@@ -34,6 +34,7 @@ void crupt::SpawnDropSystem::OnDispatch(const DropComponent& component)
 
 void crupt::SpawnDropSystem::SpawnMelon(const glm::vec2& pos)
 {
+	//Spawn a melon
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 
 	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Drops/Melon.png",m_pRenderer);
@@ -72,6 +73,7 @@ void crupt::SpawnDropSystem::SpawnMelon(const glm::vec2& pos)
 
 void crupt::SpawnDropSystem::SpawnFries(const glm::vec2& pos)
 {
+	//Spawn fries
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 
 	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Drops/Fries.png",m_pRenderer);

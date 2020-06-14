@@ -6,6 +6,7 @@
 
 namespace crupt
 {
+	//Used for applying velocity and force
 	struct MovePhysicsComponent
 	{
 		glm::vec2 velocity{0.f,0.f};

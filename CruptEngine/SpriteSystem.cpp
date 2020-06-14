@@ -17,6 +17,7 @@ void SpriteSystem::Init()
 
 static void EntityUpdate(Entity entity, float dt)
 {
+	//Update the sprite of the entity
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	SpriteComponent& spriteComp = coordinator->GetComponent<SpriteComponent>(entity);
 	RenderableComponent& renderComp = coordinator->GetComponent<RenderableComponent>(entity);
@@ -41,6 +42,7 @@ static void EntityUpdate(Entity entity, float dt)
 
 void SpriteSystem::Update(float dt)
 {
+	//Sprites can be easily multithreaded
 	std::vector<std::future<void>> futures;
 	for (Entity entity : m_Entities)
 	{

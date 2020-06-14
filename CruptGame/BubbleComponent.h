@@ -7,6 +7,7 @@
 
 namespace crupt
 {
+	//Easy enum class to check what player has fired the bubble
 	enum class PlayerType
 	{
 		PLAYER1,

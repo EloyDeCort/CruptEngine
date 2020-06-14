@@ -2,6 +2,7 @@
 
 namespace crupt
 {
+	//Adding score per player
 	struct ScoreComponent
 	{
 		int score = 0;

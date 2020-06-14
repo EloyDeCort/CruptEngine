@@ -36,6 +36,7 @@ void crupt::InputManager::Init()
 
 crupt::InputManager::~InputManager()
 {
+	//Clearing all commands in map
 	for(std::pair<std::string, ICommand*> command : m_CommandMap)
 	{
 		delete command.second;
@@ -45,6 +46,7 @@ crupt::InputManager::~InputManager()
 	m_CommandMap.clear();
 
 
+	//Clearing keyboard states
 	if (m_pKeyboardState0 != nullptr)
 	{
 		delete[] m_pKeyboardState0;
@@ -102,6 +104,7 @@ bool crupt::InputManager::UpdateKeyboardStates()
 
 void crupt::InputManager::UpdateGamepadStates()
 {
+	//Updating connected gamepads
 	for (DWORD i = 0; i < XUSER_MAX_COUNT; ++i)
 	{
 		if (!m_ConnectedGamepads[i])
@@ -116,11 +119,13 @@ void crupt::InputManager::UpdateGamepadStates()
 
 void crupt::InputManager::AddCommand(const std::string& eventName, ICommand* pCommand)
 {
+	//Adding a command to our map
 	m_CommandMap[eventName] = pCommand;
 }
 
 bool crupt::InputManager::FindBinding(const std::string& key) const
 {
+	//We search if this particular binding is in the map. If it is, we return true
 	std::unordered_map<std::string, Binding>::const_iterator it = m_BindingMap.find(key);
 	if(it != m_BindingMap.end())
 	{
@@ -130,6 +135,7 @@ bool crupt::InputManager::FindBinding(const std::string& key) const
 }
 bool crupt::InputManager::FindCommand(const std::string& key) const
 {
+	//Find if a command is already in a map
 	std::unordered_map<std::string, ICommand*>::const_iterator it = m_CommandMap.find(key);
 	if(it != m_CommandMap.end())
 	{
@@ -140,6 +146,8 @@ bool crupt::InputManager::FindCommand(const std::string& key) const
 
 void crupt::InputManager::Reset()
 {
+
+	//Reset all commands
 	for(std::pair<std::string, ICommand*> command : m_CommandMap)
 	{
 		delete command.second;
@@ -171,6 +179,7 @@ bool crupt::InputManager::ProcessInput()
 
 void crupt::InputManager::HandleCommand(const std::string& eventName)
 {
+	//Handle the command when called
 	if(IsActivated(eventName))
 	{
 		m_CommandMap.at(eventName)->Execute();
@@ -179,6 +188,7 @@ void crupt::InputManager::HandleCommand(const std::string& eventName)
 
 bool crupt::InputManager::IsActivated(const std::string& eventName)
 {
+	//Activate command based on inputtriggerstate
 	switch(m_BindingMap.at(eventName).TriggerState)
 	{
 		case InputTriggerState::Pressed:
@@ -198,6 +208,7 @@ bool crupt::InputManager::IsActivated(const std::string& eventName)
 
 bool crupt::InputManager::IsPressed(Binding button) const
 {
+	//Check if pressed for both keyboard or gamepad
 	UINT pi = static_cast<UINT>(button.PlayerIndex);
 	if (m_ConnectedGamepads[pi])
 	{
@@ -219,6 +230,7 @@ bool crupt::InputManager::IsPressed(Binding button) const
 
 bool crupt::InputManager::IsDown(Binding button) const
 {
+	//Check if down for both keyboard or gamepad
 	UINT pi = static_cast<UINT>(button.PlayerIndex);
 	if (m_ConnectedGamepads[pi])
 	{
@@ -240,6 +252,7 @@ bool crupt::InputManager::IsDown(Binding button) const
 
 bool crupt::InputManager::IsReleased(Binding button) const
 {
+	//Check if released for both keyboard or gamepad
 	UINT pi = static_cast<UINT>(button.PlayerIndex);
 	if (m_ConnectedGamepads[pi])
 	{

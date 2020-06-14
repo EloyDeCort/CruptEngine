@@ -12,6 +12,7 @@ crupt::BubbleSpawnSystem::~BubbleSpawnSystem()
 
 void crupt::BubbleSpawnSystem::Init(SDL_Renderer* renderer)
 {
+	//Initiailize the bubble spawner
 	m_pRenderer = renderer;
 	SignalHandler<BubbleComponent>::GetInstance().AddListener(std::bind(&crupt::BubbleSpawnSystem::OnDispatch, this, std::placeholders::_1));
 	
@@ -43,6 +44,7 @@ void crupt::BubbleSpawnSystem::OnDispatch(const BubbleComponent& component)
 
 	Entity bubble = coordinator.CreateEntity();
 
+	//Spawn a bubble based on the player etc
 	switch(component.type)
 	{
 	case PlayerType::PLAYER1:

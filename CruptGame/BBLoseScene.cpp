@@ -55,6 +55,7 @@ void crupt::BBLoseScene::SceneLoaded()
 	pCoordinator.AddComponent<RenderableComponent>(menu, RenderableComponent{ResourceManager::GetInstance().LoadTexture("LoseScreen.png",renderer)});
 	pCoordinator.AddComponent<TransformComponent>(menu, TransformComponent{glm::vec3(0.f,0.f,0.f)});
 
+	//Score entities
 	Entity scoreP1 = pCoordinator.CreateEntity();
 	pCoordinator.AddComponent<RenderableComponent>(scoreP1, RenderableComponent{});
 	pCoordinator.AddComponent<ScoreComponent>(scoreP1, ScoreComponent{});

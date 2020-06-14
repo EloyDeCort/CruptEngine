@@ -25,6 +25,7 @@ void crupt::JumpSystem::Init()
 
 void crupt::JumpSystem::OnDispatch(const JumpComponent& component)
 {
+	//Perform a jump.
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(component.target);
 	BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(component.target);

@@ -16,6 +16,7 @@ namespace crupt
 	public:
 		void Initialize()
 		{
+			//Initialize all our ecs managers
 			ComponentManager::GetInstance();
 			EntityManager::GetInstance();
 			SystemManager::GetInstance();
@@ -23,6 +24,7 @@ namespace crupt
 
 		void DestroyAllEntities()
 		{
+			//Destroys all entities
 			for(size_t i{}; i < m_Entities.size(); ++i)
 			{
 				EntityManager::GetInstance().DestroyEntity(m_Entities[i]);
@@ -35,6 +37,7 @@ namespace crupt
 		//Entities
 		Entity CreateEntity()
 		{
+			//Make a new entity
 			Entity e = EntityManager::GetInstance().CreateEntity();
 			m_Entities.push_back(e);
 			return e;
@@ -52,6 +55,7 @@ namespace crupt
 		template<typename T>
 		void RegisterComponent()
 		{
+			//Register a component in the component manager
 			ComponentManager::GetInstance().RegisterComponent<T>();
 		};
 

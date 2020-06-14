@@ -4,6 +4,7 @@
 
 namespace crupt
 {
+	//Component that acts as delegate.
 	struct CollisionCallbackComponent
 	{
 		//Delegate

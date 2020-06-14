@@ -47,12 +47,14 @@ namespace crupt
 	template<typename T>
 	inline void SignalHandler<T>::AddListener(Listener listener)
 	{
+		//Add a new delegate to this specific handler
 		m_Listeners.push_back(listener);
 	}
 
 	template<typename T>
 	inline void SignalHandler<T>::Publish(T component)
 	{
+		//Call all the listeners and publish our component
 		for(size_t i{}; i < m_Listeners.size(); ++i)
 		{
 			m_Listeners[i](component);

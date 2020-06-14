@@ -13,6 +13,7 @@ namespace crupt
 	};
 
 
+	//Used for basic collision with the collison system
 	struct BoxCollisionComponent
 	{
 		SDL_Rect collisionRect;

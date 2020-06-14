@@ -2,6 +2,8 @@
 
 namespace crupt
 {
+
+	//This component will cut out straight sprites (uniform, only row based) and send it to a render component
 	struct SpriteComponent
 	{
 		unsigned int frameCount = 0;

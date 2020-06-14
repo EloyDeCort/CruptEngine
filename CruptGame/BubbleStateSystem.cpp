@@ -13,6 +13,8 @@ void crupt::BubbleStateSystem::Init()
 
 void crupt::BubbleStateSystem::OnDispatch(const BubbleStateComponent& component)
 {
+
+	//change bubble state
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 
 	SpriteComponent& spriteComp = coordinator->GetComponent<SpriteComponent>(component.target);

@@ -21,6 +21,7 @@ void PlayerStateSystem::Init()
 
 void PlayerStateSystem::Update(float dt)
 {
+	//Ensuring our state for the player is always accurate by checking their health , ...
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	std::vector<Entity> toDelete;
 	for (Entity entity : m_Entities)

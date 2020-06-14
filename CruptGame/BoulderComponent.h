@@ -2,6 +2,7 @@
 
 namespace crupt
 {
+	//Used for maita boulders
 	struct BoulderComponent
 	{
 		float speed = 120.f;

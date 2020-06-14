@@ -26,9 +26,9 @@ void TextSystem::Init(SDL_Renderer* renderer)
 	m_Renderer = renderer;
 }
 
-void TextSystem::Update(float dt)
+void TextSystem::Update(float)
 {
-	dt;
+	//Updating the text system per entity
 	ECSCoordinator& coordinator = ECSCoordinator::GetInstance();
 	for (const Entity& entity : m_Entities)
 	{
@@ -57,6 +57,7 @@ void TextSystem::Update(float dt)
 
 void TextSystem::SetText(Entity& entity, const std::string& text)
 {
+	//Setting new text
 	std::set<crupt::Entity>::iterator find = m_Entities.find(entity);
 	if(find == m_Entities.end())
 		throw std::exception("TextSystem::SetText - [ERROR] System does not contain this entity");
@@ -69,6 +70,7 @@ void TextSystem::SetText(Entity& entity, const std::string& text)
 
 void crupt::TextSystem::Reset()
 {
+	//Reset the text system
 	ECSCoordinator& coordinator = ECSCoordinator::GetInstance();
 	for (const Entity& entity : m_Entities)
 	{

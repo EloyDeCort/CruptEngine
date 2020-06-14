@@ -2,7 +2,7 @@
 
 namespace crupt
 {
-	//SIGNAL COMPONENT
+	//SIGNAL COMPONENT to ensure proper level swapping
 	struct LevelStateComponent
 	{
 		int currentLevel = 0;

@@ -50,11 +50,16 @@ void CollisionSystem::Update(float dt)
 		playerBox.rect = boxComp.collisionRect;
 		playerBox.velocity = movPhysicsComp.velocity;
 
+
+		//Looking for the lowest collision time and match the final direction for that specific collision.
+		//This is done using the swept aabb.
+		//X and Y is split up to ensure collision in both directions
 		float lowestColTimeX = 1.f;
 		float lowestColTimeY = 1.f;
 		eDirection finalDirX = eDirection::NONE;
 		eDirection finalDirY = eDirection::NONE;
 		
+		//Checking collision with the solid sides of the maps
 		for(const SDL_Rect& collision : m_TileComp->solidCollisionsMap.at(m_TileComp->currentLevel))
 		{
 			Box wallBox{};
@@ -62,6 +67,7 @@ void CollisionSystem::Update(float dt)
 			wallBox.velocity = glm::vec2{0.f,0.f};
 
 			eDirection result = eDirection::NONE;
+			//Getting the SweptAABB time
 			float collisionTime = SweptImproved(playerBox, wallBox, result);
 
 			if(collisionTime < 1.f)
@@ -92,8 +98,8 @@ void CollisionSystem::Update(float dt)
 			}
 		}
 		
-		//std::cout << int(finalDir) << std::endl;
-		
+
+		//If we ignore collisions with platforms, we do not need to run this check.
 		if(!boxComp.ignorePlatforms)
 		{
 			for(const SDL_Rect& collision : m_TileComp->platformCollisionsMap.at(m_TileComp->currentLevel))
@@ -127,6 +133,7 @@ void CollisionSystem::Update(float dt)
 			}
 		}
 
+		//Check if we want to collide with enemies
 		if(!boxComp.ignoreEntities)
 		{
 			for (Entity entity2 : m_Entities)
@@ -175,6 +182,7 @@ void CollisionSystem::Update(float dt)
 			}
 		}
 
+		//Set the lowest entry times on the current collision component.
 		boxComp.entryTimeX = lowestColTimeX;
 		boxComp.entryTimeY = lowestColTimeY;
 		boxComp.colDirX = finalDirX;	
@@ -189,6 +197,7 @@ void crupt::CollisionSystem::Reset()
 
 bool crupt::CollisionSystem::IsColliding(const Box& obj, const Box& other)
 {
+	//AABB check
 	float left = float(other.rect.x - (obj.rect.x + obj.rect.w));
 	float top = float((other.rect.y + other.rect.h) - obj.rect.y);
 	float right = float((other.rect.x + other.rect.w) - obj.rect.x);
@@ -201,6 +210,7 @@ bool crupt::CollisionSystem::IsColliding(const Box& obj, const Box& other)
 
 float crupt::CollisionSystem::SweptImproved(const Box& obj, const Box& other, eDirection& colDirection, bool platform)
 {
+	//SWEPT AABB Algorithm to check collision and ensure no ghosting/
 	float dxEntry{}, dxExit{};
 	float dyEntry{}, dyExit{};
 
@@ -313,6 +323,8 @@ float crupt::CollisionSystem::SweptImproved(const Box& obj, const Box& other, eD
 
 Box crupt::CollisionSystem::GetSweptBroadphase(const Box& object)
 {
+	//Make a box from one collision object to the other object.
+	//This is used to optimize our checks.
 	SDL_Rect result;
 	result.x = object.velocity.x > 0.f ? int(object.rect.x) : int(object.rect.x + object.velocity.x);
 	result.y = object.velocity.y > 0.f ? int(object.rect.y) : int(object.rect.y + object.velocity.y);
