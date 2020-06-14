@@ -16,7 +16,7 @@ RenderSystem::~RenderSystem()
 
 void RenderSystem::Init(SDL_Window * window)
 {
-	m_Renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED /*| SDL_RENDERER_PRESENTVSYNC*/);
+	m_Renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (m_Renderer == nullptr) 
 	{
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
@@ -42,7 +42,7 @@ void RenderSystem::Render()
 		RenderTexture(*renderable.pTexture, pos.x, pos.y, &renderable.srcRect, renderable.scaleFactor, renderable.flip);
 	}
 	
-	//ImGuiDebug();
+	ImGuiDebug();
 
 	//SDL_RenderPresent(m_Renderer);
 }
