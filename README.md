@@ -54,3 +54,16 @@ This is a small demo game showcasing the usage of the engine.
 It goes through the most important factors: Initializing systems, components, registering them,...
 
 It also goes through a more in-depth view on how to use the collision systems to create entity specific callbacks.
+
+#Controls:
+
+Player1:
+
+- [A & D or DPAD on controller:] Move Left/Right
+- [SPACE or A on controller:] Jumping
+- [LSHIFT or X on controller:] Fire
+
+Player2
+- [LEFT Key & RIGHT Key or DPAD on controller:] Move Left/Right
+- [UP Key or A on controller:] Jumping
+- [RCTRL or X on controller:] Fire
