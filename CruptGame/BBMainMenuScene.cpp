@@ -1,22 +1,15 @@
 #include "CruptEnginePCH.h"
 #include "BBMainMenuScene.h"
-#include "Components.h"
-#include "ResourceManager.h"
-#include "InputManager.h"
-#include "GameSystems.h"
-#include "GameComponents.h"
-#include "SceneManager.h"
-#include "BubbleBobbleScene.h"
 #include "SoundManager.h"
 #include "MenuCommands.h"
-#include <SDL.h>
+#include "InputManager.h"
+#include "ResourceManager.h"
 
 
 #include <iostream>
 
 crupt::BBMainMenuScene::BBMainMenuScene()
 	: GameScene(L"BBMainMenuScene")
-	,m_GameScene{nullptr}
 {
 	InitAudio();
 }
@@ -35,14 +28,16 @@ void crupt::BBMainMenuScene::Init()
 
 	InputManager& inputManager = InputManager::GetInstance();
 
-	inputManager.AddBinding("StartSingle", Binding{ControllerButton::ButtonA, '1', InputTriggerState::Pressed, GamepadIndex::PlayerTwo});
+	inputManager.AddBinding("StartSingle", Binding{ControllerButton::ButtonA, '1', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
 	inputManager.AddCommand("StartSingle", new SingleCommand());
 
+	inputManager.AddBinding("StartCoOp", Binding{ControllerButton::ButtonX, '2', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+	inputManager.AddCommand("StartCoOp", new CoOpCommand());
 }
 
-void crupt::BBMainMenuScene::Update(float dt)
+void crupt::BBMainMenuScene::Update(float)
 {
-	m_TotalTime += dt;
+	//m_TotalTime += dt;
 	//crupt::SceneManager& sceneManager = SceneManager::GetInstance();
 	//if(m_TotalTime >= 2.f)
 	//{
@@ -63,7 +58,7 @@ void crupt::BBMainMenuScene::Render()
 
 void crupt::BBMainMenuScene::SceneLoaded()
 {
-	//Play Sound
+	////Play Sound
 	auto pFmodSystem = SoundManager::GetInstance().GetSystem();
 	FMOD_RESULT fmodResult;
 	fmodResult = pFmodSystem->playSound(m_pBGMusic, m_pChannelGroup, false , &m_pChannel);

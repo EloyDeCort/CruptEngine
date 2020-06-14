@@ -1,11 +1,8 @@
 #pragma once
 #include "GameScene.h"
-#include "Tileset.hpp"
-#include <map>
 
 namespace crupt
 {
-	class TileMapSystem;
 	class BBMainMenuScene : public GameScene
 	{
 	public:
@@ -20,7 +17,6 @@ namespace crupt
 		void InitAudio();
 
 		//Systems
-		GameScene* m_GameScene;
 		RenderSystem* m_pRenderSystem;
 		float m_TotalTime;
 

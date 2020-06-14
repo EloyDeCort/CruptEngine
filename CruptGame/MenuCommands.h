@@ -16,4 +16,15 @@ namespace crupt
 	private:
 		
 	};
+
+	class CoOpCommand : public ICommand
+	{
+	public:
+		CoOpCommand();	
+		virtual ~CoOpCommand();
+
+		virtual void Execute() override;
+	private:
+		
+	};
 }

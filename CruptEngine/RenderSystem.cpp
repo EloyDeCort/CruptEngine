@@ -42,7 +42,7 @@ void RenderSystem::Render()
 		RenderTexture(*renderable.pTexture, pos.x, pos.y, &renderable.srcRect, renderable.scaleFactor, renderable.flip);
 	}
 	
-	ImGuiDebug();
+	//ImGuiDebug();
 
 	//SDL_RenderPresent(m_Renderer);
 }

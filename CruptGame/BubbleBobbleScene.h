@@ -36,7 +36,9 @@ namespace crupt
 		virtual void FixedUpdate(float dt) override;
 		virtual void Render() override;
 		virtual void SceneLoaded() override;
+		void SetGameMode(GameMode gamemode);
 		virtual void SceneUnloaded() override;
+
 	private:
 		void InitSystems();
 		void InitEntities();
@@ -76,7 +78,7 @@ namespace crupt
 
 		Entity m_Player1;
 		Entity m_Player2;
-
+	
 		FMOD::Channel* m_pChannel;
 		FMOD::Sound* m_pBGMusic;
 		FMOD::ChannelGroup* m_pChannelGroup;

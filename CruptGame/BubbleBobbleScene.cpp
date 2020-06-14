@@ -19,12 +19,12 @@ crupt::BubbleBobbleScene::BubbleBobbleScene()
 	: GameScene(L"BubbleBobbleScene")
 	, m_FpsCounter{}
 {
+	m_GameMode = GameMode::SINGLE;
 	InitAudio();
 }
 
 void crupt::BubbleBobbleScene::Init()
 {
-	m_GameMode = GameMode::SINGLE;
 
 	InitSystems();
 	InitEntities();
@@ -302,5 +302,10 @@ void crupt::BubbleBobbleScene::SceneUnloaded()
 
 	ECSCoordinator& pCoordinator = crupt::ECSCoordinator::GetInstance();
 	pCoordinator.DestroyAllEntities();
+}
+
+void crupt::BubbleBobbleScene::SetGameMode(GameMode gamemode)
+{
+	m_GameMode = gamemode;
 }
 
