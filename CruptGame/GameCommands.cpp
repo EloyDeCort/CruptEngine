@@ -1,14 +1,21 @@
+#include "CruptEnginePCH.h"
 #include "GameCommands.h"
 #include "Components.h"
 #include "GameComponents.h"
 #include "ECSCoordinator.h"
+#include "SoundManager.h"
 #include "SignalHandler.h"
 
 crupt::JumpCommand::JumpCommand(Entity pReceiver)
 	: ICommand{"JumpCommand"}
 	, m_pReceiver{pReceiver}
 {
-	
+	//INIT Audio
+	FMOD_RESULT fmodResult;
+	auto pFmodSystem = SoundManager::GetInstance().GetSystem();
+	fmodResult = pFmodSystem->createStream("../Data/Sound/SFX/Jump.wav", FMOD_DEFAULT, 0, &m_pSoundEffect);
+	SoundManager::GetInstance().ErrorCheck(fmodResult);
+	m_pSoundEffect->setMode(FMOD_LOOP_OFF);
 }
 
 crupt::JumpCommand::~JumpCommand()
@@ -19,6 +26,12 @@ void crupt::JumpCommand::Execute()
 {
 	JumpComponent jumpComp;
 	jumpComp.target = m_pReceiver;
+
+	////Play Sound
+	auto pFmodSystem = SoundManager::GetInstance().GetSystem();
+	FMOD_RESULT fmodResult;
+	fmodResult = pFmodSystem->playSound(m_pSoundEffect, nullptr, false , &m_pChannel);
+	SoundManager::GetInstance().ErrorCheck(fmodResult);
 
 	SignalHandler<JumpComponent>::GetInstance().Publish(jumpComp);
 }

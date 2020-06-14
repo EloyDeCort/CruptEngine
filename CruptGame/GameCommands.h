@@ -13,6 +13,8 @@ namespace crupt
 		virtual void Execute() override;
 	private:
 		Entity m_pReceiver;
+		FMOD::Channel* m_pChannel;
+		FMOD::Sound* m_pSoundEffect;
 	};
 
 	class MoveLeftCommand : public ICommand

@@ -25,6 +25,16 @@ namespace crupt
 
 		virtual void Execute() override;
 	private:
+	};
+
+	class ToMainMenuCommand : public ICommand
+	{
+	public:
+		ToMainMenuCommand();	
+		virtual ~ToMainMenuCommand();
+
+		virtual void Execute() override;
+	private:
 		
 	};
 }

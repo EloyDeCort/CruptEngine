@@ -2,6 +2,13 @@
 #include "System.h"
 #include "GameComponents.h"
 #include "Components.h"
+#include "fmod.h"
+
+namespace FMOD
+{
+	class Channel;
+	class Sound;
+}
 
 namespace crupt
 {
@@ -9,6 +16,7 @@ namespace crupt
 	class CollisionCallbackSystem : public System
 	{
 	public:
+		CollisionCallbackSystem();
 		virtual ~CollisionCallbackSystem();
 		void Init();
 		void AddEntityCallback(Entity entity);
@@ -22,6 +30,9 @@ namespace crupt
 		void OnDropCallback(Entity self, Entity collider, eDirection direction);
 
 	private:
+		FMOD::Channel* m_pChannel;
+		FMOD::Sound* m_pPickupEffect;
+		FMOD::Sound* m_pDamageEffect;
 		ECSCoordinator* m_pCoordinator;
 	};
 }

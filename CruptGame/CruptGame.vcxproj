@@ -170,7 +170,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BBLoseScene.cpp" />
     <ClCompile Include="BBMainMenuScene.cpp" />
+    <ClCompile Include="BBWinScene.cpp" />
     <ClCompile Include="BubbleBobbleScene.cpp" />
     <ClCompile Include="BubbleMovementSystem.cpp" />
     <ClCompile Include="BubbleSpawnSystem.cpp" />
@@ -202,7 +204,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BBLoseScene.h" />
     <ClInclude Include="BBMainMenuScene.h" />
+    <ClInclude Include="BBWinScene.h" />
     <ClInclude Include="BoulderComponent.h" />
     <ClInclude Include="BubbleBobbleScene.h" />
     <ClInclude Include="BubbleComponent.h" />

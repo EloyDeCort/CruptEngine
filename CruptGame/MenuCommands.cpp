@@ -1,5 +1,6 @@
 #include "CruptEnginePCH.h"
 #include "MenuCommands.h"
+#include "BBMainMenuScene.h"
 #include "BubbleBobbleScene.h"
 #include "SceneManager.h"
 
@@ -35,4 +36,18 @@ void crupt::CoOpCommand::Execute()
 	bubBobScene->SetGameMode(GameMode::COOP);
 
 	SceneManager::GetInstance().SetActiveScene(L"BubbleBobbleScene");
+}
+
+crupt::ToMainMenuCommand::ToMainMenuCommand()
+	: ICommand("ToMainMenuCommand")
+{
+}
+
+crupt::ToMainMenuCommand::~ToMainMenuCommand()
+{
+}
+
+void crupt::ToMainMenuCommand::Execute()
+{
+	SceneManager::GetInstance().SetActiveScene(L"BBMainMenuScene");
 }

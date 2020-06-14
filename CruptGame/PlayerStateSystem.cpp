@@ -3,6 +3,7 @@
 #include "GameComponents.h"
 #include "Components.h"
 #include "ECSCoordinator.h"
+#include "SceneManager.h"
 using namespace crupt;
 
 PlayerStateSystem::~PlayerStateSystem()
@@ -31,8 +32,8 @@ void PlayerStateSystem::Update(float dt)
 		
 		if(healthComp.dead)
 		{
-			//stateComp.animationState = PlayerAnimState::IDLE;
-			//return;
+			SceneManager::GetInstance().SetActiveScene(L"BBLoseScene");
+			return;
 		}
 
 		if(healthComp.gotHit)

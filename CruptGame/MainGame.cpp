@@ -4,6 +4,8 @@
 #include "DemoScene.h"
 #include "BubbleBobbleScene.h"
 #include "BBMainMenuScene.h"
+#include "BBLoseScene.h"
+#include "BBWinScene.h"
 #include "GameComponents.h"
 #include "Components.h"
 #include "GameSystems.h"
@@ -17,6 +19,8 @@ void crupt::MainGame::InitGame()
 
 	//Adding of scenes
 	sceneManager.AddScene(new BBMainMenuScene());
+	sceneManager.AddScene(new BBLoseScene());
+	sceneManager.AddScene(new BBWinScene());
 	sceneManager.AddScene(new BubbleBobbleScene());
 	sceneManager.SetActiveScene(L"BBMainMenuScene");
 }

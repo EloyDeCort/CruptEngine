@@ -1,11 +1,23 @@
-#include "CollisionCallbackSystem.h"
 #include "CruptEnginePCH.h"
+#include "CollisionCallbackSystem.h"
 #include "PlayerStateSystem.h"
-#include "GameComponents.h"
-#include "Components.h"
 #include "ECSCoordinator.h"
 #include "SignalHandler.h"
+#include "SoundManager.h"
 
+crupt::CollisionCallbackSystem::CollisionCallbackSystem()
+{
+	//INIT Audio
+	FMOD_RESULT fmodResult;
+	auto pFmodSystem = SoundManager::GetInstance().GetSystem();
+	fmodResult = pFmodSystem->createStream("../Data/Sound/SFX/Pickup.wav", FMOD_DEFAULT, 0, &m_pPickupEffect);
+	SoundManager::GetInstance().ErrorCheck(fmodResult);
+	m_pPickupEffect->setMode(FMOD_LOOP_OFF);
+
+	fmodResult = pFmodSystem->createStream("../Data/Sound/SFX/Damage.wav", FMOD_DEFAULT, 0, &m_pDamageEffect);
+	SoundManager::GetInstance().ErrorCheck(fmodResult);
+	m_pDamageEffect->setMode(FMOD_LOOP_OFF);
+}
 
 crupt::CollisionCallbackSystem::~CollisionCallbackSystem()
 {
@@ -105,10 +117,23 @@ void crupt::CollisionCallbackSystem::OnPlayerCallback(Entity self, Entity collid
 		if(healthComp.currentHealth <= 0)
 		{
 			healthComp.dead = true;
+			return;
 		}
+
+		//Play Sound
+		auto pFmodSystem = SoundManager::GetInstance().GetSystem();
+		FMOD_RESULT fmodResult;
+		fmodResult = pFmodSystem->playSound(m_pDamageEffect, nullptr, false , &m_pChannel);
+		SoundManager::GetInstance().ErrorCheck(fmodResult);
 	}
 	else if(m_pCoordinator->HasComponent<DropComponent>(collider))
 	{
+		//Play Sound
+		auto pFmodSystem = SoundManager::GetInstance().GetSystem();
+		FMOD_RESULT fmodResult;
+		fmodResult = pFmodSystem->playSound(m_pPickupEffect, nullptr, false , &m_pChannel);
+		SoundManager::GetInstance().ErrorCheck(fmodResult);
+
 		DropComponent& dropComp = m_pCoordinator->GetComponent<DropComponent>(collider);
 		ScoreComponent& playerScore = m_pCoordinator->GetComponent<ScoreComponent>(self);
 
@@ -128,7 +153,14 @@ void crupt::CollisionCallbackSystem::OnPlayerCallback(Entity self, Entity collid
 		if(healthComp.currentHealth <= 0)
 		{
 			healthComp.dead = true;
+			return;
 		}
+
+		//Play Sound
+		auto pFmodSystem = SoundManager::GetInstance().GetSystem();
+		FMOD_RESULT fmodResult;
+		fmodResult = pFmodSystem->playSound(m_pDamageEffect, nullptr, false , &m_pChannel);
+		SoundManager::GetInstance().ErrorCheck(fmodResult);
 	}
 }
 

@@ -99,6 +99,12 @@
     <ClCompile Include="MenuCommands.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="BBLoseScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="BBWinScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DemoScene.h">
@@ -223,6 +229,12 @@
     </ClInclude>
     <ClInclude Include="MenuCommands.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BBLoseScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="BBWinScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

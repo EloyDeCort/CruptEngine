@@ -42,7 +42,7 @@ void crupt::LevelStateSystem::Update(float dt)
 		else
 		{
 			//END GAME. (Go To End Screen)
-			SceneManager::GetInstance().SetActiveScene(L"BBMainMenuScene");
+			SceneManager::GetInstance().SetActiveScene(L"BBWinScene");
 			return;
 		}
 
