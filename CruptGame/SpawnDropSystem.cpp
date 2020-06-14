@@ -26,6 +26,10 @@ void crupt::SpawnDropSystem::OnDispatch(const DropComponent& component)
 	{
 		SpawnMelon(component.pos);
 	}
+	else if(component.type == DropType::FRIES)
+	{
+		SpawnFries(component.pos);
+	}
 }
 
 void crupt::SpawnDropSystem::SpawnMelon(const glm::vec2& pos)
@@ -64,4 +68,42 @@ void crupt::SpawnDropSystem::SpawnMelon(const glm::vec2& pos)
 
 	coordinator->AddComponent<DropComponent>(melonDrop, dropComp);
 	m_pCollisionCallbackSystem->AddEntityCallback(melonDrop);
+}
+
+void crupt::SpawnDropSystem::SpawnFries(const glm::vec2& pos)
+{
+	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
+
+	Texture2D* defaultAnim = ResourceManager::GetInstance().LoadTexture("Drops/Fries.png",m_pRenderer);
+
+	SpriteComponent spriteComp{};
+	spriteComp.animationRate = 1; 
+	spriteComp.scaleFactor = 2; 
+	spriteComp.frameCount = 1; 
+
+	Entity friesDrop = coordinator->CreateEntity();
+
+	coordinator->AddComponent<SpriteComponent>(friesDrop, spriteComp);
+	coordinator->AddComponent<EntityComponent>(friesDrop, EntityComponent{});
+	coordinator->AddComponent<RenderableComponent>(friesDrop, RenderableComponent{defaultAnim});
+
+	float yPos = pos.y;
+	if(yPos > m_MaxYOffset)
+	{
+		//reduce by collision size
+		yPos -= 32.f;
+	}
+	coordinator->AddComponent<TransformComponent>(friesDrop, TransformComponent{{pos.x, yPos}});
+	coordinator->AddComponent<MovePhysicsComponent>(friesDrop, MovePhysicsComponent{});
+	coordinator->AddComponent<GravityComponent>(friesDrop, GravityComponent{});
+	coordinator->AddComponent<BoxCollisionComponent>(friesDrop, BoxCollisionComponent{0,0,32,32});
+	coordinator->AddComponent<CollisionCallbackComponent>(friesDrop, CollisionCallbackComponent{});
+	DropComponent dropComp = DropComponent{};
+	dropComp.pos = pos;
+	dropComp.score = m_FriesScore;
+	dropComp.type = DropType::FRIES;
+
+
+	coordinator->AddComponent<DropComponent>(friesDrop, dropComp);
+	m_pCollisionCallbackSystem->AddEntityCallback(friesDrop);
 }

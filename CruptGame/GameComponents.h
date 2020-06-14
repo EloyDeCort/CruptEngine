@@ -14,6 +14,7 @@
 //Enemy components
 #include "EnemyComponent.h"
 #include "ZenchanComponent.h"
+#include "MaitaComponent.h"
 #include "SpawnEnemyComponent.h"
 
 //Drop components
@@ -23,3 +24,6 @@
 //Level Related
 #include "EntityComponent.h"
 #include "LevelStateComponent.h"
+
+//Boulder
+#include "BoulderComponent.h"

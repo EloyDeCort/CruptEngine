@@ -53,18 +53,38 @@ void crupt::LevelSpawnSystem::OnDispatch(const LevelStateComponent& component )
 	switch(component.currentLevel)
 	{
 	case 1:
-		enemyComp.type = EnemyType::ZENCHAN;
-		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f,100.f};
+		enemyComp.type = EnemyType::MAITA;
+		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f,60.f};
+		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
+		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f - 40.f,80.f};
+		enemyComp.flip = true;
+		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
+		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f + 40.f,100.f};
+		enemyComp.flip = false;
 		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
 		break;
 	case 2:
 		enemyComp.type = EnemyType::ZENCHAN;
-		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f,100.f};
+		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f + 10.f,60.f};
+		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
+		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f + 50.f,120.f};
+		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
+		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f - 25.f,60.f};
+		enemyComp.flip = true;
+		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
+		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f - 55.f,120.f};
 		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
 		break;
 	case 3:
 		enemyComp.type = EnemyType::ZENCHAN;
-		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f,100.f};
+		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f - 120.f,60.f};
+		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
+		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f - 180.f,150.f};
+		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
+		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f + 110.f,60.f};
+		enemyComp.flip = true;
+		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
+		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f + 180.f,150.f};
 		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
 		break;
 	}

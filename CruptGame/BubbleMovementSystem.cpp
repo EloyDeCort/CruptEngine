@@ -42,6 +42,15 @@ void BubbleMovementSystem::Update(float dt)
 				continue;
 			}
 		}
+		else if(bubbleStateComp.animationState == BubbleAnimState::MAITA)
+		{
+			if(bubbleComp.totalTime > bubbleComp.maxLifeTime)
+			{
+				SpawnEnemy(bubbleStateComp.animationState, transComp.position);
+				toDelete.push_back(entity);
+				continue;
+			}
+		}
 
 		BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
 		MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(entity);
@@ -104,6 +113,9 @@ void crupt::BubbleMovementSystem::SpawnEnemy(BubbleAnimState state, const glm::v
 	case BubbleAnimState::ZENCHAN:
 		enemyComp.type = EnemyType::ZENCHAN;
 		break;
+	case BubbleAnimState::MAITA:
+		enemyComp.type = EnemyType::MAITA;
+		break;
 	}
 	enemyComp.spawnPos = pos;
 	SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
@@ -116,6 +128,9 @@ void crupt::BubbleMovementSystem::SpawnDrop(BubbleAnimState state, const glm::ve
 	{
 	case BubbleAnimState::ZENCHAN:
 		dropComp.type = DropType::MELON;
+		break;
+	case BubbleAnimState::MAITA:
+		dropComp.type = DropType::FRIES;
 		break;
 	}
 	dropComp.pos = pos;

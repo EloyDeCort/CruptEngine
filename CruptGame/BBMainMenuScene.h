@@ -17,7 +17,6 @@ namespace crupt
 		virtual void SceneLoaded() override;
 		virtual void SceneUnloaded() override;
 	private:
-
 		//Systems
 		GameScene* m_GameScene;
 		RenderSystem* m_pRenderSystem;

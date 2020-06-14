@@ -171,29 +171,29 @@ void crupt::TileMapSystem::Render()
 		RenderTexture(*m_TileComp->pTileTextures[tile.id - 1], float(tile.xPos), float(tile.yPos));
 	}
 
-	//Solid Collision DEBUG
-	if(!m_TileComp->solidCollisionsMap.empty())
-	{
-		for(auto& collision : m_TileComp->solidCollisionsMap.at(m_TileComp->currentLevel))
-		{
-			SDL_SetRenderDrawColor(m_pRenderer, 0, 255, 0, 255);
-			SDL_RenderDrawRect(m_pRenderer, &collision);
+	////Solid Collision DEBUG
+	//if(!m_TileComp->solidCollisionsMap.empty())
+	//{
+	//	for(auto& collision : m_TileComp->solidCollisionsMap.at(m_TileComp->currentLevel))
+	//	{
+	//		SDL_SetRenderDrawColor(m_pRenderer, 0, 255, 0, 255);
+	//		SDL_RenderDrawRect(m_pRenderer, &collision);
 
-			SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
-		}
-	}
+	//		SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
+	//	}
+	//}
 
-	//Platform Collision DEBUG
-	if(!m_TileComp->platformCollisionsMap.empty())
-	{
-		for(auto& collision : m_TileComp->platformCollisionsMap.at(m_TileComp->currentLevel))
-		{
-			SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 255, 255);
-			SDL_RenderDrawRect(m_pRenderer, &collision);
+	////Platform Collision DEBUG
+	//if(!m_TileComp->platformCollisionsMap.empty())
+	//{
+	//	for(auto& collision : m_TileComp->platformCollisionsMap.at(m_TileComp->currentLevel))
+	//	{
+	//		SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 255, 255);
+	//		SDL_RenderDrawRect(m_pRenderer, &collision);
 
-			SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
-		}
-	}
+	//		SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
+	//	}
+	//}
    
 }
 

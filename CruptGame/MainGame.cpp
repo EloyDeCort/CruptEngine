@@ -30,6 +30,7 @@ void crupt::MainGame::RegisterAdditionalComponents()
 	pCoordinator.RegisterComponent<MoveComponent>();
 	pCoordinator.RegisterComponent<BubbleComponent>();
 	pCoordinator.RegisterComponent<ZenchanComponent>();
+	pCoordinator.RegisterComponent<MaitaComponent>();
 	pCoordinator.RegisterComponent<BubbleStateComponent>();
 	pCoordinator.RegisterComponent<SpawnEnemyComponent>();
 	pCoordinator.RegisterComponent<HealthComponent>();
@@ -38,6 +39,7 @@ void crupt::MainGame::RegisterAdditionalComponents()
 	pCoordinator.RegisterComponent<ScoreComponent>();
 	pCoordinator.RegisterComponent<LevelStateComponent>();
 	pCoordinator.RegisterComponent<EntityComponent>();
+	pCoordinator.RegisterComponent<BoulderComponent>();
 }
 
 void crupt::MainGame::RegisterAdditionalSystems()
@@ -98,11 +100,20 @@ void crupt::MainGame::RegisterAdditionalSystems()
 		pCoordinator.SetSystemSignature<CollisionCallbackSystem>(signature);
 	}
 
-	ZenchanMovementSystem* pMaitaMovementSystem = pCoordinator.RegisterSystem<ZenchanMovementSystem>();
+	ZenchanMovementSystem* pZenchanMovementSystem = pCoordinator.RegisterSystem<ZenchanMovementSystem>();
 	{
 		Signature signature;
 		signature.set(pCoordinator.GetComponentType<ZenchanComponent>());
 		pCoordinator.SetSystemSignature<ZenchanMovementSystem>(signature);
+	}
+	pZenchanMovementSystem->Init();
+
+	
+	MaitaMovementSystem* pMaitaMovementSystem = pCoordinator.RegisterSystem<MaitaMovementSystem>();
+	{
+		Signature signature;
+		signature.set(pCoordinator.GetComponentType<MaitaComponent>());
+		pCoordinator.SetSystemSignature<MaitaMovementSystem>(signature);
 	}
 	pMaitaMovementSystem->Init();
 
@@ -188,4 +199,13 @@ void crupt::MainGame::RegisterAdditionalSystems()
 	}
 
 	pWorldBorderSystem->Init();
+
+	SpawnBoulderSystem* pSpawnBoulderSystem = pCoordinator.RegisterSystem<SpawnBoulderSystem>();
+	{
+		Signature signature;
+		//Using enemies to check how many are left.
+		signature.set(pCoordinator.GetComponentType<BoulderComponent>());
+		pCoordinator.SetSystemSignature<SpawnBoulderSystem>(signature);
+	}
+	pSpawnBoulderSystem->Init(m_pRenderSystem->GetSDLRenderer(),colCallbackSystem);
 }

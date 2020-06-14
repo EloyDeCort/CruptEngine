@@ -7,6 +7,7 @@
 #include "BubbleMovementSystem.h"
 #include "CollisionCallbackSystem.h"
 #include "ZenchanMovementSystem.h"
+#include "MaitaMovementSystem.h"
 #include "SpawnEnemySystem.h"
 #include "HealthDisplaySystem.h"
 #include "SpawnDropSystem.h"
@@ -14,4 +15,5 @@
 #include "ScoreDisplaySystem.h"
 #include "LevelStateSystem.h"
 #include "LevelSpawnSystem.h"
+#include "SpawnBoulderSystem.h"
 #include "WorldBorderSystem.h"

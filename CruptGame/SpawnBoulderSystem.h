@@ -7,23 +7,17 @@ struct SDL_Renderer;
 namespace crupt
 {
 	class CollisionCallbackSystem;
-	class SpawnDropSystem : public System
+	class SpawnBoulderSystem : public System
 	{
 	public:
-		virtual ~SpawnDropSystem();
+		virtual ~SpawnBoulderSystem();
 		void Init(SDL_Renderer* renderer, CollisionCallbackSystem* colCallbackSystem);
-		void OnDispatch(const DropComponent& component);
+		void PreUpdate(float dt);
+		void OnDispatch(const BoulderComponent& component);
 
 	private:
-		void SpawnMelon(const glm::vec2& pos);
-		void SpawnFries(const glm::vec2& pos);
 		SDL_Renderer* m_pRenderer;
 		CollisionCallbackSystem* m_pCollisionCallbackSystem;
-
-		int m_MelonScore;
-		int m_FriesScore;
-
-		float m_MaxYOffset;
 	};
 }
 

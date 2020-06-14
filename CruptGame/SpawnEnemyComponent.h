@@ -17,5 +17,6 @@ namespace crupt
 	{
 		EnemyType type = EnemyType::ZENCHAN;
 		glm::vec2 spawnPos = {0.f,0.f};
+		bool flip = false;
 	};
 }

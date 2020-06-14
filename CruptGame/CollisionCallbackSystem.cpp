@@ -32,9 +32,17 @@ void crupt::CollisionCallbackSystem::Init()
 		{
 			callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnZenchanCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
 		}
+		else if(m_pCoordinator->HasComponent<MaitaComponent>(entity))
+		{
+			callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnMaitaCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
+		}
 		else if(m_pCoordinator->HasComponent<DropComponent>(entity))
 		{
 			callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnDropCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
+		}
+		else if(m_pCoordinator->HasComponent<BoulderComponent>(entity))
+		{
+			callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnBoulderCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
 		}
 	}
 }
@@ -56,9 +64,17 @@ void crupt::CollisionCallbackSystem::AddEntityCallback(Entity entity)
 	{
 		callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnZenchanCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
 	}
+	else if(m_pCoordinator->HasComponent<MaitaComponent>(entity))
+	{
+		callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnMaitaCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
+	}
 	else if(m_pCoordinator->HasComponent<DropComponent>(entity))
 	{
 		callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnDropCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
+	}
+	else if(m_pCoordinator->HasComponent<BoulderComponent>(entity))
+	{
+		callBackComp.onCollision = std::bind(&crupt::CollisionCallbackSystem::OnBoulderCallback, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
 	}
 }
 
@@ -101,6 +117,19 @@ void crupt::CollisionCallbackSystem::OnPlayerCallback(Entity self, Entity collid
 
 		SignalHandler<ScoreComponent>::GetInstance().Publish(playerScore);
 	}
+	else if(m_pCoordinator->HasComponent<BoulderComponent>(collider))
+	{
+		HealthComponent& healthComp = m_pCoordinator->GetComponent<HealthComponent>(self);
+		if(healthComp.gotHit)
+			return;
+
+		healthComp.currentHealth--;
+		healthComp.gotHit = true;
+		if(healthComp.currentHealth <= 0)
+		{
+			healthComp.dead = true;
+		}
+	}
 }
 
 void crupt::CollisionCallbackSystem::OnBubbleCallback(Entity , Entity , eDirection )
@@ -116,6 +145,10 @@ void crupt::CollisionCallbackSystem::OnZenchanCallback(Entity self, Entity colli
 {
 	if(m_pCoordinator->HasComponent<BubbleComponent>(collider))
 	{
+		const BubbleStateComponent& bubbleStateComp = m_pCoordinator->GetComponent<BubbleStateComponent>(collider);
+		if(bubbleStateComp.animationState != BubbleAnimState::NORMAL)
+			return;
+
 		m_pCoordinator->GetComponent<ZenchanComponent>(self).shouldDie = true;
 		
 		BubbleStateComponent stateComp;
@@ -123,6 +156,32 @@ void crupt::CollisionCallbackSystem::OnZenchanCallback(Entity self, Entity colli
 		stateComp.animationState = BubbleAnimState::ZENCHAN;
 
 		SignalHandler<BubbleStateComponent>::GetInstance().Publish(stateComp);
+	}
+}
+
+void crupt::CollisionCallbackSystem::OnMaitaCallback(Entity self, Entity collider, eDirection)
+{
+	if(m_pCoordinator->HasComponent<BubbleComponent>(collider))
+	{
+		const BubbleStateComponent& bubbleStateComp = m_pCoordinator->GetComponent<BubbleStateComponent>(collider);
+		if(bubbleStateComp.animationState != BubbleAnimState::NORMAL)
+			return;
+
+		m_pCoordinator->GetComponent<MaitaComponent>(self).shouldDie = true;
+		
+		BubbleStateComponent stateComp;
+		stateComp.target = collider;
+		stateComp.animationState = BubbleAnimState::MAITA;
+
+		SignalHandler<BubbleStateComponent>::GetInstance().Publish(stateComp);
+	}
+}
+
+void crupt::CollisionCallbackSystem::OnBoulderCallback(Entity self, Entity, eDirection direction)
+{
+	if(direction == eDirection::LEFT || direction == eDirection::RIGHT)
+	{
+		m_pCoordinator->GetComponent<BoulderComponent>(self).shouldDestroy = true;
 	}
 }
 

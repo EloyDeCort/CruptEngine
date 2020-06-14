@@ -23,7 +23,7 @@ crupt::BubbleBobbleScene::BubbleBobbleScene()
 
 void crupt::BubbleBobbleScene::Init()
 {
-	m_GameMode = GameMode::COOP;
+	m_GameMode = GameMode::SINGLE;
 
 	InitTextures();
 	InitSystems();
@@ -48,6 +48,7 @@ void crupt::BubbleBobbleScene::InitSystems()
 	m_pPlayerStateSystem = pCoordinator.GetSystem<PlayerStateSystem>();
 	m_pBubbleMovementSystem = pCoordinator.GetSystem<BubbleMovementSystem>();
 	m_pZenchanMovementSystem = pCoordinator.GetSystem<ZenchanMovementSystem>();
+	m_pMaitaMovementSystem = pCoordinator.GetSystem<MaitaMovementSystem>();
 	m_pSpawnEnemySystem = pCoordinator.GetSystem<SpawnEnemySystem>();
 	m_pHealthDisplaySystem = pCoordinator.GetSystem<HealthDisplaySystem>();
 	m_pScoreDisplaySystem = pCoordinator.GetSystem<ScoreDisplaySystem>();
@@ -55,6 +56,7 @@ void crupt::BubbleBobbleScene::InitSystems()
 	m_pLevelStateSystem = pCoordinator.GetSystem<LevelStateSystem>();
 	m_pWorldBorderSystem = pCoordinator.GetSystem<WorldBorderSystem>();
 	m_pLevelSpawnSystem = pCoordinator.GetSystem<LevelSpawnSystem>();
+	m_pSpawnBoulderSystem = pCoordinator.GetSystem<SpawnBoulderSystem>();
 }
 
 void crupt::BubbleBobbleScene::InitEntities()
@@ -89,8 +91,6 @@ void crupt::BubbleBobbleScene::InitEntities()
 		InitPlayer2();
 	}
 	InitEnemies();
-	
-
 }
 
 void crupt::BubbleBobbleScene::InitPlayer1()
@@ -238,8 +238,10 @@ void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 {
 	m_pWorldBorderSystem->PreUpdate(dt);
 	m_pZenchanMovementSystem->PreUpdate(dt);
+	m_pMaitaMovementSystem->PreUpdate(dt);
 	m_pBubbleMovementSystem->PreUpdate(dt);
 	m_pDropMovementSystem->PreUpdate(dt);
+	m_pSpawnBoulderSystem->PreUpdate(dt);
 	m_pPhysicsSystem->PreUpdate(dt);
 	m_pCollisionSystem->Update(dt);
 	m_pBubbleMovementSystem->Update(dt);

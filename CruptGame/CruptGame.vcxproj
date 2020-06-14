@@ -185,7 +185,9 @@
     <ClCompile Include="LevelStateSystem.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="MaitaMovementSystem.cpp" />
     <ClCompile Include="ScoreDisplaySystem.cpp" />
+    <ClCompile Include="SpawnBoulderSystem.cpp" />
     <ClCompile Include="SpawnDropSystem.cpp" />
     <ClCompile Include="WorldBorderSystem.cpp" />
     <ClCompile Include="ZenchanMovementSystem.cpp" />
@@ -200,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BBMainMenuScene.h" />
+    <ClInclude Include="BoulderComponent.h" />
     <ClInclude Include="BubbleBobbleScene.h" />
     <ClInclude Include="BubbleComponent.h" />
     <ClInclude Include="BubbleMovementSystem.h" />
@@ -223,8 +226,11 @@
     <ClInclude Include="LevelStateComponent.h" />
     <ClInclude Include="LevelStateSystem.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="MaitaComponent.h" />
+    <ClInclude Include="MaitaMovementSystem.h" />
     <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="ScoreDisplaySystem.h" />
+    <ClInclude Include="SpawnBoulderSystem.h" />
     <ClInclude Include="SpawnDropSystem.h" />
     <ClInclude Include="WorldBorderSystem.h" />
     <ClInclude Include="ZenchanComponent.h" />

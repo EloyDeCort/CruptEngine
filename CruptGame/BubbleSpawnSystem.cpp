@@ -23,6 +23,9 @@ void crupt::BubbleSpawnSystem::Init(SDL_Renderer* renderer)
 	m_BubbleStateCompP2.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Blue_Bubble.png",m_pRenderer)});
 	
 	sprite.frameCount = 8;
+	m_BubbleStateCompP1.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Green_Bubble_Zenchan.png",m_pRenderer)});
+	m_BubbleStateCompP2.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Blue_Bubble_Zenchan.png",m_pRenderer)});
+
 	m_BubbleStateCompP1.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Green_Bubble_Maita.png",m_pRenderer)});
 	m_BubbleStateCompP2.stateSprites.push_back(StateSprite{sprite,ResourceManager::GetInstance().LoadTexture("Items/Blue_Bubble_Maita.png",m_pRenderer)});
 

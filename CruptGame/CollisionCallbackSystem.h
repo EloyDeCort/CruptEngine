@@ -15,6 +15,9 @@ namespace crupt
 		void OnPlayerCallback(Entity self, Entity collider, eDirection direction);
 		void OnBubbleCallback(Entity self, Entity collider, eDirection direction);
 		void OnZenchanCallback(Entity self, Entity collider, eDirection direction);
+		void OnMaitaCallback(Entity self, Entity collider, eDirection direction);
+
+		void OnBoulderCallback(Entity self, Entity collider, eDirection direction);
 
 		void OnDropCallback(Entity self, Entity collider, eDirection direction);
 

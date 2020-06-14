@@ -8,7 +8,7 @@ namespace crupt
 		Entity player2;
 		bool coOp = false;
 
-		float movSpeed = 200.f;
+		float movSpeed = 180.f;
 
 		float jumpOffset = 50.f;
 		float maxDistanceOffset = 150.f;

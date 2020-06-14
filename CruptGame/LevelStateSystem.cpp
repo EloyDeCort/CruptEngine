@@ -47,7 +47,7 @@ void crupt::LevelStateSystem::Update(float dt)
 		}
 
 		LevelStateComponent stateComp;
-		stateComp.currentLevel = tileComp.currentLevel;
+		stateComp.currentLevel = tileComp.currentLevel + 1;
 		SignalHandler<LevelStateComponent>::GetInstance().Publish(stateComp);
 	}
 }

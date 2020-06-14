@@ -18,7 +18,8 @@ namespace crupt
 		void Reset();
 
 	private:
-		void SpawnZenchan(const glm::vec2& pos);
+		void SpawnZenchan(const SpawnEnemyComponent& component);
+		void SpawnMaita(const SpawnEnemyComponent& component);
 		SDL_Renderer* m_pRenderer;
 		CollisionCallbackSystem* m_pCollisionCallbackSystem;
 		Entity m_Player1;

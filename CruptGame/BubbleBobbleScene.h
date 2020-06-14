@@ -10,6 +10,7 @@ namespace crupt
 	class PlayerStateSystem;
 	class BubbleMovementSystem;
 	class ZenchanMovementSystem;
+	class MaitaMovementSystem;
 	class SpawnEnemySystem;
 	class HealthDisplaySystem;
 	class ScoreDisplaySystem;
@@ -17,6 +18,7 @@ namespace crupt
 	class LevelStateSystem;
 	class WorldBorderSystem;
 	class LevelSpawnSystem;
+	class SpawnBoulderSystem;
 
 	enum class GameMode
 	{
@@ -57,6 +59,7 @@ namespace crupt
 		PlayerStateSystem* m_pPlayerStateSystem;
 		BubbleMovementSystem* m_pBubbleMovementSystem;
 		ZenchanMovementSystem* m_pZenchanMovementSystem;
+		MaitaMovementSystem* m_pMaitaMovementSystem;
 		SpawnEnemySystem* m_pSpawnEnemySystem;
 		HealthDisplaySystem* m_pHealthDisplaySystem;
 		DropMovementSystem* m_pDropMovementSystem;
@@ -64,6 +67,7 @@ namespace crupt
 		LevelStateSystem* m_pLevelStateSystem;
 		WorldBorderSystem* m_pWorldBorderSystem;
 		LevelSpawnSystem* m_pLevelSpawnSystem;
+		SpawnBoulderSystem* m_pSpawnBoulderSystem;
 
 		GameMode m_GameMode;
 
