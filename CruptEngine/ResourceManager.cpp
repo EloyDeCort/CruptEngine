@@ -69,14 +69,14 @@ crupt::Texture2D* crupt::ResourceManager::LoadTexture(const std::string& file, S
 
 crupt::Font* crupt::ResourceManager::LoadFont(const std::string& file, unsigned int size)
 {
-	std::unordered_map<std::string, Font*>::iterator it = m_pFonts.find(file);
+	std::unordered_map<std::string, Font*>::iterator it = m_pFonts.find(file + std::to_string(size));
 	if(it != m_pFonts.end())
 	{
 		return it->second;
 	}
 
 	Font* newFont = new Font(m_DataPath + file, size);
-	m_pFonts[file] = newFont;
+	m_pFonts[file + std::to_string(size)] = newFont;
 	return newFont;
 }
 

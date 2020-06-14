@@ -35,7 +35,6 @@ void crupt::MaitaMovementSystem::PreUpdate(float dt)
 		
 		if(maitaComp.state == MaitaAnimState::WALKING)
 		{
-	
 
 			if(boxComp.colDirX == eDirection::LEFT || boxComp.colDirX == eDirection::RIGHT)
 			{
@@ -43,30 +42,97 @@ void crupt::MaitaMovementSystem::PreUpdate(float dt)
 				renderComp.flip = !renderComp.flip;
 			}
 		
+			float finalDistanceX = 0.f;
+			float finalPosY = 0.f;
 
-			TransformComponent& playerTransComp = coordinator->GetComponent<TransformComponent>(maitaComp.player1);
-			float distance =  transComp.position.x - playerTransComp.position.x;
-
-			if(playerTransComp.position.y < transComp.position.y - maitaComp.jumpOffset)
+			if(!maitaComp.coOp)
 			{
-				if(fabs(distance) > maitaComp.maxDistanceOffset)
+				TransformComponent& playerTransComp = coordinator->GetComponent<TransformComponent>(maitaComp.player1);
+
+				if(playerTransComp.position.y < transComp.position.y - maitaComp.jumpOffset)
 				{
-					if(distance < 0.f)
+					float distance =  transComp.position.x - playerTransComp.position.x;
+
+					finalPosY = playerTransComp.position.y;
+					finalDistanceX = distance;
+
+					if(fabs(distance) > maitaComp.maxDistanceOffset)
 					{
-						maitaComp.flipped = false;
-						renderComp.flip = false;
+						if(distance < 0.f)
+						{
+							maitaComp.flipped = false;
+							renderComp.flip = false;
+						}
+						else
+						{
+							maitaComp.flipped = true;
+							renderComp.flip = true;
+						}
 					}
 					else
 					{
-						maitaComp.flipped = true;
-						renderComp.flip = true;
+						JumpComponent jumpComp;
+						jumpComp.target = entity;
+						SignalHandler<JumpComponent>::GetInstance().Publish(jumpComp);
 					}
+				}
+			}
+			else
+			{
+				//CO OP BEHAVIOR
+				TransformComponent& playerTransComp1 = coordinator->GetComponent<TransformComponent>(maitaComp.player1);
+				HealthComponent& healthComp1 = coordinator->GetComponent<HealthComponent>(maitaComp.player1);
+
+				TransformComponent& playerTransComp2 = coordinator->GetComponent<TransformComponent>(maitaComp.player2);
+				HealthComponent& healthComp2 = coordinator->GetComponent<HealthComponent>(maitaComp.player2);
+
+				float distanceP1 =  transComp.position.x - playerTransComp1.position.x;
+				float distanceP2 =  transComp.position.x - playerTransComp2.position.x;
+
+				if(fabs(distanceP1) < fabs(distanceP2))
+				{
+					finalDistanceX = distanceP1;
+					finalPosY = playerTransComp1.position.y;
 				}
 				else
 				{
-					JumpComponent jumpComp;
-					jumpComp.target = entity;
-					SignalHandler<JumpComponent>::GetInstance().Publish(jumpComp);
+					finalDistanceX = distanceP2;
+					finalPosY = playerTransComp2.position.y;
+				}
+
+				if(healthComp1.dead)
+				{
+					finalDistanceX = distanceP2;
+					finalPosY = playerTransComp2.position.y;
+				}
+
+				if(healthComp2.dead)
+				{
+					finalDistanceX = distanceP1;
+					finalPosY = playerTransComp1.position.y;
+				}
+
+				if(finalPosY < transComp.position.y - maitaComp.jumpOffset)
+				{
+					if(fabs(finalDistanceX) > maitaComp.maxDistanceOffset)
+					{
+						if(finalDistanceX < 0.f)
+						{
+							maitaComp.flipped = false;
+							renderComp.flip = false;
+						}
+						else
+						{
+							maitaComp.flipped = true;
+							renderComp.flip = true;
+						}
+					}
+					else
+					{
+						JumpComponent jumpComp;
+						jumpComp.target = entity;
+						SignalHandler<JumpComponent>::GetInstance().Publish(jumpComp);
+					}
 				}
 			}
 
@@ -82,9 +148,9 @@ void crupt::MaitaMovementSystem::PreUpdate(float dt)
 					movPhysicsComp.force.x = -maitaComp.movSpeed;
 				}
 
-				if(abs(playerTransComp.position.y - transComp.position.y) < maitaComp.jumpOffset)
+				if(abs(finalPosY - transComp.position.y) < maitaComp.jumpOffset)
 				{
-					if(fabs(distance) <= maitaComp.maxBoulderDistanceOffset)
+					if(fabs(finalDistanceX) <= maitaComp.maxBoulderDistanceOffset)
 					{
 						if(maitaComp.totalTime > maitaComp.chargeCoolDown)
 						{

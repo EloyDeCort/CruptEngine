@@ -31,11 +31,13 @@ void crupt::SpawnEnemySystem::OnDispatch(const SpawnEnemyComponent& component)
 void crupt::SpawnEnemySystem::SetPlayer1(Entity player)
 {
 	m_Player1 = player;
+	m_NrOfPlayers++;
 }
 
 void crupt::SpawnEnemySystem::SetPlayer2(Entity player)
 {
 	m_Player2 = player;
+	m_NrOfPlayers++;
 }
 
 void crupt::SpawnEnemySystem::Reset()

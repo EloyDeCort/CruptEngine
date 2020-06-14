@@ -198,7 +198,7 @@ void crupt::MainGame::RegisterAdditionalSystems()
 	{
 		Signature signature;
 		//Using enemies to check how many are left.
-		signature.set(pCoordinator.GetComponentType<GravityComponent>());
+		signature.set(pCoordinator.GetComponentType<MovePhysicsComponent>());
 		pCoordinator.SetSystemSignature<WorldBorderSystem>(signature);
 	}
 

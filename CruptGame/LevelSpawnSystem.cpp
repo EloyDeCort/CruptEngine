@@ -56,6 +56,7 @@ void crupt::LevelSpawnSystem::OnDispatch(const LevelStateComponent& component )
 		enemyComp.type = EnemyType::MAITA;
 		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f,60.f};
 		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
+		enemyComp.type = EnemyType::ZENCHAN;
 		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f - 40.f,80.f};
 		enemyComp.flip = true;
 		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
@@ -67,11 +68,14 @@ void crupt::LevelSpawnSystem::OnDispatch(const LevelStateComponent& component )
 		enemyComp.type = EnemyType::ZENCHAN;
 		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f + 10.f,60.f};
 		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
+		enemyComp.type = EnemyType::MAITA;
 		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f + 50.f,120.f};
 		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
+		enemyComp.type = EnemyType::ZENCHAN;
 		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f - 25.f,60.f};
 		enemyComp.flip = true;
 		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
+		enemyComp.type = EnemyType::MAITA;
 		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f - 55.f,120.f};
 		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
 		break;
@@ -81,6 +85,7 @@ void crupt::LevelSpawnSystem::OnDispatch(const LevelStateComponent& component )
 		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
 		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f - 180.f,150.f};
 		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);
+		enemyComp.type = EnemyType::MAITA;
 		enemyComp.spawnPos = glm::vec2{Settings::windowWidth/2.f + 110.f,60.f};
 		enemyComp.flip = true;
 		SignalHandler<SpawnEnemyComponent>::GetInstance().Publish(enemyComp);

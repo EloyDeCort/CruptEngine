@@ -25,7 +25,15 @@ void crupt::MoveSystem::OnDispatch(const MoveComponent& component)
 	RenderableComponent& render = coordinator->GetComponent<RenderableComponent>(component.target);
 	BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(component.target);
 
-	
+	if(coordinator->HasComponent<PlayerStateComponent>(component.target))
+	{
+		HealthComponent& healthComp = coordinator->GetComponent<HealthComponent>(component.target);
+
+		if(healthComp.dead)
+			return;
+	}
+
+
 	if(component.speed > 0.01f)
 	{
 		if(component.m_xDirection > 0.f)

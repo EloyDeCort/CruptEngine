@@ -37,6 +37,7 @@ void BubbleMovementSystem::Update(float dt)
 		{
 			if(bubbleComp.totalTime > bubbleComp.maxLifeTime)
 			{
+				bubbleComp.totalTime = 0.f;
 				SpawnEnemy(bubbleStateComp.animationState, transComp.position);
 				toDelete.push_back(entity);
 				continue;
@@ -46,11 +47,14 @@ void BubbleMovementSystem::Update(float dt)
 		{
 			if(bubbleComp.totalTime > bubbleComp.maxLifeTime)
 			{
+				bubbleComp.totalTime = 0.f;
 				SpawnEnemy(bubbleStateComp.animationState, transComp.position);
 				toDelete.push_back(entity);
 				continue;
 			}
 		}
+
+		
 
 		BoxCollisionComponent& boxComp = coordinator->GetComponent<BoxCollisionComponent>(entity);
 		MovePhysicsComponent& movPhysicsComp = coordinator->GetComponent<MovePhysicsComponent>(entity);

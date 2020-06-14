@@ -30,39 +30,105 @@ void crupt::ZenchanMovementSystem::PreUpdate(float)
 			continue;
 		}
 
+
 		if(boxComp.colDirX == eDirection::LEFT || boxComp.colDirX == eDirection::RIGHT)
 		{
 			zenchanComp.flipped = !zenchanComp.flipped;
 			renderComp.flip = !renderComp.flip;
 		}
 		
-
-		TransformComponent& playerTransComp = coordinator->GetComponent<TransformComponent>(zenchanComp.player1);
-
-		if(playerTransComp.position.y < transComp.position.y - zenchanComp.jumpOffset)
+		if(!zenchanComp.coOp)
 		{
-			float distance =  transComp.position.x - playerTransComp.position.x;
-			if(fabs(distance) > zenchanComp.maxDistanceOffset)
+			TransformComponent& playerTransComp = coordinator->GetComponent<TransformComponent>(zenchanComp.player1);
+
+			if(playerTransComp.position.y < transComp.position.y - zenchanComp.jumpOffset)
 			{
-				if(distance < 0.f)
+				float distance =  transComp.position.x - playerTransComp.position.x;
+				if(fabs(distance) > zenchanComp.maxDistanceOffset)
 				{
-					zenchanComp.flipped = false;
-					renderComp.flip = false;
+					if(distance < 0.f)
+					{
+						zenchanComp.flipped = false;
+						renderComp.flip = false;
+					}
+					else
+					{
+						zenchanComp.flipped = true;
+						renderComp.flip = true;
+					}
 				}
 				else
 				{
-					zenchanComp.flipped = true;
-					renderComp.flip = true;
+					JumpComponent jumpComp;
+					jumpComp.target = entity;
+					SignalHandler<JumpComponent>::GetInstance().Publish(jumpComp);
 				}
+			}
+		}
+		else
+		{
+			//CO OP BEHAVIOR
+			TransformComponent& playerTransComp1 = coordinator->GetComponent<TransformComponent>(zenchanComp.player1);
+			HealthComponent& healthComp1 = coordinator->GetComponent<HealthComponent>(zenchanComp.player1);
+
+			TransformComponent& playerTransComp2 = coordinator->GetComponent<TransformComponent>(zenchanComp.player2);
+			HealthComponent& healthComp2 = coordinator->GetComponent<HealthComponent>(zenchanComp.player2);
+
+			float distanceP1 =  transComp.position.x - playerTransComp1.position.x;
+			float distanceP2 =  transComp.position.x - playerTransComp2.position.x;
+
+			float finalDistanceX = 0.f;
+			float finalPosY = 0.f;
+			if(fabs(distanceP1) < fabs(distanceP2))
+			{
+				finalDistanceX = distanceP1;
+				finalPosY = playerTransComp1.position.y;
 			}
 			else
 			{
-				JumpComponent jumpComp;
-				jumpComp.target = entity;
-				SignalHandler<JumpComponent>::GetInstance().Publish(jumpComp);
+				finalDistanceX = distanceP2;
+				finalPosY = playerTransComp2.position.y;
+			}
+
+			if(healthComp1.dead)
+			{
+				finalDistanceX = distanceP2;
+				finalPosY = playerTransComp2.position.y;
+			}
+
+			if(healthComp2.dead)
+			{
+				finalDistanceX = distanceP1;
+				finalPosY = playerTransComp1.position.y;
+			}
+
+			if(finalPosY < transComp.position.y - zenchanComp.jumpOffset)
+			{
+				if(fabs(finalDistanceX) > zenchanComp.maxDistanceOffset)
+				{
+					if(finalDistanceX < 0.f)
+					{
+						zenchanComp.flipped = false;
+						renderComp.flip = false;
+					}
+					else
+					{
+						zenchanComp.flipped = true;
+						renderComp.flip = true;
+					}
+				}
+				else
+				{
+					JumpComponent jumpComp;
+					jumpComp.target = entity;
+					SignalHandler<JumpComponent>::GetInstance().Publish(jumpComp);
+				}
 			}
 		}
-		
+
+
+
+
 			if(boxComp.colDirY == eDirection::DOWN)
 			{
 				if(!zenchanComp.flipped)

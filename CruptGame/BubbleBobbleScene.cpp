@@ -86,11 +86,19 @@ void crupt::BubbleBobbleScene::InitEntities()
 
 	
 	InitPlayer1();
-	if(m_GameMode == GameMode::COOP || m_GameMode == GameMode::VERSUS)
+	if(m_GameMode == GameMode::COOP)
 	{
 		InitPlayer2();
 	}
-	InitEnemies();
+	else if(m_GameMode == GameMode::VERSUS)
+	{
+		//Init As Maita
+	}
+
+	if(m_GameMode != GameMode::VERSUS)
+	{
+		InitEnemies();
+	}
 }
 
 void crupt::BubbleBobbleScene::InitPlayer1()
@@ -147,6 +155,8 @@ void crupt::BubbleBobbleScene::InitPlayer1()
 	m_pSpawnEnemySystem->SetPlayer1(m_Player1);
 	m_pHealthDisplaySystem->SetPlayer1(m_Player1);
 	m_pLevelSpawnSystem->SetPlayer1(m_Player1);
+	m_pLevelStateSystem->SetPlayer1(m_Player1);
+	m_pPlayerStateSystem->SetPlayer1(m_Player1);
 
 
 	Entity scoreP1 = pCoordinator.CreateEntity();
@@ -212,6 +222,8 @@ void crupt::BubbleBobbleScene::InitPlayer2()
 	m_pSpawnEnemySystem->SetPlayer2(m_Player2);
 	m_pHealthDisplaySystem->SetPlayer2(m_Player2);
 	m_pLevelSpawnSystem->SetPlayer2(m_Player2);
+	m_pLevelStateSystem->SetPlayer2(m_Player2);
+	m_pPlayerStateSystem->SetPlayer2(m_Player2);
 
 
 	Entity scoreP2 = pCoordinator.CreateEntity();
@@ -246,8 +258,14 @@ void crupt::BubbleBobbleScene::InitAudio()
 void crupt::BubbleBobbleScene::FixedUpdate(float dt)
 {
 	m_pWorldBorderSystem->PreUpdate(dt);
+
 	m_pZenchanMovementSystem->PreUpdate(dt);
-	m_pMaitaMovementSystem->PreUpdate(dt);
+
+	if(m_GameMode != GameMode::VERSUS)
+	{
+		m_pMaitaMovementSystem->PreUpdate(dt);
+	}
+
 	m_pBubbleMovementSystem->PreUpdate(dt);
 	m_pDropMovementSystem->PreUpdate(dt);
 	m_pSpawnBoulderSystem->PreUpdate(dt);
@@ -286,10 +304,14 @@ void crupt::BubbleBobbleScene::SceneLoaded()
 
 void crupt::BubbleBobbleScene::SceneUnloaded()
 {
+	//RESETTING EVERYTHING FOR RESTART
 	FMOD_RESULT fmodResult;
 	fmodResult = m_pChannelGroup->stop();
 	SoundManager::GetInstance().ErrorCheck(fmodResult);
 
+	m_pSpawnEnemySystem->Reset();
+	m_pPlayerStateSystem->Reset();
+	m_pLevelStateSystem->Reset();
 	m_pLevelSpawnSystem->Reset();
 	m_pHealthDisplaySystem->Reset();
 	m_pScoreDisplaySystem->Reset();

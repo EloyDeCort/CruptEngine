@@ -92,6 +92,10 @@ void crupt::CollisionCallbackSystem::AddEntityCallback(Entity entity)
 
 void crupt::CollisionCallbackSystem::OnPlayerCallback(Entity self, Entity collider, eDirection direction)
 {
+	HealthComponent& healthComp = m_pCoordinator->GetComponent<HealthComponent>(self);
+	if(healthComp.dead)
+		return;
+
 	if(m_pCoordinator->HasComponent<BubbleComponent>(collider))
 	{
 		//std::cout << int(direction) << std::endl;
@@ -101,16 +105,20 @@ void crupt::CollisionCallbackSystem::OnPlayerCallback(Entity self, Entity collid
 		}
 		else
 		{
-			self;
 			//m_pCoordinator->GetComponent<TransformComponent>(self).position = m_pCoordinator->GetComponent<TransformComponent>(collider).position;
 		}
 	
 	}
 	else if(m_pCoordinator->HasComponent<EnemyComponent>(collider))
 	{
-		HealthComponent& healthComp = m_pCoordinator->GetComponent<HealthComponent>(self);
 		if(healthComp.gotHit)
 			return;
+
+		//Play Sound
+		auto pFmodSystem = SoundManager::GetInstance().GetSystem();
+		FMOD_RESULT fmodResult;
+		fmodResult = pFmodSystem->playSound(m_pDamageEffect, nullptr, false , &m_pChannel);
+		SoundManager::GetInstance().ErrorCheck(fmodResult);
 
 		healthComp.currentHealth--;
 		healthComp.gotHit = true;
@@ -119,12 +127,6 @@ void crupt::CollisionCallbackSystem::OnPlayerCallback(Entity self, Entity collid
 			healthComp.dead = true;
 			return;
 		}
-
-		//Play Sound
-		auto pFmodSystem = SoundManager::GetInstance().GetSystem();
-		FMOD_RESULT fmodResult;
-		fmodResult = pFmodSystem->playSound(m_pDamageEffect, nullptr, false , &m_pChannel);
-		SoundManager::GetInstance().ErrorCheck(fmodResult);
 	}
 	else if(m_pCoordinator->HasComponent<DropComponent>(collider))
 	{
@@ -144,9 +146,14 @@ void crupt::CollisionCallbackSystem::OnPlayerCallback(Entity self, Entity collid
 	}
 	else if(m_pCoordinator->HasComponent<BoulderComponent>(collider))
 	{
-		HealthComponent& healthComp = m_pCoordinator->GetComponent<HealthComponent>(self);
 		if(healthComp.gotHit)
 			return;
+
+		//Play Sound
+		auto pFmodSystem = SoundManager::GetInstance().GetSystem();
+		FMOD_RESULT fmodResult;
+		fmodResult = pFmodSystem->playSound(m_pDamageEffect, nullptr, false , &m_pChannel);
+		SoundManager::GetInstance().ErrorCheck(fmodResult);
 
 		healthComp.currentHealth--;
 		healthComp.gotHit = true;
@@ -155,22 +162,12 @@ void crupt::CollisionCallbackSystem::OnPlayerCallback(Entity self, Entity collid
 			healthComp.dead = true;
 			return;
 		}
-
-		//Play Sound
-		auto pFmodSystem = SoundManager::GetInstance().GetSystem();
-		FMOD_RESULT fmodResult;
-		fmodResult = pFmodSystem->playSound(m_pDamageEffect, nullptr, false , &m_pChannel);
-		SoundManager::GetInstance().ErrorCheck(fmodResult);
 	}
 }
 
 void crupt::CollisionCallbackSystem::OnBubbleCallback(Entity , Entity , eDirection )
 {
-	/*std::cout << int(direction) << std::endl;
-	if(direction == eDirection::UP || direction == eDirection::DOWN)
-	{
-
-	}*/
+	
 }
 
 void crupt::CollisionCallbackSystem::OnZenchanCallback(Entity self, Entity collider, eDirection)
@@ -187,7 +184,7 @@ void crupt::CollisionCallbackSystem::OnZenchanCallback(Entity self, Entity colli
 		stateComp.target = collider;
 		stateComp.animationState = BubbleAnimState::ZENCHAN;
 
-		SignalHandler<BubbleStateComponent>::GetInstance().Publish(stateComp);
+ 		SignalHandler<BubbleStateComponent>::GetInstance().Publish(stateComp);
 	}
 }
 

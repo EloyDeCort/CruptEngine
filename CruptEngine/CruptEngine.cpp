@@ -9,8 +9,8 @@
 //SDL Initialization
 #include <SDL.h>
 
-////VLD
-//#include "vld.h"
+//VLD
+#include "vld.h"
 
 //ECS
 #include "Components.h"

@@ -3,6 +3,7 @@
 #include "Components.h"
 #include "SignalHandler.h"
 #include "SceneManager.h"
+#include "BBWinScene.h"
 
 crupt::LevelStateSystem::~LevelStateSystem()
 {
@@ -18,6 +19,11 @@ void crupt::LevelStateSystem::Init()
 void crupt::LevelStateSystem::SetMap(Entity mapEntity)
 {
 	m_MapEntity = mapEntity;
+}
+
+void crupt::LevelStateSystem::Reset()
+{
+	m_NrOfPlayers = 0;
 }
 
 void crupt::LevelStateSystem::Update(float dt)
@@ -42,6 +48,20 @@ void crupt::LevelStateSystem::Update(float dt)
 		else
 		{
 			//END GAME. (Go To End Screen)
+			BBWinScene* winScene = reinterpret_cast<BBWinScene*>(SceneManager::GetInstance().GetScene(L"BBWinScene"));
+
+			if(m_NrOfPlayers >= 1)
+			{
+				ScoreComponent& scoreComp1 = coordinator->GetComponent<ScoreComponent>(m_Player1);
+				winScene->SetScoreP1(scoreComp1.score);
+			}
+
+			if(m_NrOfPlayers >= 2)
+			{
+				ScoreComponent& scoreComp2 = coordinator->GetComponent<ScoreComponent>(m_Player2);
+				winScene->SetScoreP2(scoreComp2.score);
+			}
+
 			SceneManager::GetInstance().SetActiveScene(L"BBWinScene");
 			return;
 		}
@@ -72,4 +92,16 @@ void crupt::LevelStateSystem::OnDispatch(const LevelStateComponent& component)
 	{
 		return;
 	}
+}
+
+void crupt::LevelStateSystem::SetPlayer1(Entity player)
+{
+	m_Player1 = player;
+	m_NrOfPlayers++;
+}
+
+void crupt::LevelStateSystem::SetPlayer2(Entity player)
+{
+	m_Player2 = player;
+	m_NrOfPlayers++;
 }

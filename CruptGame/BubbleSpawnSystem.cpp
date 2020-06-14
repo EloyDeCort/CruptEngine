@@ -62,12 +62,11 @@ void crupt::BubbleSpawnSystem::OnDispatch(const BubbleComponent& component)
 		break;
 	}
 
-
-
 	coordinator.AddComponent<MovePhysicsComponent>(bubble, MovePhysicsComponent{});
 	
 	//Reusing bubble component as tag
 	coordinator.AddComponent<BubbleComponent>(bubble, component);
+
 
 	coordinator.AddComponent<BoxCollisionComponent>(bubble,m_BoxCollisionComp);
 	coordinator.AddComponent<TransformComponent>(bubble, TransformComponent{component.position});
