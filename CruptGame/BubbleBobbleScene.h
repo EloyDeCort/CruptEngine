@@ -44,6 +44,7 @@ namespace crupt
 		void InitEntities();
 		void InitPlayer1();
 		void InitPlayer2();
+		void InitPlayer2AsMaita();
 		void InitEnemies();
 		void InitAudio();
 

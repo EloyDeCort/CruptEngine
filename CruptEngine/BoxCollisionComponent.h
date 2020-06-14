@@ -12,6 +12,7 @@ namespace crupt
 		DOWN
 	};
 
+
 	struct BoxCollisionComponent
 	{
 		SDL_Rect collisionRect;

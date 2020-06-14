@@ -149,6 +149,15 @@ void crupt::CollisionCallbackSystem::OnPlayerCallback(Entity self, Entity collid
 		if(healthComp.gotHit)
 			return;
 
+
+		BoulderComponent boulderComp = m_pCoordinator->GetComponent<BoulderComponent>(collider);
+		if(boulderComp.fromPlayer)
+		{
+			ScoreComponent& playerScore = m_pCoordinator->GetComponent<ScoreComponent>(boulderComp.player2);
+			playerScore.score += 400;
+			SignalHandler<ScoreComponent>::GetInstance().Publish(playerScore);
+		}
+
 		//Play Sound
 		auto pFmodSystem = SoundManager::GetInstance().GetSystem();
 		FMOD_RESULT fmodResult;
@@ -192,6 +201,38 @@ void crupt::CollisionCallbackSystem::OnMaitaCallback(Entity self, Entity collide
 {
 	if(m_pCoordinator->HasComponent<BubbleComponent>(collider))
 	{
+		const MaitaComponent& maitaComp = m_pCoordinator->GetComponent<MaitaComponent>(self);
+
+		if(maitaComp.isPlayer)
+		{
+			HealthComponent& healthComp = m_pCoordinator->GetComponent<HealthComponent>(self);
+			if(healthComp.dead)
+				return;
+
+			if(healthComp.gotHit)
+			return;
+
+			//Play Sound
+			auto pFmodSystem = SoundManager::GetInstance().GetSystem();
+			FMOD_RESULT fmodResult;
+			fmodResult = pFmodSystem->playSound(m_pDamageEffect, nullptr, false , &m_pChannel);
+			SoundManager::GetInstance().ErrorCheck(fmodResult);
+
+			ScoreComponent& playerScore = m_pCoordinator->GetComponent<ScoreComponent>(maitaComp.player1);
+			playerScore.score += maitaComp.maitaPlayerScore;
+			SignalHandler<ScoreComponent>::GetInstance().Publish(playerScore);
+
+			healthComp.currentHealth--;
+			healthComp.gotHit = true;
+			if(healthComp.currentHealth <= 0)
+			{
+				healthComp.dead = true;
+				return;
+			}
+
+			return;
+		}
+
 		const BubbleStateComponent& bubbleStateComp = m_pCoordinator->GetComponent<BubbleStateComponent>(collider);
 		if(bubbleStateComp.animationState != BubbleAnimState::NORMAL)
 			return;

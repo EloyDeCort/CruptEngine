@@ -38,6 +38,24 @@ void crupt::CoOpCommand::Execute()
 	SceneManager::GetInstance().SetActiveScene(L"BubbleBobbleScene");
 }
 
+crupt::VersusCommand::VersusCommand()
+	: ICommand("VersusCommand")
+{
+}
+
+crupt::VersusCommand::~VersusCommand()
+{
+}
+
+void crupt::VersusCommand::Execute()
+{
+	BubbleBobbleScene* bubBobScene = reinterpret_cast<BubbleBobbleScene*>(SceneManager::GetInstance().GetScene(L"BubbleBobbleScene"));
+	bubBobScene->SetGameMode(GameMode::VERSUS);
+
+	SceneManager::GetInstance().SetActiveScene(L"BubbleBobbleScene");
+}
+
+
 crupt::ToMainMenuCommand::ToMainMenuCommand()
 	: ICommand("ToMainMenuCommand")
 {
@@ -51,3 +69,4 @@ void crupt::ToMainMenuCommand::Execute()
 {
 	SceneManager::GetInstance().SetActiveScene(L"BBMainMenuScene");
 }
+

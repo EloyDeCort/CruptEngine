@@ -15,8 +15,10 @@ namespace crupt
 		void OnDispatch(const LevelStateComponent& component);
 		void SetPlayer1(Entity player);
 		void SetPlayer2(Entity player);
+		void SetVersus(bool versus);
 
 	private:
+		bool m_Versus;
 		Entity m_MapEntity;
 		Entity m_Player1;
 		Entity m_Player2;

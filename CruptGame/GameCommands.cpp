@@ -66,14 +66,22 @@ void crupt::MoveRightCommand::Execute()
 	SignalHandler<MoveComponent>::GetInstance().Publish(moveComp);
 }
 
-crupt::SpawnBubbleCommand::SpawnBubbleCommand(Entity pPlayer, PlayerType type)
+crupt::SpawnBubbleCommand::SpawnBubbleCommand(Entity pPlayer, PlayerType type, bool maita)
 	: ICommand{"SpawnBubbleCommand"}
 	, m_pPlayer{pPlayer}
 	, m_Offset{40.f}
 	, m_PlayerType{type}
+	, m_IsMaita{maita}
 {
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
-	m_pState = &coordinator->GetComponent<PlayerStateComponent>(m_pPlayer);
+	if(m_IsMaita)
+	{
+		m_pMaitaComp = &coordinator->GetComponent<MaitaComponent>(m_pPlayer);
+	}
+	else
+	{
+		m_pState = &coordinator->GetComponent<PlayerStateComponent>(m_pPlayer);
+	}
 }
 
 crupt::SpawnBubbleCommand::~SpawnBubbleCommand()
@@ -84,8 +92,38 @@ void crupt::SpawnBubbleCommand::Execute()
 {
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
 	const TransformComponent& playerTransComp = coordinator->GetComponent<TransformComponent>(m_pPlayer);
-	const RenderableComponent& renderable = coordinator->GetComponent<RenderableComponent>(m_pPlayer);
+	RenderableComponent& renderable = coordinator->GetComponent<RenderableComponent>(m_pPlayer);
 	
+	if(m_IsMaita)
+	{
+		MaitaComponent& maitaComp = coordinator->GetComponent<MaitaComponent>(m_pPlayer);
+		/*if(maitaComp.totalTime < maitaComp.chargeCoolDown)
+		{
+			return;
+		}*/
+
+		SpriteComponent& spriteComp = coordinator->GetComponent<SpriteComponent>(m_pPlayer);
+		BoulderComponent boulderComp;
+		boulderComp.flipped = renderable.flip;
+		boulderComp.pos = playerTransComp.position;
+		boulderComp.fromPlayer = true;
+		boulderComp.player2 = m_pPlayer;
+		SignalHandler<BoulderComponent>::GetInstance().Publish(boulderComp);
+
+
+		maitaComp.state = MaitaAnimState::CHARGING;
+
+		//Change Sprite
+		StateSprite& newSprite = maitaComp.pStateSprites[int(maitaComp.state)];
+		spriteComp.animationRate = newSprite.spriteData.animationRate;
+		spriteComp.frameCount = newSprite.spriteData.frameCount;
+		renderable.pTexture = maitaComp.pStateSprites[int(maitaComp.state)].pTexture;
+
+		maitaComp.totalTime = 0.f;
+
+		return;
+	}
+
 	BubbleComponent bubbleComp;
 	bubbleComp.position = playerTransComp.position;
 	bubbleComp.type = m_PlayerType;

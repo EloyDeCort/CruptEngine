@@ -95,9 +95,7 @@ void crupt::SpawnBoulderSystem::OnDispatch(const BoulderComponent& component)
 	coordinator->AddComponent<GravityComponent>(boulder, GravityComponent{});
 	coordinator->AddComponent<BoxCollisionComponent>(boulder, BoxCollisionComponent{0,0,32,32});
 	coordinator->AddComponent<CollisionCallbackComponent>(boulder, CollisionCallbackComponent{});
-	BoulderComponent boulderComp = BoulderComponent{};
-	boulderComp.pos = component.pos;
-	boulderComp.flipped = component.flipped;
+	BoulderComponent boulderComp = component;
 
 	coordinator->AddComponent<BoulderComponent>(boulder, boulderComp);
 	m_pCollisionCallbackSystem->AddEntityCallback(boulder);	

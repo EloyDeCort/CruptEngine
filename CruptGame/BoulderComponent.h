@@ -8,6 +8,9 @@ namespace crupt
 		bool shouldDestroy = false;
 		bool flipped = false;
 
+		bool fromPlayer = false;
+		Entity player2;
+
 		float totalTime = 0.f;
 		float maxAliveTime = 3.f;
 

@@ -33,6 +33,9 @@ void crupt::BBMainMenuScene::Init()
 
 	inputManager.AddBinding("StartCoOp", Binding{ControllerButton::ButtonX, '2', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
 	inputManager.AddCommand("StartCoOp", new CoOpCommand());
+
+	inputManager.AddBinding("StartVersus", Binding{ControllerButton::ButtonB, '3', InputTriggerState::Pressed, GamepadIndex::PlayerOne});
+	inputManager.AddCommand("StartVersus", new VersusCommand());
 }
 
 void crupt::BBMainMenuScene::Update(float)

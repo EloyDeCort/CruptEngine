@@ -15,6 +15,7 @@ namespace crupt
 		Entity player1;
 		Entity player2;
 		bool coOp = false;
+		bool isPlayer = false;
 
 		float movSpeed = 75.f;
 
@@ -28,6 +29,8 @@ namespace crupt
 		float chargeCoolDown = 5.f;
 		float chargeTime = 0.5f;
 		float totalTime = 5.f;
+
+		int maitaPlayerScore = 300;
 
 		MaitaAnimState state = MaitaAnimState::WALKING;
 		std::vector<StateSprite> pStateSprites;

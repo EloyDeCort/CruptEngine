@@ -27,6 +27,16 @@ namespace crupt
 	private:
 	};
 
+	class VersusCommand : public ICommand
+	{
+	public:
+		VersusCommand();	
+		virtual ~VersusCommand();
+
+		virtual void Execute() override;
+	private:
+	};
+
 	class ToMainMenuCommand : public ICommand
 	{
 	public:

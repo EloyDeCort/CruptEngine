@@ -25,6 +25,39 @@ void crupt::MaitaMovementSystem::PreUpdate(float dt)
 		SpriteComponent& spriteComp = coordinator->GetComponent<SpriteComponent>(entity);
 		TransformComponent& transComp = coordinator->GetComponent<TransformComponent>(entity);
 
+		if(maitaComp.isPlayer)
+		{
+			maitaComp.totalTime += dt;
+
+			HealthComponent& healthComp = coordinator->GetComponent<HealthComponent>(entity);
+			if(healthComp.gotHit)
+			{
+				healthComp.totalTime += dt;
+				if(healthComp.totalTime >= healthComp.hitDelay)
+				{
+					healthComp.gotHit = false;
+					healthComp.totalTime = 0.f;
+				}
+			}
+
+			 if(maitaComp.state == MaitaAnimState::CHARGING)
+			 {
+				if(maitaComp.totalTime > maitaComp.chargeTime)
+				{
+					//SPAWN A ROCK IN THE DIRECTION
+					maitaComp.state = MaitaAnimState::WALKING;
+
+					//Change Sprite
+					StateSprite& newSprite = maitaComp.pStateSprites[int(maitaComp.state)];
+					spriteComp.animationRate = newSprite.spriteData.animationRate;
+					spriteComp.frameCount = newSprite.spriteData.frameCount;
+					renderComp.pTexture = maitaComp.pStateSprites[int(maitaComp.state)].pTexture;
+				}
+			}
+
+			 return;
+		}
+
 		if(maitaComp.shouldDie)
 		{
 			toDelete.push_back(entity);
@@ -48,12 +81,12 @@ void crupt::MaitaMovementSystem::PreUpdate(float dt)
 			if(!maitaComp.coOp)
 			{
 				TransformComponent& playerTransComp = coordinator->GetComponent<TransformComponent>(maitaComp.player1);
+				finalPosY = playerTransComp.position.y;
 
 				if(playerTransComp.position.y < transComp.position.y - maitaComp.jumpOffset)
 				{
 					float distance =  transComp.position.x - playerTransComp.position.x;
 
-					finalPosY = playerTransComp.position.y;
 					finalDistanceX = distance;
 
 					if(fabs(distance) > maitaComp.maxDistanceOffset)
@@ -136,7 +169,6 @@ void crupt::MaitaMovementSystem::PreUpdate(float dt)
 				}
 			}
 
-		
 			if(boxComp.colDirY == eDirection::DOWN)
 			{
 				if(!maitaComp.flipped)
@@ -148,19 +180,12 @@ void crupt::MaitaMovementSystem::PreUpdate(float dt)
 					movPhysicsComp.force.x = -maitaComp.movSpeed;
 				}
 
-				if(abs(finalPosY - transComp.position.y) < maitaComp.jumpOffset)
+ 				if(fabs(finalPosY - transComp.position.y) < maitaComp.jumpOffset)
 				{
 					if(fabs(finalDistanceX) <= maitaComp.maxBoulderDistanceOffset)
 					{
 						if(maitaComp.totalTime > maitaComp.chargeCoolDown)
 						{
-
-							BoulderComponent boulderComp;
-							boulderComp.flipped = maitaComp.flipped;
-							boulderComp.pos = transComp.position;
-							SignalHandler<BoulderComponent>::GetInstance().Publish(boulderComp);
-
-
 							maitaComp.state = MaitaAnimState::CHARGING;
 
 							//Change Sprite
@@ -173,7 +198,6 @@ void crupt::MaitaMovementSystem::PreUpdate(float dt)
 						}
 					}
 				}
-
 			}
 		}
 		else if(maitaComp.state == MaitaAnimState::CHARGING)
@@ -181,7 +205,12 @@ void crupt::MaitaMovementSystem::PreUpdate(float dt)
 			if(maitaComp.totalTime > maitaComp.chargeTime)
 			{
 				//SPAWN A ROCK IN THE DIRECTION
-
+				BoulderComponent boulderComp;
+				boulderComp.flipped = maitaComp.flipped;
+				boulderComp.pos = transComp.position;
+				SignalHandler<BoulderComponent>::GetInstance().Publish(boulderComp);
+			
+				maitaComp.totalTime = 0.f;
 
 				maitaComp.state = MaitaAnimState::WALKING;
 

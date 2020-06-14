@@ -11,6 +11,7 @@ crupt::LevelStateSystem::~LevelStateSystem()
 
 void crupt::LevelStateSystem::Init()
 {
+	m_Versus = false;
 	m_TransitionTime = 1.f;
 	m_TotalTime = 0.f;
 	SignalHandler<LevelStateComponent>::GetInstance().AddListener(std::bind(&crupt::LevelStateSystem::OnDispatch, this, std::placeholders::_1));
@@ -29,6 +30,9 @@ void crupt::LevelStateSystem::Reset()
 void crupt::LevelStateSystem::Update(float dt)
 {
 	ECSCoordinator* coordinator = &ECSCoordinator::GetInstance();
+
+	if(m_Versus)
+		return;
 
 	if(m_Entities.size() <= 0)
 	{
@@ -104,4 +108,9 @@ void crupt::LevelStateSystem::SetPlayer2(Entity player)
 {
 	m_Player2 = player;
 	m_NrOfPlayers++;
+}
+
+void crupt::LevelStateSystem::SetVersus(bool versus)
+{
+	m_Versus = versus;
 }

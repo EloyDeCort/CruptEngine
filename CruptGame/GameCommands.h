@@ -42,7 +42,7 @@ namespace crupt
 	class SpawnBubbleCommand : public ICommand
 	{
 	public:
-		SpawnBubbleCommand(Entity pPlayer, PlayerType type);	
+		SpawnBubbleCommand(Entity pPlayer, PlayerType type, bool maita = false);	
 		virtual ~SpawnBubbleCommand();
 
 		virtual void Execute() override;
@@ -50,7 +50,9 @@ namespace crupt
 		Entity m_pPlayer;
 		PlayerType m_PlayerType;
 		float m_Offset;
+		bool m_IsMaita;
 		PlayerStateComponent* m_pState;
+		MaitaComponent* m_pMaitaComp;
 	};
 	
 }
