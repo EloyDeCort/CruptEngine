@@ -38,6 +38,11 @@ CruptEngine uses a very simple system in which it can easily register and rebind
 CruptEngine uses this pattern in combination with the observer pattern to notify systems to perform a jump, saving us the cost of running a system each frame.
 
 -------------------------------------------------------------
+#Potential SDL / IMGUI Support
+
+- Altough Un-Used, CruptEngine supports a simple SDL IMGUI using (https://github.com/Tyyppi77/imgui_sdl).
+
+-------------------------------------------------------------
 
 #Following Libraries were used:
 
